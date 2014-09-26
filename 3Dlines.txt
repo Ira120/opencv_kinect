@@ -1,0 +1,12 @@
+3Dlines pro frame
+===========================================
+Found about 6 lines with hough
+===========================================
+1start_point ( 0|0|0 ) --------> end_point ( 0|0|0 )
+2start_point ( 0|0|0 ) --------> end_point ( 0|0|0 )
+3start_point ( 0|0|0 ) --------> end_point ( 0|0|0 )
+4start_point ( 0|0|0 ) --------> end_point ( 0|0|0 )
+5start_point ( 0|0|0 ) --------> end_point ( 0|0|0 )
+6start_point ( 83.3673|114.7|592 ) --------> end_point ( 0|0|0 )
+7start_point ( 0|0|0 ) --------> end_point ( 0|0|0 )
+8start_point ( 0|0|0 ) --------> end_point ( 0|0|0 )
