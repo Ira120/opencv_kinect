@@ -1,5 +1,7 @@
 #include "Tools.h"
 
+//=======================================================================================//
+
 namespace Tools {
 
     int saveFramesFromKinect(VideoCapture &capture){
@@ -36,5 +38,4 @@ namespace Tools {
             }
      return 0;
     }
-
 }

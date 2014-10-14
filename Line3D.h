@@ -3,11 +3,17 @@
 
 #include "Tools.h"
 
-class Line3D
-{
+class Line3D {
 public:
     Line3D();
     ~Line3D();
+    void storeLine3D(float start_x, float start_y, float start_z, float end_x, float end_y, float end_z);
+    void storeLine3D(Point3f start_point, Point3f end_point);
+    vector<Point3f> getLine3D();
+    Point3f getStartPointOfLine3D();
+    Point3f getEndPointOfLine3D();
+    void showLine3D();
+    void drawLine3D();
 
 private:
     Point3f start_point;

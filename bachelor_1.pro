@@ -18,7 +18,12 @@ SOURCES += main.cpp \
     EdgeDetection.cpp \
     BackProjection.cpp \
     Line3D.cpp \
-    Application.cpp
+    Application.cpp \
+    cameraparams.cpp \
+    pattern.cpp \
+    patterndetector.cpp \
+    EdgeModel.cpp \
+    Log.cpp
 
 
 macx: LIBS += -L/Users/irina/Develop/Kinect/OpenNI-Bin-Dev-MacOSX-v1.5.7.10/Lib -lnimCodecs -lnimMockNodes -lnimRecorder -lOpenNI
@@ -38,4 +43,9 @@ HEADERS += \
     EdgeDetection.h \
     BackProjection.h \
     Line3D.h \
-    Application.h
+    Application.h \
+    cameraparams.h \
+    pattern.h \
+    patterndetector.h \
+    EdgeModel.h \
+    Log.h

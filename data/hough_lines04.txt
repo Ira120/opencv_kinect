@@ -1,0 +1,5 @@
+Detected hough lines pro frame
+===========================================
+Found about 1 lines with hough
+===========================================
+1) start_pixel ( 270|326 ) --------> end_pixel ( 278|210 )
