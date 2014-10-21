@@ -12,12 +12,16 @@ EdgeDetection::~EdgeDetection() {}
 
 Mat EdgeDetection::smoothGauss (Mat image, int value) {
 
-    //TODO: mask size generic
+    //mask size 'generic'
+    value = (value/2)*2+1;
 
     Mat imageGauss;
     imageGauss = image.clone();
     GaussianBlur(image, imageGauss, Size (value, value), 0, 0);
-    cout<<"...gaussian blur..."<<endl;
+
+    log = SSTR("[DEBUG]: ...gaussian blur... with mask size: " << value << endl);
+    Log(log);
+
     return imageGauss;
 }
 
@@ -25,11 +29,15 @@ Mat EdgeDetection::smoothGauss (Mat image, int value) {
 
 Mat EdgeDetection::smoothMedian (Mat image, int value) {
 
-    //TODO: mask size generic
+    //mask size 'generic'
+    value = (value/2)*2+1;
 
     Mat imageMedian;
     medianBlur(image,imageMedian,value);
-    cout<<"...median blur..."<<endl;
+
+    log = SSTR("[DEBUG]: ....median blur... with mask size: " << value << endl);
+    Log(log);
+
     return imageMedian;
 }
 
@@ -37,18 +45,23 @@ Mat EdgeDetection::smoothMedian (Mat image, int value) {
 
 Mat EdgeDetection::smoothBilateral (Mat image, int value) {
 
-    //TODO: mask size generic
+    //mask size 'generic'
+    value = (value/2)*2+1;
 
     Mat imageBilateral;
     imageBilateral = image.clone();
     bilateralFilter(image, imageBilateral, value, value*2, value/2);
-    cout<<"...bilateral blur..."<<endl;
+
+    log = SSTR("[DEBUG]: ....bilateral blur... with mask size: " << value << endl);
+    Log(log);
+
     return imageBilateral;
 }
 
 //=======================================================================================//
 
 vector<Vec4i> EdgeDetection::applyHoughTransformation(Mat imageOriginal, int frame_nr) {
+    lines.clear();
 
     Mat smooth;
     smooth = smoothGauss(imageOriginal,15);
@@ -59,7 +72,7 @@ vector<Vec4i> EdgeDetection::applyHoughTransformation(Mat imageOriginal, int fra
 
     Canny(smooth, imageCanny, 50, 200, 3);
 
-    HoughLinesP(imageCanny, lines, 1, CV_PI/180, 50, 50, 10 );
+    HoughLinesP(imageCanny, lines, 1, CV_PI/180, 50, 50, 10);
 
     //write an output file
     if (file.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
@@ -82,8 +95,14 @@ vector<Vec4i> EdgeDetection::applyHoughTransformation(Mat imageOriginal, int fra
     imshow("Detected lines with hough",imageOriginal);
     sprintf(filename,"/Users/irina/Develop/workspace/bachelor_1/data/hough_lines%.2d.jpg",frame_nr++);
     imwrite(filename, imageOriginal);
-    cout << "Saved " << filename << endl;
-    cout<<"...hough lines..."<<endl;
+
+    log = SSTR("========================================================\n"
+               << "[DEBUG]: Saved " << filename << endl
+               << "========================================================\n");
+    Log(log);
+
+    log = SSTR("[DEBUG]: ...hough lines detected...\n");
+    Log(log);
 
     return lines;
 }
@@ -91,27 +110,55 @@ vector<Vec4i> EdgeDetection::applyHoughTransformation(Mat imageOriginal, int fra
 //=======================================================================================//
 
 vector <Vec4i> EdgeDetection::applyLSD(Mat imageOriginal, int frame_nr) {
-     Ptr<LineSegmentDetector> ls;
+    lines.clear();
+    imageGray.release();
 
-     Mat smooth;
-     smooth = smoothGauss(imageOriginal,35);
-   //  smooth = smoothBilateral(imageOriginal,85);
+    Ptr<LineSegmentDetector> ls;
 
-     cvtColor(smooth,imageGray,COLOR_BGR2GRAY);
+    Mat smooth;
+    smooth = smoothBilateral(imageOriginal,40);
 
-     ls = createLineSegmentDetector(LSD_REFINE_STD);
-     // Detect the lines
-     ls->detect(imageGray, lines);
+    char filename_lines[200];
+    sprintf(filename_lines,"/Users/irina/Develop/workspace/bachelor_1/data/lsd_lines%.2d.txt",frame_nr);
+    QFile file (filename_lines);
 
-     cout<<"Found about "<<lines.size()<<" lines with LSD"<<endl;
+    cvtColor(smooth,imageGray,COLOR_BGR2GRAY);
 
-     Mat drawnLines(imageGray);
-     ls->drawSegments(drawnLines, lines);
-     imshow("Detected segment with LSD", drawnLines);
+    ls = createLineSegmentDetector(LSD_REFINE_STD);
+    // Detect the lines
+    ls->detect(imageGray, lines);
 
-     sprintf(filename,"/Users/irina/Develop/workspace/bachelor_1/data/lsd_lines%.2d.jpg",frame_nr++);
-     imwrite(filename, drawnLines);
-     cout << "Saved " << filename << endl;
+    //write an output file
+    if (file.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
+        QTextStream stream (&file);
+        stream << "Detected LSD lines pro frame" << endl;
+        stream << "===========================================" << endl;
+        stream << "Found about "<<lines.size()<<" lines with hough"<<endl;
+        stream << "===========================================" << endl;
 
-     return lines;
+        for(size_t i = 0; i < lines.size(); i++) {
+            Vec4i l = lines[i];
+            stream << i+1 << ") start_pixel ( " << l.val[0] << "|" << l.val[1] << " ) --------> end_pixel ( " << l[2] << "|" << l[3] << " )" <<  endl;
+        }
+
+        file.close();
+    }
+
+
+    Mat drawnLines(imageGray);
+    ls->drawSegments(drawnLines, lines);
+    imshow("Detected segments with LSD", drawnLines);
+
+    sprintf(filename,"/Users/irina/Develop/workspace/bachelor_1/data/lsd_lines%.2d.jpg",frame_nr++);
+    imwrite(filename, drawnLines);
+
+    log = SSTR("========================================================\n"
+               << "[DEBUG]: Saved " << filename << endl
+               << "========================================================\n");
+    Log(log);
+
+    log = SSTR("[DEBUG]: ...LSD lines detected...\n");
+    Log(log);
+
+    return lines;
 }

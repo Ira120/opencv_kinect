@@ -1,9 +1,16 @@
-#include "pattern.h"
+#include "Pattern.h"
 #include <iostream>
 using namespace cv;
 using namespace std;
 
+#include "opencv2/calib3d/calib3d.hpp"
+
+
+
+
 namespace ARma {
+
+//=======================================================================================//
 
 	Pattern::Pattern(double param1){
 		id =-1;
@@ -16,24 +23,35 @@ namespace ARma {
 		rotMat = Mat::eye(3, 3, CV_32F);
 	}
 
+//=======================================================================================//
+
 	//convert rotation vector to rotation matrix (if you want to proceed with other libraries)
     void Pattern::rotationMatrix(const Mat& rotation_vector, Mat& rotation_matrix)
 	{
 		Rodrigues(rotation_vector, rotation_matrix);		
 	}
 
+//=======================================================================================//
+
 	void Pattern::showPattern()
 	{
-		cout << "Pattern ID: " << id << endl;
-		cout << "Pattern Size: " << size << endl;
-		cout << "Pattern Confedince Value: " << confidence << endl;
-		cout << "Pattern Orientation: " << orientation << endl;
+        log = SSTR("========================================================\n"
+                    << "[DEBUG]: PATTERN INFORMATION\n"
+                    << "Pattern ID: " << id << endl
+                    << "Pattern Size: " << size << endl
+                    << "Pattern Confedince Value: " << confidence << endl
+                    << "Pattern Orientation: " << orientation << endl
+                    << "========================================================\n");
+        Log(log);
+
 		rotationMatrix(rotVec, rotMat);
-		cout << "Exterior Matrix (from pattern to camera): " << endl;
-		for (int i = 0; i<3; i++){
-        cout << rotMat.at<double>(i,0) << "\t" << rotMat.at<double>(i,1) << "\t" << rotMat.at<double>(i,2) << " |\t"<< transVec.at<double>(i,0) << endl;
-		}
+        //cout << "Exterior Matrix (from pattern to camera): " << endl;
+        //for (int i = 0; i<3; i++){
+        //cout << rotMat.at<double>(i,0) << "\t" << rotMat.at<double>(i,1) << "\t" << rotMat.at<double>(i,2) << " |\t"<< transVec.at<double>(i,0) << endl;
+        //}
 	}
+
+//=======================================================================================//
 
     void Pattern::getExtrinsics(int patternSize, const Mat& cameraMatrix, const Mat& distortions)
 	{
@@ -67,15 +85,21 @@ namespace ARma {
 
         Mat objectPts(4, 3, CV_32FC1, pat3DPts);
         Mat imagePts(4, 2, CV_32FC1, pat2DPts);
-    //	cvInitMatHeader(&objectPts, 4, 3, CV_32FC1, pat3DPts);
-    //	cvInitMatHeader(&imagePts, 4, 2, CV_32FC1, pat2DPts);
+        //cvInitMatHeader(&objectPts, 4, 3, CV_32FC1, pat3DPts);
+        //cvInitMatHeader(&imagePts, 4, 2, CV_32FC1, pat2DPts);
 		
 		//find extrinsic parameters
         solvePnP(objectPts, imagePts, intrinsics, distCoeff, rotVec, transVec);
-        cout << "rot vector: " << rotVec << endl
-             << "tra vector: " << transVec << endl;
         //cvFindExtrinsicCameraParams2(&objectPts, &imagePts, &intrinsics, &distCoeff, &rot, &tra);
+
+        log = SSTR("========================================================\n"
+                   << "[DEBUG]: EXTRINSIC PARAMETERS \nrotation vector:\n" << rotVec << endl
+                   << "\ntranslation vector: \n" << transVec << endl
+                   << "========================================================\n");
+        Log(log);
 	}
+
+//=======================================================================================//
 
     void Pattern::draw(Mat& frame, const Mat& camMatrix, const Mat& distMatrix)
 	{
@@ -126,7 +150,5 @@ namespace ARma {
 		//draw the line that reflects the orientation. It indicates the bottom side of the pattern
         cv::line(frame, model2ImagePts.at(2), model2ImagePts.at(3), Scalar(80,255,80), 3);
 		model2ImagePts.clear();
-
 	}
-
 }

@@ -1,0 +1,10 @@
+# 3Dlines pro frame
+# OBJ File: '3Dlines.blend'
+# www.blender.org
+o EdgeModel
+v -408.794 -178.502 58.0643
+v -165.561 -487.714 212.383
+v -417.859 -173.222 59.554
+v -254.126 -372.216 155.904
+l 1 2
+l 3 4

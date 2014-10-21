@@ -3,9 +3,14 @@
 
 #include "Tools.h"
 #include "Line3D.h"
+#include "Log.h"
 
 class EdgeDetection {
 public:
+    //parameters
+    string log;
+
+    //methods
     EdgeDetection();
     ~EdgeDetection();
     vector<Vec4i> applyHoughTransformation (Mat imageOriginal, int frame_nr);
@@ -16,6 +21,7 @@ public:
     // TODO: edge focusing ?
 
 private:
+    //parameters
     Mat imageCanny;
     Mat imageGray;
     char filename[200];

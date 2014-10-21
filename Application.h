@@ -3,32 +3,38 @@
 
 #include "EdgeDetection.h"
 #include "BackProjection.h"
-#include "cameraparams.h"
-#include "patterndetector.h"
+#include "MarkerTracker.h"
+#include "Patterndetector.h"
 #include "Line3D.h"
 #include "EdgeModel.h"
+#include "Tools.h"
 
 class Application {
 public:
+    //parameters
+    string log;
+    VideoCapture capture;
     int frame_nr;
     vector<Mat> patternLibrary;
     PatternDetector myDetector;
     Mat rotMat;
     Vec3f transVec;
+    bool detectedPats;
 
-
+    //methods
     Application();
     ~Application();
     void initPattern();
     int initKinect();
-    int frameLoop(VideoCapture);
+    int frameLoop();
     void detectPattern(Mat rgbImage);
     void calculate3DLines();
 
 private:
+    //parameters
     EdgeDetection edgeDetector;
     BackProjection projection;
-    cameraparams patternLoader;
+    MarkerTracker patternLoader;
     EdgeModel edgeModel;
 };
 

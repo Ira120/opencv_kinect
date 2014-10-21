@@ -1,48 +1,54 @@
-#include "cameraparams.h"
+#include "MarkerTracker.h"
 
 //=======================================================================================//
 
-cameraparams::cameraparams() {
+MarkerTracker::MarkerTracker() {
     loadCameraParams();
 }
 
 //=======================================================================================//
 
-cameraparams::~cameraparams() {}
+MarkerTracker::~MarkerTracker() {}
 
 //=======================================================================================//
 
-Mat cameraparams::getCameraMatrix() {
+Mat MarkerTracker::getCameraMatrix() {
+    log = SSTR("[DEBUG]: camera matrix: \n" << cameraMatrix << endl);
+    Log(log);
+
     return cameraMatrix;
 }
 
 //=======================================================================================//
 
-Mat cameraparams::getDistortions() {
+Mat MarkerTracker::getDistortions() {
+    log = SSTR("[DEBUG]: distortion coeffs: \n" << distortions << endl);
+    Log(log);
+
     return distortions;
 }
 
 //=======================================================================================//
 
-void cameraparams::loadCameraParams() {
+void MarkerTracker::loadCameraParams() {
     FileStorage fs ("/Users/irina/Develop/workspace/bachelor_AR/out_camera_data.yml", FileStorage::READ);
     fs["Camera_Matrix"] >> cameraMatrix;
     fs["Distortion_Coefficients"] >>distortions;
-
-    cout << "camera matrix: " << cameraMatrix << endl
-         << "distortion coeffs: " << distortions << endl;
 }
 
 //=======================================================================================//
 
-int cameraparams::loadPattern(const String& filename, vector<Mat>& library, int& patternCount){
+int MarkerTracker::loadPattern(const String& filename, vector<Mat>& library, int& patternCount) {
 
     Mat img = imread(filename,IMREAD_GRAYSCALE); //graycsale image = 0
     //char filename1[200];
 
     if(img.cols!=img.rows){
+
+        log = SSTR("[ERROR]: Not a square pattern");
+        Log(log);
+
         return -1;
-        printf("Not a square pattern");
     }
 
     int msize = 64;
@@ -74,7 +80,7 @@ int cameraparams::loadPattern(const String& filename, vector<Mat>& library, int&
 
 //=======================================================================================//
 
-vector<Mat> cameraparams::createPatternLib() {
+vector<Mat> MarkerTracker::createPatternLib() {
     string filename1 = "/Users/irina/Develop/workspace/bachelor_AR/pattern1.png";//id=1
     string filename2 = "/Users/irina/Develop/workspace/bachelor_AR/pattern2.png";//id=2
     string filename3 = "/Users/irina/Develop/workspace/bachelor_AR/pattern3.png";//id=3
@@ -93,7 +99,8 @@ vector<Mat> cameraparams::createPatternLib() {
     loadPattern(filename3, patternLibrary, patternCount);
 #endif
 
-     cout << patternCount << " patterns are loaded." << endl;
+    log = SSTR("[DEBUG]: ..." << patternCount << " patterns are loaded to marker detector...\n");
+    Log(log);
 
-     return patternLibrary;
+    return patternLibrary;
 }

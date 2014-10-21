@@ -1,4 +1,4 @@
-#include "patterndetector.h"
+#include "Patterndetector.h"
 #include <iostream>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/core/core.hpp>
@@ -6,10 +6,17 @@
 using namespace std;
 using namespace cv;
 
-namespace ARma
-{
+namespace ARma {
+
+//=======================================================================================//
+
     PatternDetector::PatternDetector() {}
+
+//=======================================================================================//
+
     PatternDetector::~PatternDetector() {}
+
+//=======================================================================================//
 
     void PatternDetector::initPatternDetector(const double param1, const double param2, const int param3, const double param4, const int param5, const int thresh_mode)
 {
@@ -35,15 +42,13 @@ namespace ARma
 	norm2DPts[1] = Point2f(normSize-1,0);
 	norm2DPts[2] = Point2f(normSize-1,normSize-1);
 	norm2DPts[3] = Point2f(0,normSize-1);
-
-
 	
   //  imshow(" ",patMaskInt);
   //  waitKey(0);
   //  exit(0);
-
-
 }
+
+//=======================================================================================//
 
 void PatternDetector::detect(const Mat& frame, const Mat& cameraMatrix, const Mat& distortions, vector<Mat>& library, vector<Pattern>& foundPatterns)
 {
@@ -146,7 +151,7 @@ void PatternDetector::detect(const Mat& frame, const Mat& cameraMatrix, const Ma
 					patCand.id = out.index;
 					patCand.orientation = out.ori;
 					patCand.confidence = out.maxCor;
-					cout << "Id: " << patCand.id << endl;
+                    //cout << "Id: " << patCand.id << endl;
 
 					for (j=0; j<4; j++){
 						patCand.vertices.push_back(refinedVertices.at((8-out.ori+v1-j)%4));
@@ -162,6 +167,7 @@ void PatternDetector::detect(const Mat& frame, const Mat& cameraMatrix, const Ma
 	}
 }
 
+//=======================================================================================//
 
 void PatternDetector::convertAndBinarize(const Mat& src, Mat& dst1, Mat& dst2, int thresh_mode)
 {
@@ -186,11 +192,10 @@ void PatternDetector::convertAndBinarize(const Mat& src, Mat& dst1, Mat& dst2, i
 	dilate( dst1, dst1, Mat());
 }
 
+//=======================================================================================//
 
 void PatternDetector::normalizePattern(const Mat& src, const Point2f roiPoints[], Rect& rec, Mat& dst)
 {
-	
-
 	//compute the homography
 	Mat Homo(3,3,CV_32F);
 	Homo = getPerspectiveTransform( roiPoints, norm2DPts);
@@ -202,10 +207,14 @@ void PatternDetector::normalizePattern(const Mat& src, const Point2f roiPoints[]
 
 }
 
+//=======================================================================================//
+
 int PatternDetector::identifyPattern(const Mat& src, std::vector<cv::Mat>& loadedPatterns, patInfo& info)
 {
-	if (loadedPatterns.size()<1){
-		printf("No loaded pattern");
+    if (loadedPatterns.size()<1) {
+        log = SSTR("No loaded pattern");
+        Log(log);
+
 		return -1;
 	}
 
@@ -263,8 +272,8 @@ int PatternDetector::identifyPattern(const Mat& src, std::vector<cv::Mat>& loade
 		}
 	}
 
-	cout << "MaxCor: " << info.maxCor << endl;
-	cout << "Ori: " << info.ori << endl;
+    //cout << "MaxCor: " << info.maxCor << endl;
+    //cout << "Ori: " << info.ori << endl;
 
 	if (info.maxCor>confThreshold)
 		return 1;
@@ -273,4 +282,5 @@ int PatternDetector::identifyPattern(const Mat& src, std::vector<cv::Mat>& loade
 
 }
 
-};
+
+}

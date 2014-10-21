@@ -5,14 +5,17 @@
 #include <opencv2/calib3d/calib3d.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/core/core.hpp>
+#include "Log.h"
+#include "Tools.h"
 using namespace cv;
-using namespace  std;
+using namespace std;
 
 namespace ARma {
 
-class Pattern
-{
+class Pattern {
 	public:
+        //parameters
+        string log;
 		vector<Point2f> vertices;
 		int id;
 		int orientation;//{0,1,2,3}
@@ -20,8 +23,8 @@ class Pattern
 		double confidence;//min: -1, max: 1
 		Mat rotVec, transVec, rotMat;
 
+        //methods
 		Pattern(double param1=80);
-
 		~Pattern(){};
 		
 		//solves the exterior orientation problem between patten and camera
@@ -37,7 +40,6 @@ class Pattern
 		void showPattern(void);
 
 };
-
 
 }
 

@@ -2,11 +2,15 @@
 #define BACKPROJECTION_H
 
 #include "Tools.h"
+#include "Log.h"
 
 class BackProjection {
 public:
+    //parameters
     vector<Point3f> camera_lines3D;
+    string log;
 
+    //methods
     BackProjection();
     ~BackProjection();
     float findZInDepthMap(int x, int y);
@@ -14,10 +18,10 @@ public:
     void calculateBackProjection (vector<Vec4i> lines2D, Mat depthImage);
 
 private:
+    //parameters
     float focal_point;
     float center_of_projection_x;
     float center_of_projection_y;
-    mat3 cameraMatrix;
     Mat depthImage;
 };
 

@@ -5,6 +5,7 @@
 
 class Line3D {
 public:
+    //methods
     Line3D();
     ~Line3D();
     void storeLine3D(float start_x, float start_y, float start_z, float end_x, float end_y, float end_z);
@@ -13,9 +14,10 @@ public:
     Point3f getStartPointOfLine3D();
     Point3f getEndPointOfLine3D();
     void showLine3D();
-    void drawLine3D();
+    void drawLine3D(); //TODO
 
 private:
+    //parameters
     Point3f start_point;
     Point3f end_point;
 };

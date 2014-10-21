@@ -1,0 +1,10 @@
+Detected hough lines pro frame
+===========================================
+Found about 6 lines with hough
+===========================================
+1) start_pixel ( 456|146 ) --------> end_pixel ( 564|197 )
+2) start_pixel ( 561|334 ) --------> end_pixel ( 574|395 )
+3) start_pixel ( 544|277 ) --------> end_pixel ( 561|355 )
+4) start_pixel ( 580|291 ) --------> end_pixel ( 595|366 )
+5) start_pixel ( 573|282 ) --------> end_pixel ( 592|378 )
+6) start_pixel ( 543|278 ) --------> end_pixel ( 555|333 )

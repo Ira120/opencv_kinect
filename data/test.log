@@ -1,0 +1,1162 @@
+[DEBUG]: ...INIT PATTERN...
+[DEBUG]: ...1 patterns are loaded to marker detector...
+[DEBUG]: ...INIT KINECT...
+[DEBUG]: ...START APPLICATION...
+[DEBUG]: ****** calculate 3Dlines for 1. frame ******
+[DEBUG]: ...edge detection with LSD...
+[DEBUG]: camera matrix: 
+[529.0325637081056, 0, 319.5;
+ 0, 529.0325637081056, 239.5;
+ 0, 0, 1]
+[DEBUG]: distortion coeffs: 
+[0.1859762025621671;
+ -0.4592601144983517;
+ 0;
+ 0;
+ 0.3408193011303378]
+========================================================
+[DEBUG]: EXTRINSIC PARAMETERS 
+rotation vector:
+[0.1923259618625504;
+ -0.07966394766807181;
+ 0.08629582095862051]
+
+translation vector: 
+[-334.8166350687086;
+ -154.7022510273059;
+ 1197.493726613917]
+========================================================
+[DEBUG]: ...detected patterns: 1...
+========================================================
+[DEBUG]: PATTERN INFORMATION
+Pattern ID: 1
+Pattern Size: 80
+Pattern Confedince Value: 0.514486
+Pattern Orientation: 0
+========================================================
+[DEBUG]: ....bilateral blur... with mask size: 41
+========================================================
+[DEBUG]: Saved /Users/irina/Develop/workspace/bachelor_1/data/lsd_lines01.jpg
+========================================================
+[DEBUG]: ...LSD lines detected...
+========================================================
+[DEBUG]: start z value in camera coord: 1091 ----> end z value in camera coord: 1088
+[DEBUG]: start z value in camera coord: 1006 ----> end z value in camera coord: 1014
+[DEBUG]: start z value in camera coord: 1011 ----> end z value in camera coord: 1008
+[DEBUG]: invalid z value: at line nr. 4
+[DEBUG]: invalid z value: at line nr. 5
+[DEBUG]: start z value in camera coord: 1058 ----> end z value in camera coord: 1064
+[DEBUG]: start z value in camera coord: 1008 ----> end z value in camera coord: 1008
+[DEBUG]: start z value in camera coord: 1011 ----> end z value in camera coord: 1008
+[DEBUG]: invalid z value: at line nr. 9
+[DEBUG]: start z value in camera coord: 1008 ----> end z value in camera coord: 1008
+[DEBUG]: start z value in camera coord: 1008 ----> end z value in camera coord: 1011
+[DEBUG]: start z value in camera coord: 1008 ----> end z value in camera coord: 1017
+[DEBUG]: start z value in camera coord: 1008 ----> end z value in camera coord: 1014
+[DEBUG]: start z value in camera coord: 1008 ----> end z value in camera coord: 1006
+[DEBUG]: start z value in camera coord: 1017 ----> end z value in camera coord: 1008
+[DEBUG]: invalid z value: at line nr. 16
+[DEBUG]: start z value in camera coord: 1014 ----> end z value in camera coord: 1008
+[DEBUG]: invalid z value: at line nr. 18
+[DEBUG]: invalid z value: at line nr. 19
+[DEBUG]: invalid z value: at line nr. 20
+[DEBUG]: invalid z value: at line nr. 21
+[DEBUG]: start z value in camera coord: 1055 ----> end z value in camera coord: 716
+[DEBUG]: invalid z value: at line nr. 23
+[DEBUG]: start z value in camera coord: 1017 ----> end z value in camera coord: 1020
+[DEBUG]: start z value in camera coord: 1017 ----> end z value in camera coord: 1017
+[DEBUG]: start z value in camera coord: 1014 ----> end z value in camera coord: 1014
+[DEBUG]: start z value in camera coord: 1017 ----> end z value in camera coord: 1017
+[DEBUG]: invalid z value: at line nr. 28
+[DEBUG]: invalid z value: at line nr. 29
+[DEBUG]: invalid z value: at line nr. 30
+[DEBUG]: invalid z value: at line nr. 31
+[DEBUG]: start z value in camera coord: 1014 ----> end z value in camera coord: 1014
+[DEBUG]: invalid z value: at line nr. 33
+[DEBUG]: start z value in camera coord: 1017 ----> end z value in camera coord: 1017
+[DEBUG]: start z value in camera coord: 1017 ----> end z value in camera coord: 854
+[DEBUG]: start z value in camera coord: 1011 ----> end z value in camera coord: 1017
+[DEBUG]: invalid z value: at line nr. 37
+[DEBUG]: invalid z value: at line nr. 38
+[DEBUG]: start z value in camera coord: 1014 ----> end z value in camera coord: 1014
+[DEBUG]: start z value in camera coord: 1020 ----> end z value in camera coord: 1017
+[DEBUG]: start z value in camera coord: 1020 ----> end z value in camera coord: 1014
+[DEBUG]: start z value in camera coord: 1058 ----> end z value in camera coord: 1058
+[DEBUG]: start z value in camera coord: 1058 ----> end z value in camera coord: 1061
+[DEBUG]: start z value in camera coord: 1017 ----> end z value in camera coord: 1020
+[DEBUG]: start z value in camera coord: 1014 ----> end z value in camera coord: 1014
+[DEBUG]: start z value in camera coord: 1177 ----> end z value in camera coord: 1197
+[DEBUG]: start z value in camera coord: 1020 ----> end z value in camera coord: 1020
+[DEBUG]: start z value in camera coord: 1036 ----> end z value in camera coord: 1020
+[DEBUG]: start z value in camera coord: 1177 ----> end z value in camera coord: 1177
+[DEBUG]: start z value in camera coord: 1020 ----> end z value in camera coord: 1017
+[DEBUG]: start z value in camera coord: 1197 ----> end z value in camera coord: 1193
+[DEBUG]: invalid z value: at line nr. 52
+[DEBUG]: invalid z value: at line nr. 53
+[DEBUG]: start z value in camera coord: 1042 ----> end z value in camera coord: 1039
+[DEBUG]: start z value in camera coord: 1055 ----> end z value in camera coord: 1042
+[DEBUG]: invalid z value: at line nr. 56
+[DEBUG]: start z value in camera coord: 1193 ----> end z value in camera coord: 1185
+[DEBUG]: start z value in camera coord: 1017 ----> end z value in camera coord: 1017
+[DEBUG]: start z value in camera coord: 1039 ----> end z value in camera coord: 1014
+[DEBUG]: start z value in camera coord: 1193 ----> end z value in camera coord: 1193
+[DEBUG]: invalid z value: at line nr. 61
+[DEBUG]: start z value in camera coord: 1058 ----> end z value in camera coord: 1055
+[DEBUG]: invalid z value: at line nr. 63
+[DEBUG]: start z value in camera coord: 1017 ----> end z value in camera coord: 1017
+[DEBUG]: start z value in camera coord: 1058 ----> end z value in camera coord: 1058
+[DEBUG]: start z value in camera coord: 1181 ----> end z value in camera coord: 1181
+[DEBUG]: start z value in camera coord: 1189 ----> end z value in camera coord: 1193
+[DEBUG]: start z value in camera coord: 850 ----> end z value in camera coord: 1017
+[DEBUG]: start z value in camera coord: 1058 ----> end z value in camera coord: 1058
+[DEBUG]: start z value in camera coord: 1061 ----> end z value in camera coord: 1055
+[DEBUG]: invalid z value: at line nr. 71
+[DEBUG]: start z value in camera coord: 1055 ----> end z value in camera coord: 854
+[DEBUG]: invalid z value: at line nr. 73
+[DEBUG]: invalid z value: at line nr. 74
+[DEBUG]: start z value in camera coord: 1058 ----> end z value in camera coord: 1055
+[DEBUG]: start z value in camera coord: 1017 ----> end z value in camera coord: 1017
+[DEBUG]: start z value in camera coord: 1058 ----> end z value in camera coord: 1058
+[DEBUG]: start z value in camera coord: 1181 ----> end z value in camera coord: 1189
+[DEBUG]: start z value in camera coord: 1254 ----> end z value in camera coord: 1259
+[DEBUG]: start z value in camera coord: 1259 ----> end z value in camera coord: 1268
+[DEBUG]: start z value in camera coord: 1058 ----> end z value in camera coord: 1058
+[DEBUG]: start z value in camera coord: 1189 ----> end z value in camera coord: 1181
+[DEBUG]: start z value in camera coord: 1263 ----> end z value in camera coord: 1263
+[DEBUG]: start z value in camera coord: 1014 ----> end z value in camera coord: 1020
+[DEBUG]: start z value in camera coord: 1254 ----> end z value in camera coord: 1254
+[DEBUG]: start z value in camera coord: 854 ----> end z value in camera coord: 1039
+[DEBUG]: start z value in camera coord: 1039 ----> end z value in camera coord: 1042
+[DEBUG]: invalid z value: at line nr. 88
+[DEBUG]: start z value in camera coord: 1045 ----> end z value in camera coord: 1052
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1052
+[DEBUG]: invalid z value: at line nr. 91
+[DEBUG]: start z value in camera coord: 1036 ----> end z value in camera coord: 1042
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1052
+[DEBUG]: invalid z value: at line nr. 94
+[DEBUG]: start z value in camera coord: 854 ----> end z value in camera coord: 1042
+[DEBUG]: start z value in camera coord: 1042 ----> end z value in camera coord: 1045
+[DEBUG]: start z value in camera coord: 1055 ----> end z value in camera coord: 1058
+[DEBUG]: start z value in camera coord: 1045 ----> end z value in camera coord: 1048
+[DEBUG]: start z value in camera coord: 910 ----> end z value in camera coord: 1058
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1055
+[DEBUG]: start z value in camera coord: 1055 ----> end z value in camera coord: 903
+[DEBUG]: start z value in camera coord: 1263 ----> end z value in camera coord: 1245
+[DEBUG]: start z value in camera coord: 1055 ----> end z value in camera coord: 1011
+[DEBUG]: start z value in camera coord: 1116 ----> end z value in camera coord: 1109
+[DEBUG]: invalid z value: at line nr. 105
+[DEBUG]: start z value in camera coord: 1011 ----> end z value in camera coord: 1014
+[DEBUG]: start z value in camera coord: 1014 ----> end z value in camera coord: 1014
+[DEBUG]: invalid z value: at line nr. 108
+[DEBUG]: start z value in camera coord: 1011 ----> end z value in camera coord: 913
+[DEBUG]: start z value in camera coord: 1011 ----> end z value in camera coord: 1011
+[DEBUG]: start z value in camera coord: 901 ----> end z value in camera coord: 1011
+[DEBUG]: start z value in camera coord: 1206 ----> end z value in camera coord: 1131
+[DEBUG]: start z value in camera coord: 1030 ----> end z value in camera coord: 1210
+[DEBUG]: start z value in camera coord: 873 ----> end z value in camera coord: 848
+[DEBUG]: start z value in camera coord: 884 ----> end z value in camera coord: 903
+[DEBUG]: start z value in camera coord: 958 ----> end z value in camera coord: 920
+[DEBUG]: start z value in camera coord: 871 ----> end z value in camera coord: 901
+[DEBUG]: start z value in camera coord: 910 ----> end z value in camera coord: 814
+[DEBUG]: start z value in camera coord: 955 ----> end z value in camera coord: 948
+[DEBUG]: invalid z value: at line nr. 120
+[DEBUG]: start z value in camera coord: 910 ----> end z value in camera coord: 913
+[DEBUG]: start z value in camera coord: 835 ----> end z value in camera coord: 958
+[DEBUG]: start z value in camera coord: 770 ----> end z value in camera coord: 739
+[DEBUG]: start z value in camera coord: 739 ----> end z value in camera coord: 761
+[DEBUG]: start z value in camera coord: 913 ----> end z value in camera coord: 913
+[DEBUG]: invalid z value: at line nr. 126
+[DEBUG]: start z value in camera coord: 760 ----> end z value in camera coord: 770
+[DEBUG]: start z value in camera coord: 768 ----> end z value in camera coord: 788
+[DEBUG]: start z value in camera coord: 800 ----> end z value in camera coord: 770
+[DEBUG]: start z value in camera coord: 1189 ----> end z value in camera coord: 1214
+[DEBUG]: start z value in camera coord: 896 ----> end z value in camera coord: 901
+[DEBUG]: start z value in camera coord: 745 ----> end z value in camera coord: 767
+[DEBUG]: invalid z value: at line nr. 133
+[DEBUG]: start z value in camera coord: 791 ----> end z value in camera coord: 750
+[DEBUG]: start z value in camera coord: 1197 ----> end z value in camera coord: 1123
+[DEBUG]: start z value in camera coord: 770 ----> end z value in camera coord: 745
+[DEBUG]: start z value in camera coord: 1131 ----> end z value in camera coord: 1189
+[DEBUG]: start z value in camera coord: 903 ----> end z value in camera coord: 810
+[DEBUG]: start z value in camera coord: 880 ----> end z value in camera coord: 880
+[DEBUG]: start z value in camera coord: 908 ----> end z value in camera coord: 905
+[DEBUG]: start z value in camera coord: 1120 ----> end z value in camera coord: 1030
+[DEBUG]: start z value in camera coord: 910 ----> end z value in camera coord: 913
+[DEBUG]: start z value in camera coord: 875 ----> end z value in camera coord: 880
+[DEBUG]: start z value in camera coord: 905 ----> end z value in camera coord: 903
+[DEBUG]: start z value in camera coord: 1011 ----> end z value in camera coord: 1127
+[DEBUG]: start z value in camera coord: 908 ----> end z value in camera coord: 908
+[DEBUG]: start z value in camera coord: 802 ----> end z value in camera coord: 875
+[DEBUG]: start z value in camera coord: 609 ----> end z value in camera coord: 910
+[DEBUG]: start z value in camera coord: 814 ----> end z value in camera coord: 937
+[DEBUG]: start z value in camera coord: 905 ----> end z value in camera coord: 708
+[DEBUG]: start z value in camera coord: 812 ----> end z value in camera coord: 814
+[DEBUG]: start z value in camera coord: 767 ----> end z value in camera coord: 798
+[DEBUG]: start z value in camera coord: 752 ----> end z value in camera coord: 808
+[DEBUG]: start z value in camera coord: 651 ----> end z value in camera coord: 752
+[DEBUG]: start z value in camera coord: 750 ----> end z value in camera coord: 729
+[DEBUG]: start z value in camera coord: 674 ----> end z value in camera coord: 747
+[DEBUG]: start z value in camera coord: 708 ----> end z value in camera coord: 645
+[DEBUG]: invalid z value: at line nr. 158
+[DEBUG]: invalid z value: at line nr. 159
+[DEBUG]: invalid z value: at line nr. 160
+[DEBUG]: start z value in camera coord: 651 ----> end z value in camera coord: 636
+[DEBUG]: invalid z value: at line nr. 162
+[DEBUG]: invalid z value: at line nr. 163
+[DEBUG]: start z value in camera coord: 633 ----> end z value in camera coord: 638
+[DEBUG]: invalid z value: at line nr. 165
+[DEBUG]: start z value in camera coord: 646 ----> end z value in camera coord: 634
+[DEBUG]: start z value in camera coord: 563 ----> end z value in camera coord: 613
+[DEBUG]: start z value in camera coord: 619 ----> end z value in camera coord: 641
+[DEBUG]: invalid z value: at line nr. 169
+[DEBUG]: invalid z value: at line nr. 170
+========================================================
+[DEBUG]: Inverse Matrix: 
+[0.99313247, 0.077938929, 0.087254807;
+ -0.093195647, 0.97787577, 0.18727948;
+ -0.070727997, -0.1941251, 0.97842371]
+========================================================
+[DEBUG]: ...3Dlines number in world coordinates: 130...
+========================================================
+[DEBUG]: ...OBJ file is created...
+[DEBUG]: ****** calculate 3Dlines for 2. frame ******
+[DEBUG]: ...edge detection with LSD...
+[DEBUG]: camera matrix: 
+[529.0325637081056, 0, 319.5;
+ 0, 529.0325637081056, 239.5;
+ 0, 0, 1]
+[DEBUG]: distortion coeffs: 
+[0.1859762025621671;
+ -0.4592601144983517;
+ 0;
+ 0;
+ 0.3408193011303378]
+========================================================
+[DEBUG]: EXTRINSIC PARAMETERS 
+rotation vector:
+[-0.01598297028153672;
+ -0.4795259255402106;
+ 0.1030841181379627]
+
+translation vector: 
+[-366.4648504308811;
+ -207.0238547494116;
+ 1149.789072166428]
+========================================================
+[DEBUG]: ...detected patterns: 1...
+========================================================
+[DEBUG]: PATTERN INFORMATION
+Pattern ID: 1
+Pattern Size: 80
+Pattern Confedince Value: 0.536152
+Pattern Orientation: 0
+========================================================
+[DEBUG]: ....bilateral blur... with mask size: 41
+========================================================
+[DEBUG]: Saved /Users/irina/Develop/workspace/bachelor_1/data/lsd_lines02.jpg
+========================================================
+[DEBUG]: ...LSD lines detected...
+========================================================
+[DEBUG]: start z value in camera coord: 1074 ----> end z value in camera coord: 1078
+[DEBUG]: start z value in camera coord: 1026 ----> end z value in camera coord: 1020
+[DEBUG]: start z value in camera coord: 1020 ----> end z value in camera coord: 1030
+[DEBUG]: start z value in camera coord: 1026 ----> end z value in camera coord: 1030
+[DEBUG]: start z value in camera coord: 1030 ----> end z value in camera coord: 1026
+[DEBUG]: invalid z value: at line nr. 6
+[DEBUG]: start z value in camera coord: 1068 ----> end z value in camera coord: 1045
+[DEBUG]: start z value in camera coord: 862 ----> end z value in camera coord: 1105
+[DEBUG]: start z value in camera coord: 1105 ----> end z value in camera coord: 1113
+[DEBUG]: start z value in camera coord: 1113 ----> end z value in camera coord: 1116
+[DEBUG]: start z value in camera coord: 736 ----> end z value in camera coord: 1138
+[DEBUG]: start z value in camera coord: 1131 ----> end z value in camera coord: 1131
+[DEBUG]: start z value in camera coord: 1131 ----> end z value in camera coord: 1116
+[DEBUG]: start z value in camera coord: 1030 ----> end z value in camera coord: 1039
+[DEBUG]: start z value in camera coord: 1105 ----> end z value in camera coord: 1113
+[DEBUG]: start z value in camera coord: 1033 ----> end z value in camera coord: 1030
+[DEBUG]: start z value in camera coord: 1113 ----> end z value in camera coord: 1116
+[DEBUG]: start z value in camera coord: 1033 ----> end z value in camera coord: 1039
+[DEBUG]: start z value in camera coord: 1026 ----> end z value in camera coord: 1030
+[DEBUG]: start z value in camera coord: 1042 ----> end z value in camera coord: 1036
+[DEBUG]: start z value in camera coord: 1113 ----> end z value in camera coord: 1113
+[DEBUG]: start z value in camera coord: 1030 ----> end z value in camera coord: 1030
+[DEBUG]: start z value in camera coord: 1116 ----> end z value in camera coord: 1116
+[DEBUG]: start z value in camera coord: 1036 ----> end z value in camera coord: 1045
+[DEBUG]: start z value in camera coord: 1039 ----> end z value in camera coord: 1052
+[DEBUG]: start z value in camera coord: 1033 ----> end z value in camera coord: 1030
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1039
+[DEBUG]: start z value in camera coord: 1039 ----> end z value in camera coord: 1033
+[DEBUG]: start z value in camera coord: 1116 ----> end z value in camera coord: 862
+[DEBUG]: invalid z value: at line nr. 30
+[DEBUG]: start z value in camera coord: 726 ----> end z value in camera coord: 1116
+[DEBUG]: start z value in camera coord: 1123 ----> end z value in camera coord: 737
+[DEBUG]: invalid z value: at line nr. 33
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1055
+[DEBUG]: start z value in camera coord: 1042 ----> end z value in camera coord: 1048
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1052
+[DEBUG]: start z value in camera coord: 1042 ----> end z value in camera coord: 1042
+[DEBUG]: invalid z value: at line nr. 38
+[DEBUG]: invalid z value: at line nr. 39
+[DEBUG]: invalid z value: at line nr. 40
+[DEBUG]: start z value in camera coord: 850 ----> end z value in camera coord: 856
+[DEBUG]: invalid z value: at line nr. 42
+[DEBUG]: start z value in camera coord: 1131 ----> end z value in camera coord: 858
+[DEBUG]: start z value in camera coord: 1055 ----> end z value in camera coord: 1052
+[DEBUG]: start z value in camera coord: 1045 ----> end z value in camera coord: 1042
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1052
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1048
+[DEBUG]: start z value in camera coord: 1146 ----> end z value in camera coord: 1169
+[DEBUG]: invalid z value: at line nr. 49
+[DEBUG]: start z value in camera coord: 1045 ----> end z value in camera coord: 1052
+[DEBUG]: start z value in camera coord: 1146 ----> end z value in camera coord: 1150
+[DEBUG]: invalid z value: at line nr. 52
+[DEBUG]: start z value in camera coord: 1045 ----> end z value in camera coord: 1045
+[DEBUG]: start z value in camera coord: 1169 ----> end z value in camera coord: 1173
+[DEBUG]: start z value in camera coord: 1048 ----> end z value in camera coord: 1048
+[DEBUG]: start z value in camera coord: 1127 ----> end z value in camera coord: 1131
+[DEBUG]: start z value in camera coord: 1157 ----> end z value in camera coord: 1157
+[DEBUG]: invalid z value: at line nr. 58
+[DEBUG]: start z value in camera coord: 1153 ----> end z value in camera coord: 1153
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1045
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1048
+[DEBUG]: start z value in camera coord: 1123 ----> end z value in camera coord: 1127
+[DEBUG]: start z value in camera coord: 1161 ----> end z value in camera coord: 1161
+[DEBUG]: start z value in camera coord: 1123 ----> end z value in camera coord: 1127
+[DEBUG]: start z value in camera coord: 1045 ----> end z value in camera coord: 1048
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1055
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1052
+[DEBUG]: start z value in camera coord: 1045 ----> end z value in camera coord: 1045
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1052
+[DEBUG]: start z value in camera coord: 1157 ----> end z value in camera coord: 1161
+[DEBUG]: start z value in camera coord: 1045 ----> end z value in camera coord: 1055
+[DEBUG]: invalid z value: at line nr. 72
+[DEBUG]: start z value in camera coord: 1088 ----> end z value in camera coord: 1058
+[DEBUG]: start z value in camera coord: 1123 ----> end z value in camera coord: 1123
+[DEBUG]: start z value in camera coord: 1169 ----> end z value in camera coord: 1146
+[DEBUG]: start z value in camera coord: 1045 ----> end z value in camera coord: 1048
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1052
+[DEBUG]: start z value in camera coord: 1120 ----> end z value in camera coord: 1091
+[DEBUG]: start z value in camera coord: 1249 ----> end z value in camera coord: 1254
+[DEBUG]: start z value in camera coord: 1249 ----> end z value in camera coord: 1249
+[DEBUG]: start z value in camera coord: 1254 ----> end z value in camera coord: 1263
+[DEBUG]: start z value in camera coord: 1055 ----> end z value in camera coord: 1058
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1045
+[DEBUG]: start z value in camera coord: 1055 ----> end z value in camera coord: 1052
+[DEBUG]: invalid z value: at line nr. 85
+[DEBUG]: start z value in camera coord: 1116 ----> end z value in camera coord: 1055
+[DEBUG]: start z value in camera coord: 1123 ----> end z value in camera coord: 1123
+[DEBUG]: invalid z value: at line nr. 88
+[DEBUG]: start z value in camera coord: 1263 ----> end z value in camera coord: 1254
+[DEBUG]: start z value in camera coord: 1263 ----> end z value in camera coord: 1259
+[DEBUG]: start z value in camera coord: 1048 ----> end z value in camera coord: 1055
+[DEBUG]: start z value in camera coord: 1055 ----> end z value in camera coord: 1052
+[DEBUG]: invalid z value: at line nr. 93
+[DEBUG]: invalid z value: at line nr. 94
+[DEBUG]: start z value in camera coord: 1048 ----> end z value in camera coord: 1052
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1055
+[DEBUG]: invalid z value: at line nr. 97
+[DEBUG]: start z value in camera coord: 1268 ----> end z value in camera coord: 1236
+[DEBUG]: invalid z value: at line nr. 99
+[DEBUG]: start z value in camera coord: 1081 ----> end z value in camera coord: 1081
+[DEBUG]: start z value in camera coord: 1081 ----> end z value in camera coord: 1085
+[DEBUG]: start z value in camera coord: 1085 ----> end z value in camera coord: 1088
+[DEBUG]: start z value in camera coord: 1091 ----> end z value in camera coord: 1098
+[DEBUG]: invalid z value: at line nr. 104
+[DEBUG]: start z value in camera coord: 1123 ----> end z value in camera coord: 1123
+[DEBUG]: start z value in camera coord: 1085 ----> end z value in camera coord: 1102
+[DEBUG]: start z value in camera coord: 1649 ----> end z value in camera coord: 1649
+[DEBUG]: start z value in camera coord: 1123 ----> end z value in camera coord: 1123
+[DEBUG]: start z value in camera coord: 1068 ----> end z value in camera coord: 1039
+[DEBUG]: start z value in camera coord: 1123 ----> end z value in camera coord: 1109
+[DEBUG]: start z value in camera coord: 1105 ----> end z value in camera coord: 1116
+[DEBUG]: start z value in camera coord: 1058 ----> end z value in camera coord: 1058
+[DEBUG]: start z value in camera coord: 1120 ----> end z value in camera coord: 1120
+[DEBUG]: start z value in camera coord: 915 ----> end z value in camera coord: 1052
+[DEBUG]: start z value in camera coord: 1045 ----> end z value in camera coord: 927
+[DEBUG]: start z value in camera coord: 969 ----> end z value in camera coord: 1123
+[DEBUG]: start z value in camera coord: 1120 ----> end z value in camera coord: 629
+[DEBUG]: start z value in camera coord: 1014 ----> end z value in camera coord: 1641
+[DEBUG]: invalid z value: at line nr. 119
+[DEBUG]: start z value in camera coord: 1177 ----> end z value in camera coord: 1127
+[DEBUG]: start z value in camera coord: 1045 ----> end z value in camera coord: 1185
+[DEBUG]: start z value in camera coord: 903 ----> end z value in camera coord: 925
+[DEBUG]: start z value in camera coord: 927 ----> end z value in camera coord: 942
+[DEBUG]: start z value in camera coord: 915 ----> end z value in camera coord: 915
+[DEBUG]: start z value in camera coord: 948 ----> end z value in camera coord: 955
+[DEBUG]: start z value in camera coord: 972 ----> end z value in camera coord: 932
+[DEBUG]: start z value in camera coord: 925 ----> end z value in camera coord: 835
+[DEBUG]: start z value in camera coord: 903 ----> end z value in camera coord: 958
+[DEBUG]: start z value in camera coord: 969 ----> end z value in camera coord: 963
+[DEBUG]: start z value in camera coord: 972 ----> end z value in camera coord: 972
+[DEBUG]: start z value in camera coord: 758 ----> end z value in camera coord: 732
+[DEBUG]: start z value in camera coord: 732 ----> end z value in camera coord: 758
+[DEBUG]: start z value in camera coord: 862 ----> end z value in camera coord: 969
+[DEBUG]: start z value in camera coord: 789 ----> end z value in camera coord: 758
+[DEBUG]: invalid z value: at line nr. 135
+[DEBUG]: start z value in camera coord: 745 ----> end z value in camera coord: 782
+[DEBUG]: start z value in camera coord: 779 ----> end z value in camera coord: 725
+[DEBUG]: invalid z value: at line nr. 138
+[DEBUG]: start z value in camera coord: 1223 ----> end z value in camera coord: 1227
+[DEBUG]: start z value in camera coord: 1193 ----> end z value in camera coord: 1223
+[DEBUG]: start z value in camera coord: 1011 ----> end z value in camera coord: 1014
+[DEBUG]: start z value in camera coord: 726 ----> end z value in camera coord: 747
+[DEBUG]: start z value in camera coord: 793 ----> end z value in camera coord: 755
+[DEBUG]: start z value in camera coord: 977 ----> end z value in camera coord: 974
+[DEBUG]: start z value in camera coord: 1202 ----> end z value in camera coord: 1048
+[DEBUG]: start z value in camera coord: 1048 ----> end z value in camera coord: 1185
+[DEBUG]: start z value in camera coord: 969 ----> end z value in camera coord: 972
+[DEBUG]: start z value in camera coord: 1120 ----> end z value in camera coord: 1045
+[DEBUG]: start z value in camera coord: 983 ----> end z value in camera coord: 1048
+[DEBUG]: start z value in camera coord: 966 ----> end z value in camera coord: 966
+[DEBUG]: start z value in camera coord: 922 ----> end z value in camera coord: 835
+[DEBUG]: start z value in camera coord: 894 ----> end z value in camera coord: 910
+[DEBUG]: start z value in camera coord: 966 ----> end z value in camera coord: 966
+[DEBUG]: start z value in camera coord: 670 ----> end z value in camera coord: 974
+[DEBUG]: start z value in camera coord: 945 ----> end z value in camera coord: 983
+[DEBUG]: start z value in camera coord: 827 ----> end z value in camera coord: 942
+[DEBUG]: start z value in camera coord: 829 ----> end z value in camera coord: 891
+[DEBUG]: start z value in camera coord: 966 ----> end z value in camera coord: 922
+[DEBUG]: start z value in camera coord: 768 ----> end z value in camera coord: 833
+[DEBUG]: start z value in camera coord: 915 ----> end z value in camera coord: 720
+[DEBUG]: start z value in camera coord: 786 ----> end z value in camera coord: 804
+[DEBUG]: start z value in camera coord: 780 ----> end z value in camera coord: 772
+[DEBUG]: invalid z value: at line nr. 163
+[DEBUG]: start z value in camera coord: 662 ----> end z value in camera coord: 782
+[DEBUG]: invalid z value: at line nr. 165
+[DEBUG]: start z value in camera coord: 737 ----> end z value in camera coord: 722
+[DEBUG]: start z value in camera coord: 779 ----> end z value in camera coord: 711
+[DEBUG]: start z value in camera coord: 639 ----> end z value in camera coord: 695
+[DEBUG]: start z value in camera coord: 708 ----> end z value in camera coord: 775
+[DEBUG]: start z value in camera coord: 723 ----> end z value in camera coord: 638
+[DEBUG]: start z value in camera coord: 645 ----> end z value in camera coord: 678
+[DEBUG]: start z value in camera coord: 678 ----> end z value in camera coord: 662
+[DEBUG]: start z value in camera coord: 670 ----> end z value in camera coord: 669
+[DEBUG]: start z value in camera coord: 605 ----> end z value in camera coord: 666
+[DEBUG]: start z value in camera coord: 604 ----> end z value in camera coord: 647
+[DEBUG]: start z value in camera coord: 652 ----> end z value in camera coord: 671
+[DEBUG]: start z value in camera coord: 662 ----> end z value in camera coord: 641
+[DEBUG]: start z value in camera coord: 631 ----> end z value in camera coord: 655
+[DEBUG]: start z value in camera coord: 647 ----> end z value in camera coord: 605
+[DEBUG]: start z value in camera coord: 601 ----> end z value in camera coord: 647
+[DEBUG]: invalid z value: at line nr. 181
+[DEBUG]: start z value in camera coord: 583 ----> end z value in camera coord: 600
+[DEBUG]: start z value in camera coord: 583 ----> end z value in camera coord: 603
+========================================================
+[DEBUG]: Inverse Matrix: 
+[0.88210899, 0.10275192, 0.45970184;
+ -0.09524025, 0.99466741, -0.039572831;
+ -0.46131665, -0.008874571, 0.88719118]
+========================================================
+[DEBUG]: ...3Dlines number in world coordinates: 289...
+========================================================
+[DEBUG]: ...OBJ file is created...
+[DEBUG]: ****** calculate 3Dlines for 3. frame ******
+[DEBUG]: ...edge detection with LSD...
+[DEBUG]: camera matrix: 
+[529.0325637081056, 0, 319.5;
+ 0, 529.0325637081056, 239.5;
+ 0, 0, 1]
+[DEBUG]: distortion coeffs: 
+[0.1859762025621671;
+ -0.4592601144983517;
+ 0;
+ 0;
+ 0.3408193011303378]
+========================================================
+[DEBUG]: EXTRINSIC PARAMETERS 
+rotation vector:
+[0.02965719622194363;
+ -0.5846050789052689;
+ 0.05703345904708463]
+
+translation vector: 
+[-441.1184868540362;
+ -248.5665931022397;
+ 1082.793153943234]
+========================================================
+[DEBUG]: ...detected patterns: 1...
+========================================================
+[DEBUG]: PATTERN INFORMATION
+Pattern ID: 1
+Pattern Size: 80
+Pattern Confedince Value: 0.577775
+Pattern Orientation: 0
+========================================================
+[DEBUG]: ....bilateral blur... with mask size: 41
+========================================================
+[DEBUG]: Saved /Users/irina/Develop/workspace/bachelor_1/data/lsd_lines03.jpg
+========================================================
+[DEBUG]: ...LSD lines detected...
+========================================================
+[DEBUG]: start z value in camera coord: 997 ----> end z value in camera coord: 994
+[DEBUG]: start z value in camera coord: 997 ----> end z value in camera coord: 1003
+[DEBUG]: start z value in camera coord: 1003 ----> end z value in camera coord: 1006
+[DEBUG]: start z value in camera coord: 1011 ----> end z value in camera coord: 1003
+[DEBUG]: start z value in camera coord: 1098 ----> end z value in camera coord: 1081
+[DEBUG]: start z value in camera coord: 1088 ----> end z value in camera coord: 725
+[DEBUG]: invalid z value: at line nr. 7
+[DEBUG]: start z value in camera coord: 1006 ----> end z value in camera coord: 1023
+[DEBUG]: start z value in camera coord: 997 ----> end z value in camera coord: 997
+[DEBUG]: start z value in camera coord: 997 ----> end z value in camera coord: 1006
+[DEBUG]: start z value in camera coord: 1023 ----> end z value in camera coord: 1008
+[DEBUG]: invalid z value: at line nr. 12
+[DEBUG]: invalid z value: at line nr. 13
+[DEBUG]: start z value in camera coord: 1026 ----> end z value in camera coord: 1000
+[DEBUG]: start z value in camera coord: 1008 ----> end z value in camera coord: 1023
+[DEBUG]: invalid z value: at line nr. 16
+[DEBUG]: invalid z value: at line nr. 17
+[DEBUG]: start z value in camera coord: 1102 ----> end z value in camera coord: 1095
+[DEBUG]: start z value in camera coord: 1095 ----> end z value in camera coord: 1098
+[DEBUG]: invalid z value: at line nr. 20
+[DEBUG]: start z value in camera coord: 1098 ----> end z value in camera coord: 1102
+[DEBUG]: start z value in camera coord: 720 ----> end z value in camera coord: 1095
+[DEBUG]: start z value in camera coord: 719 ----> end z value in camera coord: 1102
+[DEBUG]: start z value in camera coord: 723 ----> end z value in camera coord: 720
+[DEBUG]: invalid z value: at line nr. 25
+[DEBUG]: start z value in camera coord: 1026 ----> end z value in camera coord: 1039
+[DEBUG]: start z value in camera coord: 845 ----> end z value in camera coord: 719
+[DEBUG]: start z value in camera coord: 1026 ----> end z value in camera coord: 1026
+[DEBUG]: start z value in camera coord: 1020 ----> end z value in camera coord: 1033
+[DEBUG]: start z value in camera coord: 1033 ----> end z value in camera coord: 1026
+[DEBUG]: start z value in camera coord: 1033 ----> end z value in camera coord: 1026
+[DEBUG]: start z value in camera coord: 1120 ----> end z value in camera coord: 848
+[DEBUG]: start z value in camera coord: 1061 ----> end z value in camera coord: 852
+[DEBUG]: invalid z value: at line nr. 34
+[DEBUG]: start z value in camera coord: 852 ----> end z value in camera coord: 1116
+[DEBUG]: start z value in camera coord: 1098 ----> end z value in camera coord: 1134
+[DEBUG]: start z value in camera coord: 1036 ----> end z value in camera coord: 1033
+[DEBUG]: start z value in camera coord: 845 ----> end z value in camera coord: 1116
+[DEBUG]: invalid z value: at line nr. 39
+[DEBUG]: start z value in camera coord: 1105 ----> end z value in camera coord: 1098
+[DEBUG]: invalid z value: at line nr. 41
+[DEBUG]: start z value in camera coord: 1039 ----> end z value in camera coord: 1033
+[DEBUG]: start z value in camera coord: 1039 ----> end z value in camera coord: 1061
+[DEBUG]: start z value in camera coord: 1134 ----> end z value in camera coord: 1138
+[DEBUG]: start z value in camera coord: 1127 ----> end z value in camera coord: 1105
+[DEBUG]: invalid z value: at line nr. 46
+[DEBUG]: start z value in camera coord: 1105 ----> end z value in camera coord: 1109
+[DEBUG]: start z value in camera coord: 1131 ----> end z value in camera coord: 1127
+[DEBUG]: invalid z value: at line nr. 49
+[DEBUG]: start z value in camera coord: 1039 ----> end z value in camera coord: 1042
+[DEBUG]: start z value in camera coord: 1039 ----> end z value in camera coord: 1036
+[DEBUG]: start z value in camera coord: 1109 ----> end z value in camera coord: 1127
+[DEBUG]: start z value in camera coord: 1039 ----> end z value in camera coord: 1042
+[DEBUG]: start z value in camera coord: 1036 ----> end z value in camera coord: 1033
+[DEBUG]: invalid z value: at line nr. 55
+[DEBUG]: start z value in camera coord: 1042 ----> end z value in camera coord: 1048
+[DEBUG]: invalid z value: at line nr. 57
+[DEBUG]: invalid z value: at line nr. 58
+[DEBUG]: start z value in camera coord: 1138 ----> end z value in camera coord: 1109
+[DEBUG]: invalid z value: at line nr. 60
+[DEBUG]: start z value in camera coord: 1219 ----> end z value in camera coord: 1223
+[DEBUG]: start z value in camera coord: 1223 ----> end z value in camera coord: 1236
+[DEBUG]: invalid z value: at line nr. 63
+[DEBUG]: start z value in camera coord: 1095 ----> end z value in camera coord: 1078
+[DEBUG]: start z value in camera coord: 1113 ----> end z value in camera coord: 1098
+[DEBUG]: start z value in camera coord: 1232 ----> end z value in camera coord: 1236
+[DEBUG]: invalid z value: at line nr. 67
+[DEBUG]: start z value in camera coord: 1113 ----> end z value in camera coord: 1120
+[DEBUG]: invalid z value: at line nr. 69
+[DEBUG]: invalid z value: at line nr. 70
+[DEBUG]: invalid z value: at line nr. 71
+[DEBUG]: start z value in camera coord: 1116 ----> end z value in camera coord: 1045
+[DEBUG]: start z value in camera coord: 1098 ----> end z value in camera coord: 1113
+[DEBUG]: invalid z value: at line nr. 74
+[DEBUG]: invalid z value: at line nr. 75
+[DEBUG]: invalid z value: at line nr. 76
+[DEBUG]: start z value in camera coord: 1039 ----> end z value in camera coord: 1042
+[DEBUG]: invalid z value: at line nr. 78
+[DEBUG]: start z value in camera coord: 1042 ----> end z value in camera coord: 1033
+[DEBUG]: start z value in camera coord: 1657 ----> end z value in camera coord: 1673
+[DEBUG]: start z value in camera coord: 1042 ----> end z value in camera coord: 1042
+[DEBUG]: start z value in camera coord: 1657 ----> end z value in camera coord: 1649
+[DEBUG]: start z value in camera coord: 1120 ----> end z value in camera coord: 1120
+[DEBUG]: invalid z value: at line nr. 84
+[DEBUG]: start z value in camera coord: 1240 ----> end z value in camera coord: 1214
+[DEBUG]: start z value in camera coord: 1074 ----> end z value in camera coord: 1091
+[DEBUG]: invalid z value: at line nr. 87
+[DEBUG]: invalid z value: at line nr. 88
+[DEBUG]: invalid z value: at line nr. 89
+[DEBUG]: invalid z value: at line nr. 90
+[DEBUG]: start z value in camera coord: 1078 ----> end z value in camera coord: 1091
+[DEBUG]: start z value in camera coord: 1120 ----> end z value in camera coord: 1120
+[DEBUG]: start z value in camera coord: 1045 ----> end z value in camera coord: 1042
+[DEBUG]: invalid z value: at line nr. 94
+[DEBUG]: start z value in camera coord: 1023 ----> end z value in camera coord: 1657
+[DEBUG]: start z value in camera coord: 1091 ----> end z value in camera coord: 1116
+[DEBUG]: invalid z value: at line nr. 97
+[DEBUG]: start z value in camera coord: 1649 ----> end z value in camera coord: 1036
+[DEBUG]: start z value in camera coord: 1036 ----> end z value in camera coord: 1030
+[DEBUG]: start z value in camera coord: 1045 ----> end z value in camera coord: 1042
+[DEBUG]: start z value in camera coord: 994 ----> end z value in camera coord: 1081
+[DEBUG]: start z value in camera coord: 1120 ----> end z value in camera coord: 1120
+[DEBUG]: start z value in camera coord: 1665 ----> end z value in camera coord: 1665
+[DEBUG]: start z value in camera coord: 1127 ----> end z value in camera coord: 1120
+[DEBUG]: start z value in camera coord: 1036 ----> end z value in camera coord: 1039
+[DEBUG]: start z value in camera coord: 1120 ----> end z value in camera coord: 1120
+[DEBUG]: start z value in camera coord: 1673 ----> end z value in camera coord: 1665
+[DEBUG]: start z value in camera coord: 1039 ----> end z value in camera coord: 922
+[DEBUG]: start z value in camera coord: 1120 ----> end z value in camera coord: 974
+[DEBUG]: invalid z value: at line nr. 110
+[DEBUG]: invalid z value: at line nr. 111
+[DEBUG]: invalid z value: at line nr. 112
+[DEBUG]: start z value in camera coord: 980 ----> end z value in camera coord: 974
+[DEBUG]: start z value in camera coord: 1033 ----> end z value in camera coord: 1026
+[DEBUG]: start z value in camera coord: 1161 ----> end z value in camera coord: 991
+[DEBUG]: start z value in camera coord: 961 ----> end z value in camera coord: 925
+[DEBUG]: start z value in camera coord: 908 ----> end z value in camera coord: 961
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1173
+[DEBUG]: start z value in camera coord: 977 ----> end z value in camera coord: 980
+[DEBUG]: start z value in camera coord: 961 ----> end z value in camera coord: 927
+[DEBUG]: start z value in camera coord: 903 ----> end z value in camera coord: 950
+[DEBUG]: start z value in camera coord: 862 ----> end z value in camera coord: 961
+[DEBUG]: start z value in camera coord: 922 ----> end z value in camera coord: 891
+[DEBUG]: start z value in camera coord: 908 ----> end z value in camera coord: 903
+[DEBUG]: invalid z value: at line nr. 125
+[DEBUG]: start z value in camera coord: 1036 ----> end z value in camera coord: 1033
+[DEBUG]: start z value in camera coord: 737 ----> end z value in camera coord: 707
+[DEBUG]: start z value in camera coord: 705 ----> end z value in camera coord: 719
+[DEBUG]: start z value in camera coord: 1165 ----> end z value in camera coord: 1219
+[DEBUG]: start z value in camera coord: 719 ----> end z value in camera coord: 729
+[DEBUG]: start z value in camera coord: 913 ----> end z value in camera coord: 913
+[DEBUG]: invalid z value: at line nr. 132
+[DEBUG]: start z value in camera coord: 728 ----> end z value in camera coord: 734
+[DEBUG]: start z value in camera coord: 734 ----> end z value in camera coord: 791
+[DEBUG]: start z value in camera coord: 1185 ----> end z value in camera coord: 1123
+[DEBUG]: start z value in camera coord: 1131 ----> end z value in camera coord: 1165
+[DEBUG]: start z value in camera coord: 770 ----> end z value in camera coord: 713
+[DEBUG]: start z value in camera coord: 739 ----> end z value in camera coord: 786
+[DEBUG]: invalid z value: at line nr. 139
+[DEBUG]: start z value in camera coord: 793 ----> end z value in camera coord: 756
+[DEBUG]: start z value in camera coord: 1127 ----> end z value in camera coord: 1048
+[DEBUG]: start z value in camera coord: 716 ----> end z value in camera coord: 739
+[DEBUG]: start z value in camera coord: 1039 ----> end z value in camera coord: 1131
+[DEBUG]: start z value in camera coord: 833 ----> end z value in camera coord: 905
+[DEBUG]: start z value in camera coord: 977 ----> end z value in camera coord: 977
+[DEBUG]: start z value in camera coord: 913 ----> end z value in camera coord: 913
+[DEBUG]: start z value in camera coord: 985 ----> end z value in camera coord: 985
+[DEBUG]: start z value in camera coord: 896 ----> end z value in camera coord: 985
+[DEBUG]: start z value in camera coord: 922 ----> end z value in camera coord: 922
+[DEBUG]: start z value in camera coord: 920 ----> end z value in camera coord: 873
+[DEBUG]: start z value in camera coord: 980 ----> end z value in camera coord: 977
+[DEBUG]: start z value in camera coord: 977 ----> end z value in camera coord: 977
+[DEBUG]: start z value in camera coord: 961 ----> end z value in camera coord: 977
+[DEBUG]: start z value in camera coord: 980 ----> end z value in camera coord: 927
+[DEBUG]: start z value in camera coord: 835 ----> end z value in camera coord: 955
+[DEBUG]: start z value in camera coord: 974 ----> end z value in camera coord: 765
+[DEBUG]: start z value in camera coord: 889 ----> end z value in camera coord: 839
+[DEBUG]: start z value in camera coord: 932 ----> end z value in camera coord: 850
+[DEBUG]: start z value in camera coord: 841 ----> end z value in camera coord: 837
+[DEBUG]: start z value in camera coord: 833 ----> end z value in camera coord: 831
+[DEBUG]: start z value in camera coord: 670 ----> end z value in camera coord: 896
+[DEBUG]: start z value in camera coord: 795 ----> end z value in camera coord: 814
+[DEBUG]: start z value in camera coord: 713 ----> end z value in camera coord: 779
+[DEBUG]: start z value in camera coord: 788 ----> end z value in camera coord: 841
+[DEBUG]: start z value in camera coord: 683 ----> end z value in camera coord: 789
+[DEBUG]: start z value in camera coord: 848 ----> end z value in camera coord: 761
+[DEBUG]: start z value in camera coord: 786 ----> end z value in camera coord: 773
+[DEBUG]: start z value in camera coord: 765 ----> end z value in camera coord: 742
+[DEBUG]: start z value in camera coord: 760 ----> end z value in camera coord: 750
+[DEBUG]: start z value in camera coord: 717 ----> end z value in camera coord: 782
+[DEBUG]: start z value in camera coord: 697 ----> end z value in camera coord: 720
+[DEBUG]: start z value in camera coord: 753 ----> end z value in camera coord: 642
+[DEBUG]: start z value in camera coord: 745 ----> end z value in camera coord: 679
+[DEBUG]: start z value in camera coord: 642 ----> end z value in camera coord: 698
+[DEBUG]: invalid z value: at line nr. 175
+[DEBUG]: invalid z value: at line nr. 176
+[DEBUG]: start z value in camera coord: 701 ----> end z value in camera coord: 669
+[DEBUG]: start z value in camera coord: 617 ----> end z value in camera coord: 670
+[DEBUG]: start z value in camera coord: 657 ----> end z value in camera coord: 676
+[DEBUG]: start z value in camera coord: 667 ----> end z value in camera coord: 651
+[DEBUG]: start z value in camera coord: 645 ----> end z value in camera coord: 661
+[DEBUG]: start z value in camera coord: 652 ----> end z value in camera coord: 609
+[DEBUG]: start z value in camera coord: 642 ----> end z value in camera coord: 651
+[DEBUG]: start z value in camera coord: 599 ----> end z value in camera coord: 642
+[DEBUG]: start z value in camera coord: 605 ----> end z value in camera coord: 634
+[DEBUG]: start z value in camera coord: 632 ----> end z value in camera coord: 611
+[DEBUG]: start z value in camera coord: 619 ----> end z value in camera coord: 605
+[DEBUG]: start z value in camera coord: 591 ----> end z value in camera coord: 599
+[DEBUG]: start z value in camera coord: 575 ----> end z value in camera coord: 593
+[DEBUG]: start z value in camera coord: 609 ----> end z value in camera coord: 592
+[DEBUG]: start z value in camera coord: 602 ----> end z value in camera coord: 605
+[DEBUG]: start z value in camera coord: 559 ----> end z value in camera coord: 575
+[DEBUG]: invalid z value: at line nr. 193
+[DEBUG]: start z value in camera coord: 591 ----> end z value in camera coord: 580
+========================================================
+[DEBUG]: Inverse Matrix: 
+[0.83240753, 0.04538006, 0.55230278;
+ -0.062223781, 0.99799269, 0.011780812;
+ -0.55065948, -0.044172805, 0.83356035]
+========================================================
+[DEBUG]: ...3Dlines number in world coordinates: 442...
+========================================================
+[DEBUG]: ...OBJ file is created...
+[DEBUG]: ****** calculate 3Dlines for 4. frame ******
+[DEBUG]: ...edge detection with LSD...
+[DEBUG]: camera matrix: 
+[529.0325637081056, 0, 319.5;
+ 0, 529.0325637081056, 239.5;
+ 0, 0, 1]
+[DEBUG]: distortion coeffs: 
+[0.1859762025621671;
+ -0.4592601144983517;
+ 0;
+ 0;
+ 0.3408193011303378]
+========================================================
+[DEBUG]: EXTRINSIC PARAMETERS 
+rotation vector:
+[0.0822571141163948;
+ -0.5197067497361604;
+ 0.117309025689917]
+
+translation vector: 
+[-315.3195638001188;
+ -259.9783705016304;
+ 1121.601806864428]
+========================================================
+[DEBUG]: ...detected patterns: 1...
+========================================================
+[DEBUG]: PATTERN INFORMATION
+Pattern ID: 1
+Pattern Size: 80
+Pattern Confedince Value: 0.520859
+Pattern Orientation: 0
+========================================================
+[DEBUG]: ....bilateral blur... with mask size: 41
+========================================================
+[DEBUG]: Saved /Users/irina/Develop/workspace/bachelor_1/data/lsd_lines04.jpg
+========================================================
+[DEBUG]: ...LSD lines detected...
+========================================================
+[DEBUG]: start z value in camera coord: 1039 ----> end z value in camera coord: 1014
+[DEBUG]: start z value in camera coord: 1023 ----> end z value in camera coord: 1020
+[DEBUG]: start z value in camera coord: 1033 ----> end z value in camera coord: 1030
+[DEBUG]: start z value in camera coord: 1109 ----> end z value in camera coord: 1116
+[DEBUG]: invalid z value: at line nr. 5
+[DEBUG]: start z value in camera coord: 1071 ----> end z value in camera coord: 1109
+[DEBUG]: invalid z value: at line nr. 7
+[DEBUG]: start z value in camera coord: 1023 ----> end z value in camera coord: 1036
+[DEBUG]: start z value in camera coord: 1153 ----> end z value in camera coord: 1113
+[DEBUG]: start z value in camera coord: 1045 ----> end z value in camera coord: 1030
+[DEBUG]: start z value in camera coord: 1030 ----> end z value in camera coord: 1045
+[DEBUG]: start z value in camera coord: 1105 ----> end z value in camera coord: 1071
+[DEBUG]: start z value in camera coord: 1048 ----> end z value in camera coord: 1068
+[DEBUG]: start z value in camera coord: 1071 ----> end z value in camera coord: 1052
+[DEBUG]: start z value in camera coord: 1045 ----> end z value in camera coord: 1048
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1045
+[DEBUG]: start z value in camera coord: 1042 ----> end z value in camera coord: 1058
+[DEBUG]: start z value in camera coord: 1064 ----> end z value in camera coord: 1048
+[DEBUG]: start z value in camera coord: 1045 ----> end z value in camera coord: 1088
+[DEBUG]: start z value in camera coord: 1074 ----> end z value in camera coord: 1042
+[DEBUG]: invalid z value: at line nr. 21
+[DEBUG]: start z value in camera coord: 1061 ----> end z value in camera coord: 1068
+[DEBUG]: start z value in camera coord: 1078 ----> end z value in camera coord: 1064
+[DEBUG]: invalid z value: at line nr. 24
+[DEBUG]: start z value in camera coord: 1064 ----> end z value in camera coord: 1064
+[DEBUG]: start z value in camera coord: 1071 ----> end z value in camera coord: 1064
+[DEBUG]: start z value in camera coord: 1068 ----> end z value in camera coord: 1078
+[DEBUG]: start z value in camera coord: 1074 ----> end z value in camera coord: 1074
+[DEBUG]: start z value in camera coord: 1142 ----> end z value in camera coord: 1169
+[DEBUG]: start z value in camera coord: 1146 ----> end z value in camera coord: 1142
+[DEBUG]: start z value in camera coord: 1081 ----> end z value in camera coord: 1074
+[DEBUG]: start z value in camera coord: 750 ----> end z value in camera coord: 753
+[DEBUG]: start z value in camera coord: 1169 ----> end z value in camera coord: 1177
+[DEBUG]: start z value in camera coord: 1150 ----> end z value in camera coord: 1153
+[DEBUG]: start z value in camera coord: 1165 ----> end z value in camera coord: 1150
+[DEBUG]: start z value in camera coord: 1189 ----> end z value in camera coord: 752
+[DEBUG]: start z value in camera coord: 880 ----> end z value in camera coord: 747
+[DEBUG]: start z value in camera coord: 1165 ----> end z value in camera coord: 1165
+[DEBUG]: start z value in camera coord: 1081 ----> end z value in camera coord: 1074
+[DEBUG]: invalid z value: at line nr. 40
+[DEBUG]: start z value in camera coord: 1085 ----> end z value in camera coord: 1085
+[DEBUG]: start z value in camera coord: 1085 ----> end z value in camera coord: 1091
+[DEBUG]: start z value in camera coord: 1081 ----> end z value in camera coord: 1078
+[DEBUG]: start z value in camera coord: 1088 ----> end z value in camera coord: 1085
+[DEBUG]: start z value in camera coord: 1157 ----> end z value in camera coord: 1165
+[DEBUG]: invalid z value: at line nr. 46
+[DEBUG]: invalid z value: at line nr. 47
+[DEBUG]: start z value in camera coord: 1173 ----> end z value in camera coord: 1150
+[DEBUG]: start z value in camera coord: 882 ----> end z value in camera coord: 1185
+[DEBUG]: start z value in camera coord: 1116 ----> end z value in camera coord: 1142
+[DEBUG]: start z value in camera coord: 1138 ----> end z value in camera coord: 1153
+[DEBUG]: invalid z value: at line nr. 52
+[DEBUG]: invalid z value: at line nr. 53
+[DEBUG]: start z value in camera coord: 1268 ----> end z value in camera coord: 1272
+[DEBUG]: start z value in camera coord: 1085 ----> end z value in camera coord: 1081
+[DEBUG]: invalid z value: at line nr. 56
+[DEBUG]: invalid z value: at line nr. 57
+[DEBUG]: start z value in camera coord: 1272 ----> end z value in camera coord: 1282
+[DEBUG]: start z value in camera coord: 1116 ----> end z value in camera coord: 1127
+[DEBUG]: start z value in camera coord: 1091 ----> end z value in camera coord: 1091
+[DEBUG]: start z value in camera coord: 1277 ----> end z value in camera coord: 1272
+[DEBUG]: invalid z value: at line nr. 62
+[DEBUG]: start z value in camera coord: 1088 ----> end z value in camera coord: 1088
+[DEBUG]: invalid z value: at line nr. 64
+[DEBUG]: start z value in camera coord: 1091 ----> end z value in camera coord: 1088
+[DEBUG]: start z value in camera coord: 1088 ----> end z value in camera coord: 1085
+[DEBUG]: invalid z value: at line nr. 67
+[DEBUG]: invalid z value: at line nr. 68
+[DEBUG]: start z value in camera coord: 1291 ----> end z value in camera coord: 1259
+[DEBUG]: invalid z value: at line nr. 70
+[DEBUG]: start z value in camera coord: 1131 ----> end z value in camera coord: 1131
+[DEBUG]: start z value in camera coord: 1169 ----> end z value in camera coord: 1138
+[DEBUG]: invalid z value: at line nr. 73
+[DEBUG]: start z value in camera coord: 1706 ----> end z value in camera coord: 1698
+[DEBUG]: start z value in camera coord: 1181 ----> end z value in camera coord: 1169
+[DEBUG]: invalid z value: at line nr. 76
+[DEBUG]: start z value in camera coord: 1098 ----> end z value in camera coord: 1095
+[DEBUG]: start z value in camera coord: 1102 ----> end z value in camera coord: 1105
+[DEBUG]: start z value in camera coord: 1088 ----> end z value in camera coord: 1088
+[DEBUG]: invalid z value: at line nr. 80
+[DEBUG]: start z value in camera coord: 1134 ----> end z value in camera coord: 1146
+[DEBUG]: invalid z value: at line nr. 82
+[DEBUG]: start z value in camera coord: 1185 ----> end z value in camera coord: 1055
+[DEBUG]: start z value in camera coord: 1146 ----> end z value in camera coord: 1173
+[DEBUG]: start z value in camera coord: 1173 ----> end z value in camera coord: 1185
+[DEBUG]: start z value in camera coord: 1715 ----> end z value in camera coord: 1698
+[DEBUG]: start z value in camera coord: 1098 ----> end z value in camera coord: 1091
+[DEBUG]: start z value in camera coord: 1095 ----> end z value in camera coord: 1091
+[DEBUG]: invalid z value: at line nr. 89
+[DEBUG]: start z value in camera coord: 1102 ----> end z value in camera coord: 1095
+[DEBUG]: start z value in camera coord: 1189 ----> end z value in camera coord: 1165
+[DEBUG]: invalid z value: at line nr. 92
+[DEBUG]: invalid z value: at line nr. 93
+[DEBUG]: invalid z value: at line nr. 94
+[DEBUG]: start z value in camera coord: 1715 ----> end z value in camera coord: 1723
+[DEBUG]: start z value in camera coord: 1098 ----> end z value in camera coord: 1095
+[DEBUG]: invalid z value: at line nr. 97
+[DEBUG]: start z value in camera coord: 1131 ----> end z value in camera coord: 1131
+[DEBUG]: start z value in camera coord: 1131 ----> end z value in camera coord: 1157
+[DEBUG]: invalid z value: at line nr. 100
+[DEBUG]: start z value in camera coord: 1102 ----> end z value in camera coord: 1102
+[DEBUG]: start z value in camera coord: 1102 ----> end z value in camera coord: 1098
+[DEBUG]: start z value in camera coord: 1116 ----> end z value in camera coord: 1078
+[DEBUG]: start z value in camera coord: 1095 ----> end z value in camera coord: 1095
+[DEBUG]: start z value in camera coord: 1169 ----> end z value in camera coord: 1131
+[DEBUG]: start z value in camera coord: 1095 ----> end z value in camera coord: 977
+[DEBUG]: start z value in camera coord: 1157 ----> end z value in camera coord: 1169
+[DEBUG]: start z value in camera coord: 1169 ----> end z value in camera coord: 1177
+[DEBUG]: invalid z value: at line nr. 109
+[DEBUG]: invalid z value: at line nr. 110
+[DEBUG]: start z value in camera coord: 1113 ----> end z value in camera coord: 974
+[DEBUG]: invalid z value: at line nr. 112
+[DEBUG]: invalid z value: at line nr. 113
+[DEBUG]: start z value in camera coord: 974 ----> end z value in camera coord: 983
+[DEBUG]: start z value in camera coord: 1214 ----> end z value in camera coord: 1177
+[DEBUG]: start z value in camera coord: 1169 ----> end z value in camera coord: 983
+[DEBUG]: start z value in camera coord: 1109 ----> end z value in camera coord: 1219
+[DEBUG]: start z value in camera coord: 963 ----> end z value in camera coord: 991
+[DEBUG]: start z value in camera coord: 1006 ----> end z value in camera coord: 1030
+[DEBUG]: start z value in camera coord: 1064 ----> end z value in camera coord: 1055
+[DEBUG]: start z value in camera coord: 974 ----> end z value in camera coord: 966
+[DEBUG]: invalid z value: at line nr. 122
+[DEBUG]: start z value in camera coord: 1227 ----> end z value in camera coord: 1282
+[DEBUG]: invalid z value: at line nr. 124
+[DEBUG]: start z value in camera coord: 788 ----> end z value in camera coord: 835
+[DEBUG]: start z value in camera coord: 1008 ----> end z value in camera coord: 988
+[DEBUG]: start z value in camera coord: 937 ----> end z value in camera coord: 1011
+[DEBUG]: start z value in camera coord: 980 ----> end z value in camera coord: 985
+[DEBUG]: start z value in camera coord: 898 ----> end z value in camera coord: 961
+[DEBUG]: start z value in camera coord: 1240 ----> end z value in camera coord: 1189
+[DEBUG]: start z value in camera coord: 1064 ----> end z value in camera coord: 1058
+[DEBUG]: start z value in camera coord: 1181 ----> end z value in camera coord: 1227
+[DEBUG]: start z value in camera coord: 835 ----> end z value in camera coord: 775
+[DEBUG]: invalid z value: at line nr. 134
+[DEBUG]: start z value in camera coord: 1193 ----> end z value in camera coord: 1109
+[DEBUG]: invalid z value: at line nr. 136
+[DEBUG]: start z value in camera coord: 1061 ----> end z value in camera coord: 1181
+[DEBUG]: start z value in camera coord: 775 ----> end z value in camera coord: 815
+[DEBUG]: start z value in camera coord: 835 ----> end z value in camera coord: 821
+[DEBUG]: start z value in camera coord: 1055 ----> end z value in camera coord: 1045
+[DEBUG]: start z value in camera coord: 983 ----> end z value in camera coord: 974
+[DEBUG]: start z value in camera coord: 1071 ----> end z value in camera coord: 1064
+[DEBUG]: start z value in camera coord: 1023 ----> end z value in camera coord: 1061
+[DEBUG]: start z value in camera coord: 1074 ----> end z value in camera coord: 1068
+[DEBUG]: start z value in camera coord: 1061 ----> end z value in camera coord: 1071
+[DEBUG]: start z value in camera coord: 1068 ----> end z value in camera coord: 1068
+[DEBUG]: start z value in camera coord: 894 ----> end z value in camera coord: 1020
+[DEBUG]: start z value in camera coord: 1006 ----> end z value in camera coord: 977
+[DEBUG]: start z value in camera coord: 972 ----> end z value in camera coord: 950
+[DEBUG]: start z value in camera coord: 1068 ----> end z value in camera coord: 1055
+[DEBUG]: start z value in camera coord: 963 ----> end z value in camera coord: 974
+[DEBUG]: start z value in camera coord: 755 ----> end z value in camera coord: 1068
+[DEBUG]: start z value in camera coord: 955 ----> end z value in camera coord: 891
+[DEBUG]: start z value in camera coord: 1039 ----> end z value in camera coord: 1003
+[DEBUG]: start z value in camera coord: 882 ----> end z value in camera coord: 917
+[DEBUG]: start z value in camera coord: 777 ----> end z value in camera coord: 779
+[DEBUG]: start z value in camera coord: 889 ----> end z value in camera coord: 903
+[DEBUG]: start z value in camera coord: 1003 ----> end z value in camera coord: 887
+[DEBUG]: start z value in camera coord: 777 ----> end z value in camera coord: 806
+[DEBUG]: start z value in camera coord: 782 ----> end z value in camera coord: 773
+[DEBUG]: start z value in camera coord: 865 ----> end z value in camera coord: 880
+[DEBUG]: start z value in camera coord: 854 ----> end z value in camera coord: 889
+[DEBUG]: start z value in camera coord: 728 ----> end z value in camera coord: 773
+[DEBUG]: start z value in camera coord: 825 ----> end z value in camera coord: 800
+[DEBUG]: start z value in camera coord: 815 ----> end z value in camera coord: 726
+[DEBUG]: start z value in camera coord: 758 ----> end z value in camera coord: 854
+[DEBUG]: start z value in camera coord: 854 ----> end z value in camera coord: 793
+[DEBUG]: start z value in camera coord: 786 ----> end z value in camera coord: 848
+[DEBUG]: invalid z value: at line nr. 169
+[DEBUG]: start z value in camera coord: 683 ----> end z value in camera coord: 770
+[DEBUG]: start z value in camera coord: 763 ----> end z value in camera coord: 739
+[DEBUG]: start z value in camera coord: 743 ----> end z value in camera coord: 755
+[DEBUG]: start z value in camera coord: 726 ----> end z value in camera coord: 761
+[DEBUG]: start z value in camera coord: 693 ----> end z value in camera coord: 739
+[DEBUG]: start z value in camera coord: 739 ----> end z value in camera coord: 720
+[DEBUG]: start z value in camera coord: 705 ----> end z value in camera coord: 694
+[DEBUG]: start z value in camera coord: 703 ----> end z value in camera coord: 734
+[DEBUG]: start z value in camera coord: 672 ----> end z value in camera coord: 683
+[DEBUG]: start z value in camera coord: 691 ----> end z value in camera coord: 674
+[DEBUG]: start z value in camera coord: 675 ----> end z value in camera coord: 698
+[DEBUG]: start z value in camera coord: 698 ----> end z value in camera coord: 679
+[DEBUG]: start z value in camera coord: 663 ----> end z value in camera coord: 678
+========================================================
+[DEBUG]: Inverse Matrix: 
+[0.86147594, 0.090846799, 0.49960595;
+ -0.13257103, 0.98998237, 0.048578311;
+ -0.49018788, -0.10808232, 0.86488962]
+========================================================
+[DEBUG]: ...3Dlines number in world coordinates: 589...
+========================================================
+[DEBUG]: ...OBJ file is created...
+[DEBUG]: ****** calculate 3Dlines for 5. frame ******
+[DEBUG]: ...edge detection with LSD...
+[DEBUG]: camera matrix: 
+[529.0325637081056, 0, 319.5;
+ 0, 529.0325637081056, 239.5;
+ 0, 0, 1]
+[DEBUG]: distortion coeffs: 
+[0.1859762025621671;
+ -0.4592601144983517;
+ 0;
+ 0;
+ 0.3408193011303378]
+[DEBUG]: ...detected patterns: 0...
+[ERROR]: NO MARKER FOUNDED!
+[DEBUG]: ****** calculate 3Dlines for 5. frame ******
+[DEBUG]: ...edge detection with LSD...
+[DEBUG]: camera matrix: 
+[529.0325637081056, 0, 319.5;
+ 0, 529.0325637081056, 239.5;
+ 0, 0, 1]
+[DEBUG]: distortion coeffs: 
+[0.1859762025621671;
+ -0.4592601144983517;
+ 0;
+ 0;
+ 0.3408193011303378]
+[DEBUG]: ...detected patterns: 0...
+[ERROR]: NO MARKER FOUNDED!
+[DEBUG]: ****** calculate 3Dlines for 5. frame ******
+[DEBUG]: ...edge detection with LSD...
+[DEBUG]: camera matrix: 
+[529.0325637081056, 0, 319.5;
+ 0, 529.0325637081056, 239.5;
+ 0, 0, 1]
+[DEBUG]: distortion coeffs: 
+[0.1859762025621671;
+ -0.4592601144983517;
+ 0;
+ 0;
+ 0.3408193011303378]
+[DEBUG]: ...detected patterns: 0...
+[ERROR]: NO MARKER FOUNDED!
+[DEBUG]: ****** calculate 3Dlines for 5. frame ******
+[DEBUG]: ...edge detection with LSD...
+[DEBUG]: camera matrix: 
+[529.0325637081056, 0, 319.5;
+ 0, 529.0325637081056, 239.5;
+ 0, 0, 1]
+[DEBUG]: distortion coeffs: 
+[0.1859762025621671;
+ -0.4592601144983517;
+ 0;
+ 0;
+ 0.3408193011303378]
+========================================================
+[DEBUG]: EXTRINSIC PARAMETERS 
+rotation vector:
+[0.03289438128175508;
+ -0.2929207259292219;
+ -0.02184017866735372]
+
+translation vector: 
+[-259.8632387380349;
+ -236.0437731202506;
+ 1285.50509851756]
+========================================================
+[DEBUG]: ...detected patterns: 1...
+========================================================
+[DEBUG]: PATTERN INFORMATION
+Pattern ID: 1
+Pattern Size: 80
+Pattern Confedince Value: 0.463948
+Pattern Orientation: 0
+========================================================
+[DEBUG]: ....bilateral blur... with mask size: 41
+========================================================
+[DEBUG]: Saved /Users/irina/Develop/workspace/bachelor_1/data/lsd_lines05.jpg
+========================================================
+[DEBUG]: ...LSD lines detected...
+========================================================
+[DEBUG]: start z value in camera coord: 961 ----> end z value in camera coord: 958
+[DEBUG]: start z value in camera coord: 922 ----> end z value in camera coord: 925
+[DEBUG]: start z value in camera coord: 917 ----> end z value in camera coord: 913
+[DEBUG]: start z value in camera coord: 913 ----> end z value in camera coord: 932
+[DEBUG]: start z value in camera coord: 932 ----> end z value in camera coord: 915
+[DEBUG]: invalid z value: at line nr. 6
+[DEBUG]: invalid z value: at line nr. 7
+[DEBUG]: invalid z value: at line nr. 8
+[DEBUG]: invalid z value: at line nr. 9
+[DEBUG]: invalid z value: at line nr. 10
+[DEBUG]: start z value in camera coord: 955 ----> end z value in camera coord: 961
+[DEBUG]: invalid z value: at line nr. 12
+[DEBUG]: start z value in camera coord: 925 ----> end z value in camera coord: 927
+[DEBUG]: invalid z value: at line nr. 14
+[DEBUG]: start z value in camera coord: 932 ----> end z value in camera coord: 920
+[DEBUG]: start z value in camera coord: 927 ----> end z value in camera coord: 935
+[DEBUG]: start z value in camera coord: 940 ----> end z value in camera coord: 948
+[DEBUG]: start z value in camera coord: 966 ----> end z value in camera coord: 955
+[DEBUG]: start z value in camera coord: 932 ----> end z value in camera coord: 932
+[DEBUG]: invalid z value: at line nr. 20
+[DEBUG]: start z value in camera coord: 937 ----> end z value in camera coord: 937
+[DEBUG]: invalid z value: at line nr. 22
+[DEBUG]: invalid z value: at line nr. 23
+[DEBUG]: start z value in camera coord: 948 ----> end z value in camera coord: 935
+[DEBUG]: invalid z value: at line nr. 25
+[DEBUG]: start z value in camera coord: 937 ----> end z value in camera coord: 991
+[DEBUG]: start z value in camera coord: 969 ----> end z value in camera coord: 948
+[DEBUG]: start z value in camera coord: 945 ----> end z value in camera coord: 937
+[DEBUG]: start z value in camera coord: 994 ----> end z value in camera coord: 966
+[DEBUG]: start z value in camera coord: 955 ----> end z value in camera coord: 983
+[DEBUG]: start z value in camera coord: 948 ----> end z value in camera coord: 948
+[DEBUG]: start z value in camera coord: 988 ----> end z value in camera coord: 945
+[DEBUG]: start z value in camera coord: 953 ----> end z value in camera coord: 950
+[DEBUG]: start z value in camera coord: 955 ----> end z value in camera coord: 953
+[DEBUG]: start z value in camera coord: 980 ----> end z value in camera coord: 955
+[DEBUG]: invalid z value: at line nr. 36
+[DEBUG]: start z value in camera coord: 711 ----> end z value in camera coord: 969
+[DEBUG]: invalid z value: at line nr. 38
+[DEBUG]: start z value in camera coord: 980 ----> end z value in camera coord: 988
+[DEBUG]: start z value in camera coord: 988 ----> end z value in camera coord: 988
+[DEBUG]: start z value in camera coord: 1296 ----> end z value in camera coord: 1291
+[DEBUG]: start z value in camera coord: 1316 ----> end z value in camera coord: 1296
+[DEBUG]: start z value in camera coord: 1291 ----> end z value in camera coord: 1316
+[DEBUG]: start z value in camera coord: 1014 ----> end z value in camera coord: 1000
+[DEBUG]: start z value in camera coord: 997 ----> end z value in camera coord: 991
+[DEBUG]: start z value in camera coord: 991 ----> end z value in camera coord: 1020
+[DEBUG]: start z value in camera coord: 1296 ----> end z value in camera coord: 1301
+[DEBUG]: start z value in camera coord: 1301 ----> end z value in camera coord: 1311
+[DEBUG]: invalid z value: at line nr. 49
+[DEBUG]: start z value in camera coord: 1306 ----> end z value in camera coord: 1296
+[DEBUG]: start z value in camera coord: 1023 ----> end z value in camera coord: 719
+[DEBUG]: start z value in camera coord: 1321 ----> end z value in camera coord: 1321
+[DEBUG]: start z value in camera coord: 1321 ----> end z value in camera coord: 1326
+[DEBUG]: start z value in camera coord: 1014 ----> end z value in camera coord: 1003
+[DEBUG]: start z value in camera coord: 1311 ----> end z value in camera coord: 1311
+[DEBUG]: invalid z value: at line nr. 56
+[DEBUG]: start z value in camera coord: 1331 ----> end z value in camera coord: 1326
+[DEBUG]: start z value in camera coord: 1030 ----> end z value in camera coord: 1014
+[DEBUG]: start z value in camera coord: 683 ----> end z value in camera coord: 626
+[DEBUG]: start z value in camera coord: 1316 ----> end z value in camera coord: 1316
+[DEBUG]: invalid z value: at line nr. 61
+[DEBUG]: invalid z value: at line nr. 62
+[DEBUG]: start z value in camera coord: 614 ----> end z value in camera coord: 619
+[DEBUG]: start z value in camera coord: 1014 ----> end z value in camera coord: 1048
+[DEBUG]: start z value in camera coord: 1347 ----> end z value in camera coord: 1336
+[DEBUG]: start z value in camera coord: 1058 ----> end z value in camera coord: 1058
+[DEBUG]: start z value in camera coord: 1039 ----> end z value in camera coord: 1026
+[DEBUG]: start z value in camera coord: 1055 ----> end z value in camera coord: 1055
+[DEBUG]: start z value in camera coord: 1033 ----> end z value in camera coord: 1023
+[DEBUG]: invalid z value: at line nr. 70
+[DEBUG]: start z value in camera coord: 1055 ----> end z value in camera coord: 1042
+[DEBUG]: start z value in camera coord: 1036 ----> end z value in camera coord: 955
+[DEBUG]: start z value in camera coord: 1048 ----> end z value in camera coord: 1039
+[DEBUG]: start z value in camera coord: 1061 ----> end z value in camera coord: 1055
+[DEBUG]: invalid z value: at line nr. 75
+[DEBUG]: start z value in camera coord: 1048 ----> end z value in camera coord: 1042
+[DEBUG]: start z value in camera coord: 1071 ----> end z value in camera coord: 1061
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 1048
+[DEBUG]: invalid z value: at line nr. 79
+[DEBUG]: invalid z value: at line nr. 80
+[DEBUG]: start z value in camera coord: 1071 ----> end z value in camera coord: 1074
+[DEBUG]: start z value in camera coord: 1048 ----> end z value in camera coord: 1052
+[DEBUG]: start z value in camera coord: 1058 ----> end z value in camera coord: 1055
+[DEBUG]: start z value in camera coord: 1068 ----> end z value in camera coord: 1227
+[DEBUG]: start z value in camera coord: 1055 ----> end z value in camera coord: 1064
+[DEBUG]: start z value in camera coord: 1085 ----> end z value in camera coord: 1081
+[DEBUG]: start z value in camera coord: 1058 ----> end z value in camera coord: 1058
+[DEBUG]: start z value in camera coord: 1085 ----> end z value in camera coord: 1058
+[DEBUG]: start z value in camera coord: 1052 ----> end z value in camera coord: 963
+[DEBUG]: start z value in camera coord: 1123 ----> end z value in camera coord: 1078
+[DEBUG]: invalid z value: at line nr. 91
+[DEBUG]: invalid z value: at line nr. 92
+[DEBUG]: invalid z value: at line nr. 93
+[DEBUG]: invalid z value: at line nr. 94
+[DEBUG]: invalid z value: at line nr. 95
+[DEBUG]: invalid z value: at line nr. 96
+[DEBUG]: start z value in camera coord: 1131 ----> end z value in camera coord: 1120
+[DEBUG]: start z value in camera coord: 1150 ----> end z value in camera coord: 1048
+[DEBUG]: invalid z value: at line nr. 99
+[DEBUG]: start z value in camera coord: 1131 ----> end z value in camera coord: 1081
+[DEBUG]: start z value in camera coord: 1039 ----> end z value in camera coord: 1138
+[DEBUG]: start z value in camera coord: 969 ----> end z value in camera coord: 1039
+[DEBUG]: invalid z value: at line nr. 103
+[DEBUG]: start z value in camera coord: 961 ----> end z value in camera coord: 1026
+[DEBUG]: invalid z value: at line nr. 105
+[DEBUG]: start z value in camera coord: 937 ----> end z value in camera coord: 974
+[DEBUG]: start z value in camera coord: 1336 ----> end z value in camera coord: 1227
+[DEBUG]: start z value in camera coord: 983 ----> end z value in camera coord: 1026
+[DEBUG]: start z value in camera coord: 1259 ----> end z value in camera coord: 1326
+[DEBUG]: start z value in camera coord: 1236 ----> end z value in camera coord: 1036
+[DEBUG]: start z value in camera coord: 955 ----> end z value in camera coord: 958
+[DEBUG]: invalid z value: at line nr. 112
+[DEBUG]: invalid z value: at line nr. 113
+[DEBUG]: start z value in camera coord: 969 ----> end z value in camera coord: 958
+[DEBUG]: start z value in camera coord: 1268 ----> end z value in camera coord: 1236
+[DEBUG]: start z value in camera coord: 1227 ----> end z value in camera coord: 1268
+[DEBUG]: start z value in camera coord: 963 ----> end z value in camera coord: 901
+[DEBUG]: start z value in camera coord: 1240 ----> end z value in camera coord: 1259
+[DEBUG]: start z value in camera coord: 1177 ----> end z value in camera coord: 1240
+[DEBUG]: start z value in camera coord: 1165 ----> end z value in camera coord: 969
+[DEBUG]: start z value in camera coord: 969 ----> end z value in camera coord: 974
+[DEBUG]: start z value in camera coord: 950 ----> end z value in camera coord: 969
+[DEBUG]: start z value in camera coord: 1173 ----> end z value in camera coord: 1214
+[DEBUG]: invalid z value: at line nr. 124
+[DEBUG]: start z value in camera coord: 972 ----> end z value in camera coord: 1169
+[DEBUG]: invalid z value: at line nr. 126
+[DEBUG]: start z value in camera coord: 1030 ----> end z value in camera coord: 1173
+[DEBUG]: start z value in camera coord: 1030 ----> end z value in camera coord: 942
+[DEBUG]: invalid z value: at line nr. 129
+[DEBUG]: start z value in camera coord: 991 ----> end z value in camera coord: 1153
+[DEBUG]: invalid z value: at line nr. 131
+[DEBUG]: start z value in camera coord: 974 ----> end z value in camera coord: 953
+[DEBUG]: invalid z value: at line nr. 133
+[DEBUG]: start z value in camera coord: 1011 ----> end z value in camera coord: 1030
+[DEBUG]: start z value in camera coord: 1017 ----> end z value in camera coord: 808
+[DEBUG]: start z value in camera coord: 969 ----> end z value in camera coord: 1014
+[DEBUG]: invalid z value: at line nr. 137
+[DEBUG]: start z value in camera coord: 942 ----> end z value in camera coord: 1008
+[DEBUG]: start z value in camera coord: 901 ----> end z value in camera coord: 991
+[DEBUG]: start z value in camera coord: 966 ----> end z value in camera coord: 896
+[DEBUG]: start z value in camera coord: 901 ----> end z value in camera coord: 779
+[DEBUG]: start z value in camera coord: 806 ----> end z value in camera coord: 948
+[DEBUG]: start z value in camera coord: 894 ----> end z value in camera coord: 940
+[DEBUG]: start z value in camera coord: 860 ----> end z value in camera coord: 932
+[DEBUG]: invalid z value: at line nr. 145
+[DEBUG]: start z value in camera coord: 854 ----> end z value in camera coord: 898
+[DEBUG]: start z value in camera coord: 848 ----> end z value in camera coord: 862
+[DEBUG]: start z value in camera coord: 831 ----> end z value in camera coord: 856
+[DEBUG]: start z value in camera coord: 865 ----> end z value in camera coord: 852
+[DEBUG]: start z value in camera coord: 786 ----> end z value in camera coord: 850
+[DEBUG]: invalid z value: at line nr. 151
+[DEBUG]: start z value in camera coord: 784 ----> end z value in camera coord: 804
+========================================================
+[DEBUG]: Inverse Matrix: 
+[0.95717341, -0.026306318, 0.28831771;
+ 0.016740814, 0.99922615, 0.035593018;
+ -0.28903091, -0.029242016, 0.95687306]
+========================================================
+[DEBUG]: ...3Dlines number in world coordinates: 701...
+========================================================
+[DEBUG]: ...OBJ file is created...

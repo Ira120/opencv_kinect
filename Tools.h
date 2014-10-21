@@ -14,7 +14,7 @@
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
 #include <gtc/matrix_inverse.hpp>
-using namespace glm;
+#include "Log.h"
 
 #include <iostream>
 #include <stdio.h>
@@ -22,6 +22,7 @@ using namespace glm;
 
 using namespace cv;
 using namespace std;
+using namespace glm;
 
 /** \brief A collection of useful features in OpenCV with Kinect
  *
