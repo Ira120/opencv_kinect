@@ -15,7 +15,9 @@ public:
     //methods
     EdgeModel();
     ~EdgeModel();
-    void createOBJ(int frame_nr);
+    void createOBJproFrame(int frame_nr);
+    void createOBJfinal();
+
 };
 
 #endif // EDGEMODEL_H

@@ -25,6 +25,10 @@ namespace ARma {
 
 //=======================================================================================//
 
+    Pattern::~Pattern() {}
+
+//=======================================================================================//
+
 	//convert rotation vector to rotation matrix (if you want to proceed with other libraries)
     void Pattern::rotationMatrix(const Mat& rotation_vector, Mat& rotation_matrix)
 	{

@@ -40,8 +40,8 @@ void MarkerTracker::loadCameraParams() {
 
 int MarkerTracker::loadPattern(const String& filename, vector<Mat>& library, int& patternCount) {
 
+    char filename1[200];
     Mat img = imread(filename,IMREAD_GRAYSCALE); //graycsale image = 0
-    //char filename1[200];
 
     if(img.cols!=img.rows){
 
@@ -70,8 +70,8 @@ int MarkerTracker::loadPattern(const String& filename, vector<Mat>& library, int
         Mat subImg = dst(Range(msize/4,3*msize/4), Range(msize/4,3*msize/4));
         library.push_back(subImg);
 
-      //  sprintf(filename1,"test%.1d",i);
-      //  imshow(filename1,subImg);
+        sprintf(filename1,"test%.1d",i);
+        imshow(filename1,subImg);
     }
 
     patternCount++;
@@ -81,7 +81,7 @@ int MarkerTracker::loadPattern(const String& filename, vector<Mat>& library, int
 //=======================================================================================//
 
 vector<Mat> MarkerTracker::createPatternLib() {
-    string filename1 = "/Users/irina/Develop/workspace/bachelor_AR/pattern1.png";//id=1
+    string filename1 = "/Users/irina/Develop/workspace/bachelor_1/logo2.jpg";//id=1
     string filename2 = "/Users/irina/Develop/workspace/bachelor_AR/pattern2.png";//id=2
     string filename3 = "/Users/irina/Develop/workspace/bachelor_AR/pattern3.png";//id=3
 
@@ -102,5 +102,8 @@ vector<Mat> MarkerTracker::createPatternLib() {
     log = SSTR("[DEBUG]: ..." << patternCount << " patterns are loaded to marker detector...\n");
     Log(log);
 
+//    for (int i=0; i<patternLibrary.size();i++){
+//        imshow("bild");
+//    }
     return patternLibrary;
 }

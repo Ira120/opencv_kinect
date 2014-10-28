@@ -111,8 +111,10 @@ int Application::frameLoop(){
                                << "========================================================" << endl);
                     Log(log);
 
-                    edgeModel.createOBJ(frame_nr);
+                   // edgeModel.createOBJ(frame_nr);
+                    edgeModel.line3Dall.push_back(edgeModel.lines3DproFrame);
                     frame_nr++;
+                    edgeModel.lines3DproFrame.clear();
 
                     break;
 
@@ -139,20 +141,37 @@ int Application::frameLoop(){
                                << "========================================================" << endl);
                     Log(log);
 
-                    edgeModel.createOBJ(frame_nr);
+                    //edgeModel.createOBJ(frame_nr);
                     edgeModel.line3Dall.push_back(edgeModel.lines3DproFrame);
                     frame_nr++;
+                    edgeModel.lines3DproFrame.clear();
 
                     break;
 
                 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+                case 'q':
+                capture.release();
+                cout <<"test"<<endl;
                 default:
                     break;
             }
-                cout << edgeModel.line3Dall.size() << endl;
     }
 
+    char key = (char)waitKey(0); //delay N millis, usually long enough to display and capture input
+
+    switch (key) {
+        case 'o':
+        case 'O':
+        //cout << edgeModel.line3Dall.size() << endl;
+        edgeModel.createOBJfinal();
+        break;
+
+        default:
+            break;
+        case 27: //escape key
+            return 0;
+    }
     return 0;
 }
 

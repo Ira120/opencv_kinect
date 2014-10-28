@@ -4,8 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-QT       += opengl
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -23,7 +22,8 @@ SOURCES += main.cpp \
     Log.cpp \
     MarkerTracker.cpp \
     Pattern.cpp \
-    Patterndetector.cpp
+    Patterndetector.cpp \
+    GroupLines3D.cpp
 
 
 macx: LIBS += -L/Users/irina/Develop/Kinect/OpenNI-Bin-Dev-MacOSX-v1.5.7.10/Lib -lnimCodecs -lnimMockNodes -lnimRecorder -lOpenNI
@@ -48,4 +48,5 @@ HEADERS += \
     Log.h \
     MarkerTracker.h \
     Pattern.h \
-    Patterndetector.h
+    Patterndetector.h \
+    GroupLines3D.h
