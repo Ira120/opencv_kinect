@@ -23,7 +23,8 @@ SOURCES += main.cpp \
     MarkerTracker.cpp \
     Pattern.cpp \
     Patterndetector.cpp \
-    GroupLines3D.cpp
+    GroupLines3D.cpp \
+    SimilarityMeasure.cpp
 
 
 macx: LIBS += -L/Users/irina/Develop/Kinect/OpenNI-Bin-Dev-MacOSX-v1.5.7.10/Lib -lnimCodecs -lnimMockNodes -lnimRecorder -lOpenNI
@@ -49,4 +50,5 @@ HEADERS += \
     MarkerTracker.h \
     Pattern.h \
     Patterndetector.h \
-    GroupLines3D.h
+    GroupLines3D.h \
+    SimilarityMeasure.h

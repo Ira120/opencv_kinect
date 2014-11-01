@@ -81,7 +81,7 @@ int MarkerTracker::loadPattern(const String& filename, vector<Mat>& library, int
 //=======================================================================================//
 
 vector<Mat> MarkerTracker::createPatternLib() {
-    string filename1 = "/Users/irina/Develop/workspace/bachelor_1/logo2.jpg";//id=1
+    string filename1 = "/Users/irina/Develop/workspace/bachelor_1/pattern3.png";//id=1
     string filename2 = "/Users/irina/Develop/workspace/bachelor_AR/pattern2.png";//id=2
     string filename3 = "/Users/irina/Develop/workspace/bachelor_AR/pattern3.png";//id=3
 

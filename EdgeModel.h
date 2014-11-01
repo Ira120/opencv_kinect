@@ -17,6 +17,8 @@ public:
     ~EdgeModel();
     void createOBJproFrame(int frame_nr);
     void createOBJfinal();
+    void createOBJfinal(vector<vector<Line3D> > lines_vector);
+    void createOBJgrouped(vector<Line3D> grouped_lines);
 
 };
 

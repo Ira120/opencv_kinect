@@ -8,6 +8,7 @@
 #include "Line3D.h"
 #include "EdgeModel.h"
 #include "Tools.h"
+#include "GroupLines3D.h"
 
 class Application {
 public:
@@ -36,6 +37,7 @@ private:
     BackProjection projection;
     MarkerTracker patternLoader;
     EdgeModel edgeModel;
+    GroupLines3D groupLines;
 };
 
 #endif // APPLICATION_H

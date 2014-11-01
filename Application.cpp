@@ -9,6 +9,7 @@ Application::Application() {
     projection = BackProjection::BackProjection();
     patternLoader = MarkerTracker::MarkerTracker();
     edgeModel = EdgeModel::EdgeModel();
+    groupLines = GroupLines3D::GroupLines3D();
 }
 
 //=======================================================================================//
@@ -165,7 +166,8 @@ int Application::frameLoop(){
         case 'O':
         //cout << edgeModel.line3Dall.size() << endl;
         edgeModel.createOBJfinal();
-        break;
+        return groupLines.findSimilarLines(edgeModel.line3Dall);
+
 
         default:
             break;

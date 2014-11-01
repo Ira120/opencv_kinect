@@ -24,7 +24,7 @@ class Pattern {
 		Mat rotVec, transVec, rotMat;
 
         //methods
-        Pattern(double param1=203);
+        Pattern(double param1=80);
         ~Pattern();
 		
 		//solves the exterior orientation problem between patten and camera

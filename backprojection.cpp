@@ -63,8 +63,8 @@ void BackProjection::calculateBackProjection(vector<Vec4i> lines2D, Mat depthIma
             log = SSTR("[DEBUG]: start z value in camera coord: "<<depth_z_start<<" ----> end z value in camera coord: "<<depth_z_end<<endl);
             Log(log);
 
-            start_xyz = calculateCameraXYZ(line2D.val[0],line2D[1],depth_z_start);
-            end_xyz = calculateCameraXYZ(line2D.val[2], line2D[3], depth_z_end);
+            start_xyz = calculateCameraXYZ(line2D.val[0],line2D.val[1],depth_z_start);
+            end_xyz = calculateCameraXYZ(line2D.val[2], line2D.val[3], depth_z_end);
             camera_lines3D.push_back(start_xyz);
             camera_lines3D.push_back(end_xyz);
         }
