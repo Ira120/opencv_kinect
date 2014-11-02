@@ -72,7 +72,8 @@ int Application::frameLoop(){
             capture.grab();
             capture.retrieve(rgbImage,CAP_OPENNI_BGR_IMAGE);
             capture.retrieve(depthMap,CAP_OPENNI_DEPTH_MAP);
-            capture.set(CAP_PROP_OPENNI_REGISTRATION , 0);
+            cout << "REGISTRATION     " << capture.get( CAP_PROP_OPENNI_REGISTRATION ) << endl;
+            //capture.set(CAP_PROP_OPENNI_REGISTRATION , 0);
             if (rgbImage.empty() || depthMap.empty())
                 break;
 
@@ -113,6 +114,8 @@ int Application::frameLoop(){
                     Log(log);
 
                    // edgeModel.createOBJ(frame_nr);
+                    showLines3DInFrame(rgbImage);
+
                     edgeModel.line3Dall.push_back(edgeModel.lines3DproFrame);
                     frame_nr++;
                     edgeModel.lines3DproFrame.clear();
@@ -143,6 +146,8 @@ int Application::frameLoop(){
                     Log(log);
 
                     //edgeModel.createOBJ(frame_nr);
+                    showLines3DInFrame(rgbImage);
+
                     edgeModel.line3Dall.push_back(edgeModel.lines3DproFrame);
                     frame_nr++;
                     edgeModel.lines3DproFrame.clear();
@@ -233,6 +238,10 @@ void Application::calculate3DLines() {
 //=======================================================================================//
 
 void Application::detectPattern(Mat rgbImage) {
+    rotVecMat.release();
+    transVecMat.release();
+    rotMat.release();
+
     detectedPats = false;
     vector<Pattern> detectedPattern;
 
@@ -267,11 +276,62 @@ void Application::detectPattern(Mat rgbImage) {
         transVec.val[1] = detectedPattern.at(0).transVec.at<double>(0,1);
         transVec.val[2] = detectedPattern.at(0).transVec.at<double>(0,2);
 
+        //****************
+        detectedPattern.at(0).rotVec.copyTo(rotVecMat);
+        detectedPattern.at(0).transVec.copyTo(transVecMat);
+        cout << "Rot und Mat übergegeben\n";
+        //*****************
+
+
 
         cout << "--------------------------------------" << endl;
         cout << "TransVec now: " << transVec <<endl;
         cout << "RotMat now: " << rotMat <<endl;
         cout << "--------------------------------------" << endl;
 
+    }
+}
+//=======================================================================================//
+
+void Application::showLines3DInFrame(Mat rgbImage) {
+    Mat modelPts;
+    vector<Point2f> model2ImagePts;
+    char filename[200];
+
+    cout << "Length of the vector with Lines3D: " << edgeModel.lines3DproFrame.size() << endl;
+
+    modelPts = Mat::zeros(edgeModel.lines3DproFrame.size()*2, 3, CV_32F);
+
+    if (edgeModel.lines3DproFrame.size()!=0){
+        cout<<"Calculate the 3DLines and project them on the frame"<<endl;
+
+        for (int i=0; i<edgeModel.lines3DproFrame.size();i++) {
+
+            modelPts.at<float>(i*2,0) = edgeModel.lines3DproFrame.at(i).getStartPointOfLine3D().x;
+            //cout << "x: " << edgeModel.lines3DproFrame.at(i).getStartPointOfLine3D().x << endl;
+            modelPts.at<float>(i*2,1) = edgeModel.lines3DproFrame.at(i).getStartPointOfLine3D().y;
+            //cout << "y: " << edgeModel.lines3DproFrame.at(i).getStartPointOfLine3D().y << endl;
+            modelPts.at<float>(i*2,2) = edgeModel.lines3DproFrame.at(i).getStartPointOfLine3D().z;
+            //cout << "z: " << edgeModel.lines3DproFrame.at(i).getStartPointOfLine3D().z << endl;
+
+            modelPts.at<float>(i*2+1,0) = edgeModel.lines3DproFrame.at(i).getEndPointOfLine3D().x;
+            modelPts.at<float>(i*2+1,1) = edgeModel.lines3DproFrame.at(i).getEndPointOfLine3D().y;
+            modelPts.at<float>(i*2+1,2) = edgeModel.lines3DproFrame.at(i).getEndPointOfLine3D().z;
+        }
+        //cout <<"Meine neue Punkte: " << modelPts << endl;
+
+        projectPoints(modelPts, rotVecMat, transVecMat, patternLoader.getCameraMatrix(), patternLoader.getDistortions(), model2ImagePts);
+
+        //draw the lines
+        for (int i=0; i<model2ImagePts.size(); i+=2){
+            line(rgbImage, model2ImagePts.at(i), model2ImagePts.at(i+1), Scalar(255,0,0), 2, LINE_AA);
+        }
+
+        imshow("Projected 3DLines",rgbImage);
+        sprintf(filename,"/Users/irina/Develop/workspace/bachelor_1/data/projected_lines%.2d.jpg",frame_nr);
+        imwrite(filename, rgbImage);
+    }
+    else {
+        cout << "...nothing to project..." << endl;
     }
 }

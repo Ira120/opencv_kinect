@@ -20,6 +20,8 @@ public:
     PatternDetector myDetector;
     Mat rotMat;
     Vec3f transVec;
+    Mat transVecMat;
+    Mat rotVecMat;
     bool detectedPats;
 
     //methods
@@ -30,6 +32,7 @@ public:
     int frameLoop();
     void detectPattern(Mat rgbImage);
     void calculate3DLines();
+    void showLines3DInFrame(Mat rgbImage);
 
 private:
     //parameters
