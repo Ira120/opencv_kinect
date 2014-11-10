@@ -70,17 +70,32 @@ int Application::frameLoop(){
 
     for (;;) {
             capture.grab();
+          //  capture.set(CAP_OPENNI_DEPTH_GENERATOR,CAP_PROP_OPENNI_REGISTRATION);
             capture.retrieve(rgbImage,CAP_OPENNI_BGR_IMAGE);
             capture.retrieve(depthMap,CAP_OPENNI_DEPTH_MAP);
-            capture.set(CAP_PROP_OPENNI_REGISTRATION , 0);
+            capture.set(CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION,CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION_ON);
+
             if (rgbImage.empty() || depthMap.empty())
                 break;
 
             log = SSTR("[DEBUG]: decode and return the grabbed video frame from KINECT"<<endl);
            // Log(log);
 
-            imshow("show RGB input", rgbImage);
+            Mat test(480,640,CV_8UC3);
 
+            imshow("show RGB input", rgbImage);
+            depthMap.convertTo(depthMap,CV_8U,0.2f);
+            imshow("show depth input", depthMap);
+
+            for (int v=0;v<rgbImage.rows;v++) {
+                for (int u=0;u<rgbImage.cols;u++) {
+                    test.at<Vec3b>(v,u)[0] = (rgbImage.at<Vec3b>(v,u)[0]+depthMap.at<uchar>(v,u))/2;
+                    test.at<Vec3b>(v,u)[1] = (rgbImage.at<Vec3b>(v,u)[1]+depthMap.at<uchar>(v,u))/2;
+                    test.at<Vec3b>(v,u)[2] = (rgbImage.at<Vec3b>(v,u)[2]+depthMap.at<uchar>(v,u))/2;
+                }
+            }
+
+                        imshow("show gRGB input", test);
             //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
             char key = (char)waitKey(30); //delay N millis, usually long enough to display and capture input
@@ -93,6 +108,7 @@ int Application::frameLoop(){
 
                 case 'h': //run with hough
                 case 'H': //run the application 'step by step'
+
                     log = SSTR("[DEBUG]: ****** calculate 3Dlines for " << frame_nr << ". frame ******" << endl);
                     Log(log);
 
