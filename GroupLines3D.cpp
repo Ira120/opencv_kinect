@@ -263,7 +263,7 @@ int GroupLines3D::groupSimilarLines(int frame_nr) {
         Line3D temp;
         int size = final_lines_vector.at(i).size();
 
-        if ((int)final_lines_vector.at(i).size() >= (int)frame_nr*(1/4)) {
+        if ((int)final_lines_vector.at(i).size() >= (int)(frame_nr/4.0f)) {
         for (int j=0; j<(int)final_lines_vector.at(i).size(); j++) {
 
             x_sum_start += final_lines_vector.at(i).at(j).getStartPointOfLine3D().x;
@@ -277,10 +277,12 @@ int GroupLines3D::groupSimilarLines(int frame_nr) {
 
         temp.storeLine3D(x_sum_start/(float)size,   y_sum_start/(float)size,    z_sum_start/(float)size,
                          x_sum_end/(float)size,     y_sum_end/(float)size,      z_sum_end/(float)size);
-        }
+
 
         groped_lines.push_back(temp);
+        }
     }
+
 
     EdgeModel::EdgeModel model;
     model.createOBJgrouped(groped_lines);

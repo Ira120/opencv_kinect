@@ -80,10 +80,10 @@ float BackProjection::findZInDepthMap(int x, int y) {
     log = SSTR("[DEBUG]: u: " << x << " and v: " << y << " result in z-value: " << depth_z << endl);
     Log(log);
 
-    //accumulate in 5x5 neighborhood non-zero values
+    //accumulate in 3x3 neighborhood non-zero values
     vector<float> temp_pixel;
-    for (int i=-5;i<6;i++) {
-        for (int j=-5; j<6;j++) {
+    for (int i=-3;i<3;i++) {
+        for (int j=-3; j<3;j++) {
             if (this->depthImage.at<float>(Point(x+i,y+j))!=0){
                 temp_pixel.push_back(this->depthImage.at<float>(Point(x+i,y+j)));
             }
@@ -101,6 +101,8 @@ float BackProjection::findZInDepthMap(int x, int y) {
             log = SSTR("[DEBUG]: ...current depth value is vaild (between "<<min_depth<<" and "<<max_depth<<")"<<endl);
             Log(log);
 
+            /*
+            //take the mean of the neighbours
             float temp_result = 0.0f;
             int temp_num = 0;
             for (int i=0; i<temp_pixel.size(); i++) {
@@ -111,10 +113,13 @@ float BackProjection::findZInDepthMap(int x, int y) {
                 }
             }
 
-            log = SSTR("[DEBUG]: calculated depth is: "<<temp_result/temp_num<<endl);
+            */
+            //take the nearest value to the cam
+            float result = *min_element(temp_pixel.begin(),temp_pixel.end());
+            log = SSTR("[DEBUG]: calculated depth is: "<<result<<endl);
             Log(log);
 
-            return temp_result/temp_num;
+            return result;
         }
 
         //2nd case: current depth value is over the max_depth
