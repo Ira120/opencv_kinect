@@ -6,8 +6,6 @@ using namespace std;
 #include "opencv2/calib3d/calib3d.hpp"
 
 
-
-
 namespace ARma {
 
 //=======================================================================================//
@@ -49,28 +47,28 @@ namespace ARma {
         Log(log);
 
 		rotationMatrix(rotVec, rotMat);
-        //cout << "Exterior Matrix (from pattern to camera): " << endl;
-        //for (int i = 0; i<3; i++){
-        //cout << rotMat.at<double>(i,0) << "\t" << rotMat.at<double>(i,1) << "\t" << rotMat.at<double>(i,2) << " |\t"<< transVec.at<double>(i,0) << endl;
-        //}
 	}
 
 //=======================================================================================//
 
     void Pattern::getExtrinsics(int patternSize, const Mat& cameraMatrix, const Mat& distortions)
 	{
-
         Mat intrinsics = cameraMatrix;
         Mat distCoeff = distortions;
+        Mat disCoeff = (Mat_<float>(5,1) << 0, 0, 0, 0, 0);
         Mat rot = rotVec;
         Mat tra = transVec;
         Mat rotationMatrix = rotMat; // projectionMatrix = [rotMat tra];
 
         Point2f pat2DPts[4];
+
 		for (int i = 0; i<4; i++){
 			pat2DPts[i].x = this->vertices.at(i).x;
 			pat2DPts[i].y = this->vertices.at(i).y;
 		}
+
+        pattern_origin.x = pat2DPts[0].x;
+        pattern_origin.y = pat2DPts[0].y;
 
 		//3D points in pattern coordinate system
         Point3f pat3DPts[4];
@@ -89,12 +87,9 @@ namespace ARma {
 
         Mat objectPts(4, 3, CV_32FC1, pat3DPts);
         Mat imagePts(4, 2, CV_32FC1, pat2DPts);
-        //cvInitMatHeader(&objectPts, 4, 3, CV_32FC1, pat3DPts);
-        //cvInitMatHeader(&imagePts, 4, 2, CV_32FC1, pat2DPts);
 		
 		//find extrinsic parameters
-        solvePnP(objectPts, imagePts, intrinsics, distCoeff, rotVec, transVec);
-        //cvFindExtrinsicCameraParams2(&objectPts, &imagePts, &intrinsics, &distCoeff, &rot, &tra);
+        solvePnP(objectPts, imagePts, intrinsics, disCoeff, rotVec, transVec);
 
         log = SSTR("========================================================\n"
                    << "[DEBUG]: EXTRINSIC PARAMETERS \nrotation vector:\n" << rotVec << endl
@@ -105,9 +100,9 @@ namespace ARma {
 
 //=======================================================================================//
 
-    void Pattern::draw(Mat& frame, const Mat& camMatrix, const Mat& distMatrix)
-	{
+    void Pattern::draw(Mat& frame, const Mat& camMatrix, const Mat& distMatrix) {
 
+        Mat disCoeff = (Mat_<float>(5,1) << 0, 0, 0, 0, 0);
         Scalar color = Scalar(255,255,255);
 		
 		switch (id){
@@ -128,31 +123,33 @@ namespace ARma {
 
 
 		std::vector<cv::Point2f> model2ImagePts;
-		/* project model 3D points to the image. Points through the transformation matrix 
-		(defined by rotVec and transVec) "are transfered" from the pattern CS to the 
-		camera CS, and then, points are projected using camera parameters 
-		(camera matrix, distortion matrix) from the camera 3D CS to its image plane
-		*/
-        projectPoints(modelPts, rotVec, transVec, camMatrix, distMatrix, model2ImagePts);
+        //project model 3D points to the image. Points through the transformation matrix
+        //(defined by rotVec and transVec) "are transfered" from the pattern CS to the
+        //camera CS, and then, points are projected using camera parameters
+        //(camera matrix, distortion matrix) from the camera 3D CS to its image plane
+
+        projectPoints(modelPts, rotVec, transVec, camMatrix, disCoeff, model2ImagePts);
 
 
 
 		//draw cube, or whatever
 		int i;
 		for (i =0; i<4; i++){
-			cv::line(frame, model2ImagePts.at(i%4), model2ImagePts.at((i+1)%4), color, 3);
+            cv::line(frame, model2ImagePts.at(i%4), model2ImagePts.at((i+1)%4), color, 1);
             cout<<"Punkte:"<<model2ImagePts.at(i%4)<<endl;
 		}
 		for (i =4; i<7; i++){
-			cv::line(frame, model2ImagePts.at(i%8), model2ImagePts.at((i+1)%8), color, 3);
+            cv::line(frame, model2ImagePts.at(i%8), model2ImagePts.at((i+1)%8), color, 1);
 		}
-		cv::line(frame, model2ImagePts.at(7), model2ImagePts.at(4), color, 3);
+        cv::line(frame, model2ImagePts.at(7), model2ImagePts.at(4), color, 1);
 		for (i =0; i<4; i++){
-			cv::line(frame, model2ImagePts.at(i), model2ImagePts.at(i+4), color, 3);
+            cv::line(frame, model2ImagePts.at(i), model2ImagePts.at(i+4), color, 1);
 		}
 		
 		//draw the line that reflects the orientation. It indicates the bottom side of the pattern
-        cv::line(frame, model2ImagePts.at(2), model2ImagePts.at(3), Scalar(80,255,80), 3);
+        cv::line(frame, model2ImagePts.at(2), model2ImagePts.at(3), Scalar(80,255,80), 1);
 		model2ImagePts.clear();
 	}
+
 }
+

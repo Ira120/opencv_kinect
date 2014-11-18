@@ -1,7 +1,7 @@
 #ifndef _CAMERAPARAMS_H
 #define _CAMERAPARAMS_H
 
-#define PAT_SIZE 64//equal to pattern_size variable (see below)
+#define PAT_SIZE 120//equal to pattern_size variable (see below)
 #define SAVE_VIDEO 0 //if true, it saves the video in "output.avi"
 #define NUM_OF_PATTERNS 1// define the number of patterns you want to use
 
@@ -23,6 +23,8 @@ class MarkerTracker{
 public:
     //parameters
     string log;
+    Mat cameraMatrix_depth;
+    Mat distortions_depth;
 
     //functions
     MarkerTracker();

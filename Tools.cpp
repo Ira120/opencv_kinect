@@ -38,4 +38,38 @@ namespace Tools {
             }
      return 0;
     }
+
+    float modalValue(vector<float> values) {
+        //finde Modalwert in der nähren Nachbarschaft des "fehlerhaften" Pixels
+        sort(values.begin(),values.end());
+        Mat valuesMat= Mat::zeros(2,values.size(),CV_32F);
+        int matCounter=0;
+
+        for(int i=0;i<values.size();i++) {
+            if(i==0){
+                valuesMat.at<float>(0,0)=values.at(0);
+                valuesMat.at<float>(1,0)=1;
+            }
+            else {
+                if(values.at(i)==values.at(i-1)) {
+                    valuesMat.at<float>(1,matCounter) ++;
+                } else {
+                    matCounter++;
+                    valuesMat.at<float>(0,matCounter) = values.at(i);
+                    valuesMat.at<float>(1,matCounter) = 1;
+                }
+            }
+        }
+
+        float result = valuesMat.at<float>(0,0);
+        float compare = valuesMat.at<float>(1,0);
+        for(int u=1; u<valuesMat.cols; u++) {
+            if(valuesMat.at<float>(1,u) > compare) {
+                result = valuesMat.at<float>(0,u);
+                compare = valuesMat.at<float>(1,u);
+            }
+        }
+
+        return result;
+    }
 }

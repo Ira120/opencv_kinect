@@ -43,7 +43,7 @@ namespace ARma {
 	norm2DPts[2] = Point2f(normSize-1,normSize-1);
 	norm2DPts[3] = Point2f(0,normSize-1);
 	
-  //  imshow(" ",patMaskInt);
+  //  (" ",patMaskInt);
   //  waitKey(0);
   //  exit(0);
 }
@@ -52,7 +52,6 @@ namespace ARma {
 
 void PatternDetector::detect(const Mat& frame, const Mat& cameraMatrix, const Mat& distortions, vector<Mat>& library, vector<Pattern>& foundPatterns)
 {
-
 	patInfo out;
 	Point2f roi2DPts[4];
 	Mat binImage2;
@@ -61,15 +60,13 @@ void PatternDetector::detect(const Mat& frame, const Mat& cameraMatrix, const Ma
 	convertAndBinarize(frame, binImage, grayImage, mode);
 	binImage.copyTo(binImage2);
 
-    //imshow("binaryImage" , binImage2);
-
 	int avsize = (binImage.rows+binImage.cols)/2;
 
     vector<vector<Point> > contours;
 	vector<Point> polycont;
 
 	//find contours in binary image
-    cv::findContours(binImage2, contours, RETR_LIST, CHAIN_APPROX_SIMPLE);
+    findContours(binImage2, contours, RETR_LIST, CHAIN_APPROX_SIMPLE);
 
 	unsigned int i;
 	Point p;
@@ -159,7 +156,7 @@ void PatternDetector::detect(const Mat& frame, const Mat& cameraMatrix, const Ma
 
 					//find the transformation (from camera CS to pattern CS)
 					patCand.getExtrinsics(patCand.size, cameraMatrix, distortions);
-					foundPatterns.push_back(patCand);
+                    foundPatterns.push_back(patCand);
 
 				}
 			}

@@ -23,6 +23,7 @@ public:
     Mat transVecMat;
     Mat rotVecMat;
     bool detectedPats;
+    Point2f pattern_origin;
 
     //methods
     Application();
@@ -33,6 +34,7 @@ public:
     void detectPattern(Mat rgbImage);
     void calculate3DLines();
     void showLines3DInFrame(Mat rgbImage);
+    Mat smoothDepthMap(Mat depthMapWithoutROI,int innerThreshold,int outerThreshold);
 
 private:
     //parameters

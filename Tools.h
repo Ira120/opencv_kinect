@@ -30,6 +30,7 @@ using namespace glm;
 namespace Tools {
 
     int saveFramesFromKinect(VideoCapture &capture);
+    float modalValue (vector<float> values);
 
 }
 

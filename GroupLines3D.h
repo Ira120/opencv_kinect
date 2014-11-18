@@ -33,12 +33,13 @@ public:
     ~GroupLines3D();
     float cosineSimilarity(Line3D first, Line3D second);
     float euclideanDistance(Line3D first, Line3D second);
-    int findSimilarLines(vector<vector<Line3D> > lines_vector);
-    int groupSimilarLines();
+    int findSimilarLines(vector<vector<Line3D> > lines_vector, int frame_nr);
+    int groupSimilarLines(int frame_nr);
 
     //parameters
     vector<vector<Line3D> > final_lines_vector;
     vector<Line3D> groped_lines;
+    string log;
 };
 
 #endif // GROUPLINES3D_H

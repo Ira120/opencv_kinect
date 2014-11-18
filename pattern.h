@@ -22,9 +22,10 @@ class Pattern {
 		float size; //in milimeters
 		double confidence;//min: -1, max: 1
 		Mat rotVec, transVec, rotMat;
+        Point2f pattern_origin;
 
         //methods
-        Pattern(double param1=80);
+        Pattern(double param1=120);
         ~Pattern();
 		
 		//solves the exterior orientation problem between patten and camera

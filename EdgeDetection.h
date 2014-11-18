@@ -14,11 +14,9 @@ public:
     EdgeDetection();
     ~EdgeDetection();
     vector<Vec4i> applyHoughTransformation (Mat imageOriginal, int frame_nr);
-    vector<Vec4i> applyLSD (Mat imageOriginal, int frame_nr);
     Mat smoothGauss (Mat image, int value);
     Mat smoothMedian (Mat image, int value);
     Mat smoothBilateral (Mat image, int value);
-    // TODO: edge focusing ?
 
 private:
     //parameters

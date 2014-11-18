@@ -16,16 +16,10 @@ using namespace ARma;
 
 int main() {
 
-    Vec3i test_1 (1,2,3);
-    Vec3i test_2 (5,4,3);
-    int test;
-    test = test_1.dot(test_2);
-    cout <<test;
+  Application app;
 
-    Application app;
-
-    app.initPattern();
-    app.initKinect();
+  app.initPattern();
+ app.initKinect();
 
 }
 

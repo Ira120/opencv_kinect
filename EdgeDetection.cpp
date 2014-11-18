@@ -12,7 +12,7 @@ EdgeDetection::~EdgeDetection() {}
 
 Mat EdgeDetection::smoothGauss (Mat image, int value) {
 
-    //mask size 'generic'
+    //mask size 'dynamic'
     value = (value/2)*2+1;
 
     Mat imageGauss;
@@ -29,7 +29,7 @@ Mat EdgeDetection::smoothGauss (Mat image, int value) {
 
 Mat EdgeDetection::smoothMedian (Mat image, int value) {
 
-    //mask size 'generic'
+    //mask size 'dynamic'
     value = (value/2)*2+1;
 
     Mat imageMedian;
@@ -45,7 +45,7 @@ Mat EdgeDetection::smoothMedian (Mat image, int value) {
 
 Mat EdgeDetection::smoothBilateral (Mat image, int value) {
 
-    //mask size 'generic'
+    //mask size 'dynamic'
     value = (value/2)*2+1;
 
     Mat imageBilateral;
@@ -63,8 +63,13 @@ Mat EdgeDetection::smoothBilateral (Mat image, int value) {
 vector<Vec4i> EdgeDetection::applyHoughTransformation(Mat imageOriginal, int frame_nr) {
     lines.clear();
 
+    cout<<"breite: "<<imageOriginal.cols<<", höhe: "<<imageOriginal.rows<<endl;
+    //10px smaller for search algo in 'BackProjection::findZInDepthMap'
+    Rect mask(10,10,545,397);
+    Mat rgbROI = imageOriginal(mask);
+
     Mat smooth;
-    smooth = smoothGauss(imageOriginal,15);
+    smooth = smoothBilateral(rgbROI,30);
 
     char filename_lines[200];
     sprintf(filename_lines,"/Users/irina/Develop/workspace/bachelor_1/data/hough_lines%.2d.txt",frame_nr);
@@ -83,18 +88,25 @@ vector<Vec4i> EdgeDetection::applyHoughTransformation(Mat imageOriginal, int fra
         stream << "===========================================" << endl;
 
     for(size_t i = 0; i < lines.size(); i++) {
+
+        lines[i].val[0] += 10;
+        lines[i].val[1] += 10;
+        lines[i].val[2] += 10;
+        lines[i].val[3] += 10;
+
         Vec4i l = lines[i];
-        line( imageOriginal, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,255,255), 2, LINE_AA);
+
+        line(imageOriginal, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,255,255), 1, LINE_AA);
         stream << i+1 << ") start_pixel ( " << l.val[0] << "|" << l.val[1] << " ) --------> end_pixel ( " << l[2] << "|" << l[3] << " )" <<  endl;
     }
 
     file.close();
     }
 
-    //show and save dected line per frame
+    //show and save dected lines per frame
     imshow("Detected lines with hough",imageOriginal);
     sprintf(filename,"/Users/irina/Develop/workspace/bachelor_1/data/hough_lines%.2d.jpg",frame_nr++);
-    imwrite(filename, imageOriginal);
+    imwrite(filename,imageOriginal);
 
     log = SSTR("========================================================\n"
                << "[DEBUG]: Saved " << filename << endl
@@ -108,57 +120,3 @@ vector<Vec4i> EdgeDetection::applyHoughTransformation(Mat imageOriginal, int fra
 }
 
 //=======================================================================================//
-
-vector <Vec4i> EdgeDetection::applyLSD(Mat imageOriginal, int frame_nr) {
-    lines.clear();
-    imageGray.release();
-
-    Ptr<LineSegmentDetector> ls;
-
-    Mat smooth;
-    smooth = smoothBilateral(imageOriginal,40);
-
-    char filename_lines[200];
-    sprintf(filename_lines,"/Users/irina/Develop/workspace/bachelor_1/data/lsd_lines%.2d.txt",frame_nr);
-    QFile file (filename_lines);
-
-    cvtColor(smooth,imageGray,COLOR_BGR2GRAY);
-
-    ls = createLineSegmentDetector(LSD_REFINE_STD);
-    // Detect the lines
-    ls->detect(imageGray, lines);
-
-    //write an output file
-    if (file.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
-        QTextStream stream (&file);
-        stream << "Detected LSD lines pro frame" << endl;
-        stream << "===========================================" << endl;
-        stream << "Found about "<<lines.size()<<" lines with hough"<<endl;
-        stream << "===========================================" << endl;
-
-        for(size_t i = 0; i < lines.size(); i++) {
-            Vec4i l = lines[i];
-            stream << i+1 << ") start_pixel ( " << l.val[0] << "|" << l.val[1] << " ) --------> end_pixel ( " << l[2] << "|" << l[3] << " )" <<  endl;
-        }
-
-        file.close();
-    }
-
-
-    Mat drawnLines(imageGray);
-    ls->drawSegments(drawnLines, lines);
-    imshow("Detected segments with LSD", drawnLines);
-
-    sprintf(filename,"/Users/irina/Develop/workspace/bachelor_1/data/lsd_lines%.2d.jpg",frame_nr++);
-    imwrite(filename, drawnLines);
-
-    log = SSTR("========================================================\n"
-               << "[DEBUG]: Saved " << filename << endl
-               << "========================================================\n");
-    Log(log);
-
-    log = SSTR("[DEBUG]: ...LSD lines detected...\n");
-    Log(log);
-
-    return lines;
-}
