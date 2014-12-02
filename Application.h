@@ -34,7 +34,11 @@ public:
     void detectPattern(Mat rgbImage);
     void calculate3DLines();
     void showLines3DInFrame(Mat rgbImage);
-    Mat smoothDepthMap(Mat depthMapWithoutROI,int innerThreshold,int outerThreshold);
+    Mat smoothDepthMap(Mat depthMapWithoutROI,int innerThreshold);
+    //manual input
+    int initManualInput();
+    void detectPatternManual(Mat rgbImage);
+
 
 private:
     //parameters

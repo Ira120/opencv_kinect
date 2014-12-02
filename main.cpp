@@ -16,11 +16,14 @@ using namespace ARma;
 
 int main() {
 
-  Application app;
+    Application app;
 
-  app.initPattern();
- app.initKinect();
 
+    app.initPattern();
+    app.initManualInput();
+    app.initKinect();
+
+    return 0;
 }
 
 

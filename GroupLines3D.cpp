@@ -260,23 +260,41 @@ int GroupLines3D::groupSimilarLines(int frame_nr) {
         float x_sum_end=0;
         float y_sum_end=0;
         float z_sum_end=0;
+
+        vector<float> x_start;
+        vector<float> y_start;
+        vector<float> z_start;
+
+        vector<float> x_end;
+        vector<float> y_end;
+        vector<float> z_end;
+
         Line3D temp;
         int size = final_lines_vector.at(i).size();
 
         if ((int)final_lines_vector.at(i).size() >= (int)(frame_nr/4.0f)) {
         for (int j=0; j<(int)final_lines_vector.at(i).size(); j++) {
 
-            x_sum_start += final_lines_vector.at(i).at(j).getStartPointOfLine3D().x;
-            y_sum_start += final_lines_vector.at(i).at(j).getStartPointOfLine3D().y;
-            z_sum_start += final_lines_vector.at(i).at(j).getStartPointOfLine3D().z;
+            x_start.push_back(roundf(final_lines_vector.at(i).at(j).getStartPointOfLine3D().x));
+            y_start.push_back(roundf(final_lines_vector.at(i).at(j).getStartPointOfLine3D().y));
+            z_start.push_back(roundf(final_lines_vector.at(i).at(j).getStartPointOfLine3D().z));
 
-            x_sum_end += final_lines_vector.at(i).at(j).getEndPointOfLine3D().x;
-            y_sum_end += final_lines_vector.at(i).at(j).getEndPointOfLine3D().y;
-            z_sum_end += final_lines_vector.at(i).at(j).getEndPointOfLine3D().z;
+            x_end.push_back(roundf(final_lines_vector.at(i).at(j).getEndPointOfLine3D().x));
+            y_end.push_back(roundf(final_lines_vector.at(i).at(j).getEndPointOfLine3D().y));
+            z_end.push_back(roundf(final_lines_vector.at(i).at(j).getEndPointOfLine3D().z));
         }
 
-        temp.storeLine3D(x_sum_start/(float)size,   y_sum_start/(float)size,    z_sum_start/(float)size,
-                         x_sum_end/(float)size,     y_sum_end/(float)size,      z_sum_end/(float)size);
+        //round and calculate mode vor each x,y,z value
+        x_sum_start=Tools::modalValue(x_start);
+        y_sum_start=Tools::modalValue(y_start);
+        z_sum_start=Tools::modalValue(z_start);
+
+        x_sum_end=Tools::modalValue(x_end);
+        y_sum_end=Tools::modalValue(y_end);
+        z_sum_end=Tools::modalValue(z_end);
+
+        temp.storeLine3D(x_sum_start,   y_sum_start,    z_sum_start,
+                         x_sum_end,     y_sum_end,      z_sum_end);
 
 
         groped_lines.push_back(temp);

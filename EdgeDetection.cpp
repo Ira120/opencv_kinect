@@ -69,7 +69,7 @@ vector<Vec4i> EdgeDetection::applyHoughTransformation(Mat imageOriginal, int fra
     Mat rgbROI = imageOriginal(mask);
 
     Mat smooth;
-    smooth = smoothBilateral(rgbROI,30);
+    smooth = smoothBilateral(rgbROI,5);
 
     char filename_lines[200];
     sprintf(filename_lines,"/Users/irina/Develop/workspace/bachelor_1/data/hough_lines%.2d.txt",frame_nr);
@@ -77,7 +77,7 @@ vector<Vec4i> EdgeDetection::applyHoughTransformation(Mat imageOriginal, int fra
 
     Canny(smooth, imageCanny, 50, 200, 3);
 
-    HoughLinesP(imageCanny, lines, 1, CV_PI/180, 50, 50, 10);
+    HoughLinesP(imageCanny, lines, 1, CV_PI/180, 20, 20, 5);
 
     //write an output file
     if (file.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
