@@ -1,3 +1,5 @@
+//http://xanthippi.ceid.upatras.gr/people/evangelidis/arma/
+
 #include "Patterndetector.h"
 #include <iostream>
 #include <opencv2/highgui/highgui.hpp>

@@ -68,7 +68,7 @@ int Application::frameLoop(){
     Mat rgbImage, depthMap;
     Mat rgbImageUndistorted, depthMapUndistorted, depthMapShow;
     Mat rgbImageROI, depthMapROI;
-    vector<Vec4i> lines_hough;
+    vector<Vec4i> lines_hough, lines_lsd;
 
 
     for (;;) {
@@ -193,14 +193,50 @@ int Application::frameLoop(){
 
                 case 'l': //run with LSD
                 case 'L':
+                    log = SSTR("[DEBUG]: ****** CALCULATE 3DLINES FOR " << frame_nr << ". frame ******" << endl);
+                    Log(log);
+
+                    log = SSTR("[DEBUG]: ...edge detection with LSD..." << endl);
+                    Log(log);
+
+
+                    //test, if could detect marker
+                    detectPattern(rgbImageROI);
+                    if (detectedPats==false){
+                        break;
+                    }
+
+                    //fill vector with 2D points
+                    lines_lsd = edgeDetector.applyLSD(rgbImageROI,frame_nr);
+                    //calculate 3D lines in camera CS
+                    projection.calculateBackProjection(lines_lsd,depthMapROI,pattern_origin);
+                    //tranfer the 3DLines into world CS (from camera CS)
+                    calculate3DLines();
+
+                    log = SSTR("[DEBUG]: ...3Dlines number in world coordinates: " << edgeModel.lines3DproFrame.size() << "..."<< endl
+                               << "========================================================" << endl);
+                    Log(log);
+
+                    //create .obj-file with 3DLines per frame
+                    edgeModel.createOBJproFrame(frame_nr);
+
+                    //show projected 3DLines in frame
+                    showLines3DInFrame(rgbImageROI);
+
+                    //store 3DLines per frame in a 'global' vector -> finished edge model
+                    edgeModel.line3Dall.push_back(edgeModel.lines3DproFrame);
+
+
+                    frame_nr++;
+                    edgeModel.lines3DproFrame.clear();
                     break;
 
                 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
                 case 'q': //press 'q' for the next step
                 case 'Q':
-                capture.release();
-                cout<<"EXIT"<<endl;
+                    capture.release();
+                    cout<<"EXIT"<<endl;
 
                 default:
                     break;

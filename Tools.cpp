@@ -39,6 +39,8 @@ namespace Tools {
      return 0;
     }
 
+    //=======================================================================================//
+
     float modalValue(vector<float> values) {
         //finde Modalwert in der nähren Nachbarschaft des "fehlerhaften" Pixels
         sort(values.begin(),values.end());

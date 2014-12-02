@@ -55,7 +55,3 @@ void Line3D::showLine3D() {
 }
 
 //=======================================================================================//
-
-void Line3D::drawLine3D() {
-    //TODO:draw line with OpenGL
-}

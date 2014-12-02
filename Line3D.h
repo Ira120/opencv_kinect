@@ -14,7 +14,6 @@ public:
     Point3f getStartPointOfLine3D();
     Point3f getEndPointOfLine3D();
     void showLine3D();
-    void drawLine3D(); //TODO
 
 private:
     //parameters

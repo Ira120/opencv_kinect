@@ -1,3 +1,5 @@
+//http://xanthippi.ceid.upatras.gr/people/evangelidis/arma/
+
 #ifndef _ARMA_PATTERN_
 #define _ARMA_PATTERN_
 #include <opencv2/core/core.hpp>

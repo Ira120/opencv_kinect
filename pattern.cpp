@@ -1,3 +1,5 @@
+//http://xanthippi.ceid.upatras.gr/people/evangelidis/arma/
+
 #include "Pattern.h"
 #include <iostream>
 using namespace cv;

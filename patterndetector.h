@@ -1,3 +1,5 @@
+//http://xanthippi.ceid.upatras.gr/people/evangelidis/arma/
+
 #ifndef _ARMA_DETECTOR_H_
 #define _ARMA_DETECTOR_H_
 #include <opencv2/core/core.hpp>

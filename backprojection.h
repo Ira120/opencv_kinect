@@ -15,15 +15,16 @@ public:
     BackProjection();
     ~BackProjection();
     float findZInDepthMap(int x, int y);
-    float findZInDepthMapManual(int x, int y);
     Point3f calculateCameraXYZ (int x, int y, float depth_z);
-    Point3f calculateCameraXYZManual (int x, int y, float depth_z);
     void calculateBackProjection (vector<Vec4i> lines2D, Mat depthImage, Point2f pattern_mid);
-    void calculateBackProjectionManual (vector<Vec4i> lines2D, Mat depthImage, Point2f pattern_mid);
-    Point3f calculatePatternOriginInCam (Point2f pattern_origin);
-    Mat calculateTranslatedRGBMap (Mat depthMap);
-    vector<Line3D> calculateCorresponded3DLines(vector<Vec4i> lines_hough, Mat correspondedRGBtoDepth, Point2f pattern_origin);
     void calculateAverangeDepth();
+    Point3f calculatePatternOriginInCam (Point2f pattern_origin);
+    //manual input
+    float findZInDepthMapManual(int x, int y);
+    Point3f calculateCameraXYZManual (int x, int y, float depth_z);
+    void calculateBackProjectionManual (vector<Vec4i> lines2D, Mat depthImage, Point2f pattern_mid);
+   // Mat calculateTranslatedRGBMap (Mat depthMap);
+   // vector<Line3D> calculateCorresponded3DLines(vector<Vec4i> lines_hough, Mat correspondedRGBtoDepth, Point2f pattern_origin);
 
 private:
     //parameters

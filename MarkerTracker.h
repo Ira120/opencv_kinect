@@ -1,3 +1,5 @@
+//http://xanthippi.ceid.upatras.gr/people/evangelidis/arma/
+
 #ifndef _CAMERAPARAMS_H
 #define _CAMERAPARAMS_H
 
