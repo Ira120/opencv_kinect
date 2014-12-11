@@ -9,6 +9,7 @@
 #include "EdgeModel.h"
 #include "Tools.h"
 #include "GroupLines3D.h"
+#include <fstream>
 
 class Application {
 public:
@@ -38,6 +39,7 @@ public:
     //manual input
     int initManualInput();
     void detectPatternManual(Mat rgbImage);
+    void calculate3DLinesManual(Mat modelView);
 
 
 private:

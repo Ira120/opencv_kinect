@@ -102,8 +102,8 @@ void EdgeModel::createOBJfinal() {
             for (int j=0; j<(int)line3Dall.at(i).size();j++){
 
             line3D = line3Dall.at(i).at(j);
-            stream << "v " << line3D.getStartPointOfLine3D().x << " " << line3D.getStartPointOfLine3D().y*-1 << " " << line3D.getStartPointOfLine3D().z << endl;
-            stream << "v " << line3D.getEndPointOfLine3D().x << " " << line3D.getEndPointOfLine3D().y*-1 << " " << line3D.getEndPointOfLine3D().z << endl;
+            stream << "v " << line3D.getStartPointOfLine3D().x << " " << line3D.getStartPointOfLine3D().y << " " << line3D.getStartPointOfLine3D().z << endl;
+            stream << "v " << line3D.getEndPointOfLine3D().x << " " << line3D.getEndPointOfLine3D().y << " " << line3D.getEndPointOfLine3D().z << endl;
         }
         }
 

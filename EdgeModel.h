@@ -9,7 +9,7 @@ class EdgeModel {
 public:
     //parameters
     vector<Line3D> lines3DproFrame;
-     vector<Line3D> lines3DproFramePat;
+    vector<Line3D> lines3DproFramePat;
     vector<vector<Line3D> > line3Dall;
     string log;
 

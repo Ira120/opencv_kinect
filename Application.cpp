@@ -65,9 +65,9 @@ int Application::frameLoop(){
     log = SSTR("[DEBUG]: ...START APPLICATION...\n");
     Log(log);
 
-    Mat rgbImage, depthMap;
+    Mat rgbImage, depthMap, cloudMap;
     Mat rgbImageUndistorted, depthMapUndistorted, depthMapShow;
-    Mat rgbImageROI, depthMapROI;
+    Mat rgbImageROI, depthMapROI, cloudMapROIx, cloudMapROIy, cloudMapROIz, cloudMapROI (407,555,CV_32FC3);
     vector<Vec4i> lines_hough, lines_lsd;
 
 
@@ -75,7 +75,29 @@ int Application::frameLoop(){
             capture.grab();
             capture.retrieve(rgbImage,CAP_OPENNI_BGR_IMAGE); //color image (CV_8UC3)
             capture.retrieve(depthMap,CAP_OPENNI_DEPTH_MAP); //depth values in mm (CV_16UC1)
+            capture.retrieve(cloudMap,CAP_OPENNI_POINT_CLOUD_MAP); //XYZ in meters (CV_32FC3)
 
+            /*
+            // Print some avalible device settings.
+            cout << "\nDepth generator output mode:" << endl <<
+                    "FRAME_WIDTH      " << capture.get( CAP_PROP_FRAME_WIDTH ) << endl <<
+                    "FRAME_HEIGHT     " << capture.get( CAP_PROP_FRAME_HEIGHT ) << endl <<
+                    "FRAME_MAX_DEPTH  " << capture.get( CAP_PROP_OPENNI_FRAME_MAX_DEPTH ) << " mm" << endl <<
+                    "FPS              " << capture.get( CAP_PROP_FPS ) << endl <<
+                    "REGISTRATION     " << capture.get( CAP_PROP_OPENNI_REGISTRATION ) << endl;
+            if( capture.get( CAP_OPENNI_IMAGE_GENERATOR_PRESENT ) )
+            {
+                cout <<
+                    "\nImage generator output mode:" << endl <<
+                    "FRAME_WIDTH   " << capture.get( CAP_OPENNI_IMAGE_GENERATOR+CAP_PROP_FRAME_WIDTH ) << endl <<
+                    "FRAME_HEIGHT  " << capture.get( CAP_OPENNI_IMAGE_GENERATOR+CAP_PROP_FRAME_HEIGHT ) << endl <<
+                    "FPS           " << capture.get( CAP_OPENNI_IMAGE_GENERATOR+CAP_PROP_FPS ) << endl;
+            }
+            else
+            {
+                cout << "\nDevice doesn't contain image generator." << endl;
+            }
+*/
             //important for registration between rgb and depth data
             /*
              * Flag that registers the remapping depth map to image map by
@@ -86,6 +108,9 @@ int Application::frameLoop(){
              * in the depth image.
              * http://docs.opencv.org/trunk/doc/user_guide/ug_highgui.html
              */
+
+
+         //   cout<<"FOCAL      " << (float)capture.get( CAP_OPENNI_DEPTH_GENERATOR_FOCAL_LENGTH ) << endl;
             capture.set(CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION, 1);
             if (rgbImage.empty() || depthMap.empty())
                 break;
@@ -110,6 +135,10 @@ int Application::frameLoop(){
             imshow("show overlayed input - undistorted", rgbdMapUndis);
             */
 
+           // cloudshow.convertTo(cloudshow,CV_8UC1,0.25f);
+           // imshow("POINT_CLOUD_Z",cloudshow);
+
+
             //show RGBD data interleaved - distorted
             Mat rgbdMatDis(480,640,CV_8UC3);
             depthMap.convertTo(depthMapShow, CV_8U,0.2f);
@@ -120,11 +149,12 @@ int Application::frameLoop(){
                     rgbdMatDis.at<Vec3b>(v,u)[2] = (rgbImage.at<Vec3b>(v,u)[2]+depthMapShow.at<uchar>(v,u))/2;
                 }
             }
-            imshow("show overlayed input - distorted", rgbdMatDis);
+        //    imshow("show overlayed input - distorted", rgbdMatDis);
 
 
             //convert depth map from CV_16UC1 to CV_32F for better handling
             depthMap.convertTo(depthMap,CV_32F);
+
 
             //smooth depth map -> 6 = inner bound
             Mat depthMapSmoothed = smoothDepthMap(depthMap,6);
@@ -133,6 +163,22 @@ int Application::frameLoop(){
             Rect mask(30,63,555,407);
             rgbImageROI = rgbImage(mask);
             depthMapROI = depthMapSmoothed(mask);
+            cloudMapROI = cloudMap(mask);
+
+            /*
+            float focal_point_x_rgb = 5.2921508098293293e+02;
+            float focal_point_y_rgb = 5.2556393630057437e+02;
+            float center_of_projection_x_rgb = 3.2894272028759258e+02;
+            float center_of_projection_y_rgb = 2.6748068171871557e+02;
+            float depth_z = depthMapROI.at<float>(200,320);
+
+            cout<<"test z-> depthMap: "<<depth_z<<" und cloud: "<<cloudMapROI.at<Vec3f>(200,320)[2]*1000.0f<<endl;
+            float x_camera = ((float)320.0f - center_of_projection_x_rgb) * depth_z / focal_point_x_rgb;
+            float y_camera = ((float)200.0f - center_of_projection_y_rgb) * depth_z / focal_point_y_rgb;
+            cout<<"test x-> depthMap: "<<x_camera<<" und cloud: "<<cloudMapROI.at<Vec3f>(200,320)[0]*1000.0f<<endl;
+            cout<<"test y-> depthMap: "<<y_camera<<" und cloud: "<<cloudMapROI.at<Vec3f>(200,320)[1]*1000.0f<<endl;
+
+            */
 
             //just show the smoothed depth map
             depthMapSmoothed.convertTo(depthMapSmoothed,CV_8UC1,0.25f);
@@ -166,7 +212,7 @@ int Application::frameLoop(){
                     //fill vector with 2D points
                     lines_hough = edgeDetector.applyHoughTransformation(rgbImageROI,frame_nr);
                     //calculate 3D lines in camera CS
-                    projection.calculateBackProjection(lines_hough,depthMapROI,pattern_origin);
+                    projection.calculateBackProjection(lines_hough,depthMapROI,pattern_origin,cloudMapROI);
                     //tranfer the 3DLines into world CS (from camera CS)
                     calculate3DLines();
 
@@ -209,7 +255,7 @@ int Application::frameLoop(){
                     //fill vector with 2D points
                     lines_lsd = edgeDetector.applyLSD(rgbImageROI,frame_nr);
                     //calculate 3D lines in camera CS
-                    projection.calculateBackProjection(lines_lsd,depthMapROI,pattern_origin);
+                    projection.calculateBackProjection(lines_lsd,depthMapROI,pattern_origin,cloudMapROI);
                     //tranfer the 3DLines into world CS (from camera CS)
                     calculate3DLines();
 
@@ -356,8 +402,8 @@ void Application::calculate3DLines() {
 
                 //++++++++++++++++++++++++++++++++++++++++++++++++
 
-                line3D.storeLine3D(result_start_mat.at<float>(0,0)/100.0f,result_start_mat.at<float>(0,1)/100.0f,result_start_mat.at<float>(0,2)/100.0f,
-                                   result_end_mat.at<float>(0,0)/100.0f, result_end_mat.at<float>(0,1)/100.0f, result_end_mat.at<float>(0,2)/100.0f);
+                line3D.storeLine3D(result_start_mat.at<float>(0,0),result_start_mat.at<float>(0,1),result_start_mat.at<float>(0,2),
+                                   result_end_mat.at<float>(0,0), result_end_mat.at<float>(0,1), result_end_mat.at<float>(0,2));
 
                 edgeModel.lines3DproFrame.push_back(line3D);
             }
@@ -472,10 +518,12 @@ int Application::initManualInput() {
     int return_value = 0;
     char filename_rgb[200];
     char filename_depth[200];
+    char filename_modelview[200];
     bool read_input = true;
     vector<Vec4i> lines_hough;
 
-    Mat rgbImageMan, depthMapMan;
+    Mat rgbImageMan, depthMapMan(480,640,CV_32F), modelView(4,4,CV_32F);
+    FileStorage fs;
 
     while (read_input){
         char key = (char)waitKey(0); //delay N millis, usually long enough to display and capture input
@@ -484,25 +532,47 @@ int Application::initManualInput() {
             case 'm':
             case 'M':
             //load rgb images
-            sprintf(filename_rgb,"/Users/irina/Develop/workspace/bachelor_1/input_data/ImgColor%.2d.png",frame_nr);
+            sprintf(filename_rgb,"/Users/irina/Develop/workspace/bachelor_1/input_data/ImgColor%.2d.png",frame_nr-1);
             rgbImageMan = imread(filename_rgb,1);
 
-            sprintf(filename_depth,"/Users/irina/Develop/workspace/bachelor_1/input_data/ImgDepth%.2d.png",frame_nr);
-            depthMapMan = imread(filename_depth,IMREAD_GRAYSCALE);
+            sprintf(filename_depth,"/Users/irina/Develop/workspace/bachelor_1/input_data/ImgDepth32F%.2d.xml",frame_nr-1);
+          //  depthMapMan = imread(filename_depth,IMREAD_GRAYSCALE);
 
-            depthMapMan.convertTo(depthMapMan,CV_32F);
+            fs.open(filename_depth, FileStorage::READ);
+            fs["depth_matrix"] >> depthMapMan;
 
+          //  depthMapMan.convertTo(depthMapMan,CV_8UC1,70.0f);
+           // imshow("depthtest",depthMapMan);
+          //  cout<<depthMapMan<<endl;
+
+            cout<<"frame: "<<frame_nr<<"geladen\n";
           // cout << depthMapMan << endl;
             //test, if could detect marker
             detectPatternManual(rgbImageMan);
             if (detectedPats==false){
-                break;
-            }
+
+                //modelView matrix manuell einlesen, falls kein Marker gefunden wurde
+                sprintf(filename_modelview,"/Users/irina/Develop/workspace/bachelor_1/input_data/modelView%.2d.xml",frame_nr-1);
+
+                cout<<"frame: "<<frame_nr<<" geladen\n";
+                fs.open(filename_modelview, FileStorage::READ);
+                fs["modelView_matrix"] >> modelView;
+
+                            cout<<"frame: "<<frame_nr<<"geladen\n";
+
+                //fill vector with 2D points
+                lines_hough = edgeDetector.applyHoughTransformation(rgbImageMan,frame_nr);
+                //calculate 3D lines in camera CS
+                projection.calculateBackProjectionManual(lines_hough,depthMapMan);
+                //tranfer the 3DLines into world CS (from camera CS)
+                calculate3DLinesManual(modelView);
+
+            } else {
 
             //fill vector with 2D points
             lines_hough = edgeDetector.applyHoughTransformation(rgbImageMan,frame_nr);
             //calculate 3D lines in camera CS
-            projection.calculateBackProjectionManual(lines_hough,depthMapMan,pattern_origin);
+            projection.calculateBackProjectionManual(lines_hough,depthMapMan);
             //tranfer the 3DLines into world CS (from camera CS)
             calculate3DLines();
 
@@ -510,6 +580,7 @@ int Application::initManualInput() {
                        << "========================================================" << endl);
             Log(log);
 
+            }
             //create .obj-file with 3DLines per frame
             edgeModel.createOBJproFrame(frame_nr);
 
@@ -547,7 +618,7 @@ void Application::detectPatternManual(Mat rgbImage) {
     detectedPats = false;
     vector<Pattern> detectedPattern;
 
-    Mat cameraMatrix = (Mat_<float>(3,3) << 529.0, 0, 319.5, 0, 529.0, 239.5, 0, 0, 1);
+    Mat cameraMatrix = (Mat_<float>(3,3) << 277.128f, 0, 320.0f, 0, 277.128f, 240.0f, 0, 0, 1);
     Mat distortions = (Mat_<float>(5,1) << 0, 0, 0, 0, 0);
 
     myDetector.detect(rgbImage,cameraMatrix,distortions,patternLibrary,detectedPattern);
@@ -566,8 +637,8 @@ void Application::detectPatternManual(Mat rgbImage) {
 
         //showPattern() important for RotationMatrix!
         detectedPattern.at(0).showPattern();
-        //detectedPattern.at(0).draw(rgbImage,cameraMatrix,distortions); // draw a cube
-        //imshow("draw cube", rgbImage);
+        detectedPattern.at(0).draw(rgbImage,cameraMatrix,distortions); // draw a cube
+        imshow("draw cube", rgbImage);
 
         detectedPattern.at(0).rotMat.copyTo(rotMat);
         transVec.val[0] = detectedPattern.at(0).transVec.at<double>(0,0);
@@ -588,3 +659,64 @@ void Application::detectPatternManual(Mat rgbImage) {
 }
 
 //=======================================================================================//
+
+void Application::calculate3DLinesManual(Mat modelView) {
+    Line3D line3D = Line3D::Line3D();
+    Mat inverseRotMat;
+
+    cout<<modelView<<endl;
+
+    //inverse matrix
+    inverseRotMat = modelView.inv();
+
+    log = SSTR("[DEBUG]: Inverse Matrix: \n" << inverseRotMat << endl
+               << "========================================================" << endl);
+    Log(log);
+
+    Point3f temp_start_point, temp_end_point;
+    Vec4f result_start_point, result_end_point;
+    Mat result_start_mat, result_end_mat;
+
+    if (projection.camera_lines3D.size()==0){
+        log = SSTR ("[ERROR]: NO LINES WITH VALID Z DETECTED!\n");
+        Log(log);
+
+    } else {
+
+        for (int i=0; i<(int)projection.camera_lines3D.size(); i+=2){
+
+                temp_start_point = projection.camera_lines3D.at(i);
+                //result_start_point = Vec<float,4>(temp_start_point);
+                result_start_point.val[0] = temp_start_point.x;
+                result_start_point.val[1] = temp_start_point.y;
+                result_start_point.val[2] = temp_start_point.z;
+                result_start_point.val[3] = 1.0f;
+
+                Mat temp_mult = Mat(result_start_point);
+                temp_mult.convertTo(temp_mult,CV_32FC1);
+                inverseRotMat.convertTo(inverseRotMat,CV_32FC1);
+                //back translation & rotation
+                result_start_mat = inverseRotMat*temp_mult;
+
+                //++++++++++++++++++++++++++++++++++++++++++++++++
+
+                temp_end_point = projection.camera_lines3D.at(i+1);
+               // result_end_point = Vec<float,4>(temp_end_point);
+                result_end_point.val[0] = temp_end_point.x;
+                result_end_point.val[1] = temp_end_point.x;
+                result_end_point.val[2] = temp_end_point.x;
+                result_end_point.val[3] = temp_end_point.x;
+
+                //back translation & rotation
+                result_end_mat = inverseRotMat*Mat(result_end_point);
+
+                //++++++++++++++++++++++++++++++++++++++++++++++++
+
+                line3D.storeLine3D(result_start_mat.at<float>(0,0),result_start_mat.at<float>(0,1),result_start_mat.at<float>(0,2),
+                                   result_end_mat.at<float>(0,0), result_end_mat.at<float>(0,1), result_end_mat.at<float>(0,2));
+
+                edgeModel.lines3DproFrame.push_back(line3D);
+            }
+    }
+    projection.camera_lines3D.clear();
+}

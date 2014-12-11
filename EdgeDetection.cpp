@@ -68,7 +68,7 @@ vector<Vec4i> EdgeDetection::applyHoughTransformation(Mat imageOriginal, int fra
     Mat rgbROI = imageOriginal(mask);
 
     Mat smooth;
-    smooth = smoothBilateral(rgbROI,5);
+    smooth = smoothBilateral(rgbROI,45);
 
     char filename_lines[200];
     sprintf(filename_lines,"/Users/irina/Develop/workspace/bachelor_1/data/hough_lines%.2d.txt",frame_nr);
@@ -76,7 +76,7 @@ vector<Vec4i> EdgeDetection::applyHoughTransformation(Mat imageOriginal, int fra
 
     Canny(smooth, imageCanny, 50, 200, 3);
 
-    HoughLinesP(imageCanny, lines, 1, CV_PI/180, 20, 20, 5);
+    HoughLinesP(imageCanny, lines, 1, CV_PI/180, 50, 50, 50);
 
     //write an output file
     if (file.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
@@ -95,7 +95,7 @@ vector<Vec4i> EdgeDetection::applyHoughTransformation(Mat imageOriginal, int fra
 
         Vec4i l = lines[i];
 
-        line(imageOriginal, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,255,255), 1, LINE_AA);
+        line(imageOriginal, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,255,0), 1, LINE_AA);
         stream << i+1 << ") start_pixel ( " << l.val[0] << "|" << l.val[1] << " ) --------> end_pixel ( " << l[2] << "|" << l[3] << " )" <<  endl;
     }
 
@@ -168,6 +168,7 @@ vector <Vec4i> EdgeDetection::applyLSD(Mat imageOriginal, int frame_nr) {
     Mat drawnLines(imageOriginal);
     ls->drawSegments(drawnLines, lines);
     imshow("Detected segments with LSD", drawnLines);
+
 
     sprintf(filename,"/Users/irina/Develop/workspace/bachelor_1/data/lsd_lines%.2d.jpg",frame_nr++);
     imwrite(filename, drawnLines);

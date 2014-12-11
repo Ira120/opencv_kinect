@@ -270,7 +270,6 @@ int GroupLines3D::groupSimilarLines(int frame_nr) {
         vector<float> z_end;
 
         Line3D temp;
-        int size = final_lines_vector.at(i).size();
 
         if ((int)final_lines_vector.at(i).size() >= (int)(frame_nr/4.0f)) {
         for (int j=0; j<(int)final_lines_vector.at(i).size(); j++) {

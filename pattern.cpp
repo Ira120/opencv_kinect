@@ -104,24 +104,11 @@ namespace ARma {
 
     void Pattern::draw(Mat& frame, const Mat& camMatrix, const Mat& distMatrix) {
 
-        Mat disCoeff = (Mat_<float>(5,1) << 0, 0, 0, 0, 0);
-        Scalar color = Scalar(255,255,255);
-		
-		switch (id){
-			case 1:
-                 color = Scalar(255,0,255);
-				break;
-			case 2:
-                 color = Scalar(255,255,0);
-				break;
-			case 3:
-                 color = Scalar(0,255,255);
-				break;
-		}
+        Scalar color = Scalar(255,0,255);
 
 		//model 3D points: they must be projected to the image plane
 		Mat modelPts = (Mat_<float>(8,3) << 0, 0, 0, size, 0, 0, size, size, 0, 0, size, 0,
-			0, 0, -size, size, 0, -size, size, size, -size, 0, size, -size );
+            0, 0, -size, size, 0, -size, size, size, -size, 0, size, -size );
 
 
 		std::vector<cv::Point2f> model2ImagePts;
@@ -130,23 +117,24 @@ namespace ARma {
         //camera CS, and then, points are projected using camera parameters
         //(camera matrix, distortion matrix) from the camera 3D CS to its image plane
 
-        projectPoints(modelPts, rotVec, transVec, camMatrix, disCoeff, model2ImagePts);
-
+        projectPoints(modelPts, rotVec, transVec, camMatrix, distMatrix, model2ImagePts);
 
 
 		//draw cube, or whatever
 		int i;
 		for (i =0; i<4; i++){
             cv::line(frame, model2ImagePts.at(i%4), model2ImagePts.at((i+1)%4), color, 1);
-            cout<<"Punkte:"<<model2ImagePts.at(i%4)<<endl;
+            cout<<"Punkte1 :"<<model2ImagePts.at(i%4)<<", " <<model2ImagePts.at((i+1)%4)<<endl;
 		}
-		for (i =4; i<7; i++){
+        for (i =4; i<7; i++){
             cv::line(frame, model2ImagePts.at(i%8), model2ImagePts.at((i+1)%8), color, 1);
-		}
-        cv::line(frame, model2ImagePts.at(7), model2ImagePts.at(4), color, 1);
-		for (i =0; i<4; i++){
+                        cout<<"Punkte2 :"<<model2ImagePts.at(i%8)<<", " <<model2ImagePts.at((i+1)%8)<<endl;
+        }
+       cv::line(frame, model2ImagePts.at(7), model2ImagePts.at(4), color, 1);
+       for (i =0; i<4; i++){
             cv::line(frame, model2ImagePts.at(i), model2ImagePts.at(i+4), color, 1);
-		}
+                                cout<<"Punkte3 :"<<model2ImagePts.at(i)<<endl;
+        }
 		
 		//draw the line that reflects the orientation. It indicates the bottom side of the pattern
         cv::line(frame, model2ImagePts.at(2), model2ImagePts.at(3), Scalar(80,255,80), 1);

@@ -27,7 +27,7 @@ class Pattern {
         Point2f pattern_origin;
 
         //methods
-        Pattern(double param1=120);
+        Pattern(double param1=4);
         ~Pattern();
 		
 		//solves the exterior orientation problem between patten and camera

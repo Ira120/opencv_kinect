@@ -47,7 +47,7 @@ namespace Tools {
         Mat valuesMat= Mat::zeros(2,values.size(),CV_32F);
         int matCounter=0;
 
-        for(int i=0;i<values.size();i++) {
+        for(int i=0;i<(int)values.size();i++) {
             if(i==0){
                 valuesMat.at<float>(0,0)=values.at(0);
                 valuesMat.at<float>(1,0)=1;
