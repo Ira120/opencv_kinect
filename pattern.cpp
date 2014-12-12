@@ -91,7 +91,7 @@ namespace ARma {
         Mat imagePts(4, 2, CV_32FC1, pat2DPts);
 		
 		//find extrinsic parameters
-        solvePnP(objectPts, imagePts, intrinsics, disCoeff, rotVec, transVec);
+        solvePnPRansac(objectPts, imagePts, intrinsics, disCoeff, rotVec, transVec);
 
         log = SSTR("========================================================\n"
                    << "[DEBUG]: EXTRINSIC PARAMETERS \nrotation vector:\n" << rotVec << endl

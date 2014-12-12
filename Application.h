@@ -33,13 +33,16 @@ public:
     int initKinect();
     int frameLoop();
     void detectPattern(Mat rgbImage);
-    void calculate3DLines();
-    void showLines3DInFrame(Mat rgbImage);
+    vector<Line3D> showCam3DLines(vector<Point3f> cam_lines3D);
+    vector<Line3D> calculate3DLines(vector<Point3f> cam_lines3D);
+    void showLines3DInFrame(vector<Line3D> lines3DproFrame,Mat rgbImage);
     Mat smoothDepthMap(Mat depthMapWithoutROI,int innerThreshold);
+    /*
     //manual input
     int initManualInput();
     void detectPatternManual(Mat rgbImage);
     void calculate3DLinesManual(Mat modelView);
+    */
 
 
 private:

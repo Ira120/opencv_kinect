@@ -64,7 +64,6 @@ int MarkerTracker::loadPattern(const String& filename, vector<Mat>& library, int
     //calculates an affine matrix of 2D rotation
    // rot_mat = getRotationMatrix2D(center, 90, 1.0);
 
-            imshow("test",subImg);
     for (int i=1; i<4; i++){
         Mat dst = Mat(PAT_SIZE, PAT_SIZE, CV_8UC1);
         //calculates an affine matrix of 2D rotation
@@ -96,7 +95,6 @@ vector<Mat> MarkerTracker::createPatternLib() {
     int patternCount=0;
 
     //create patterns' library using rotated versions of patterns
-
     loadPattern(filename1, patternLibrary, patternCount);
 
     log = SSTR("[DEBUG]: ..." << patternCount << " patterns are loaded to marker detector...\n");

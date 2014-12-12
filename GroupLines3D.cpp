@@ -106,10 +106,6 @@ int GroupLines3D::findSimilarLines(vector<vector<Line3D> > lines_vector, int fra
         log = SSTR("[DEBUG]: ...push back 3DLine to final vector...\n");
         Log(log);
 
-        EdgeModel::EdgeModel model;
-        model.createOBJfinal(final_lines_vector);
-        cout << "... create GROUPED .obj-File with one edge..."<< endl;
-
         return 0;
     }
 
@@ -137,12 +133,6 @@ int GroupLines3D::findSimilarLines(vector<vector<Line3D> > lines_vector, int fra
             //if just one 3DLine is left
             if (temp_lines_vector.size()==1) {
                 log = SSTR("[DEBUG]: 'global' vector includes just one edge -> reject it!\n");
-                Log(log);
-
-                EdgeModel::EdgeModel model;
-                model.createOBJfinal(final_lines_vector);
-                model.createOBJfinal(final_lines_vector);
-                log = SSTR("[DEBUG]: ... create GROUPED .obj-File with: " << final_lines_vector.size() << " edges..."<< endl);
                 Log(log);
 
                 groupSimilarLines(frame_nr);
@@ -241,8 +231,6 @@ int GroupLines3D::findSimilarLines(vector<vector<Line3D> > lines_vector, int fra
             }
         }
     }
-    EdgeModel::EdgeModel model;
-    model.createOBJfinal(final_lines_vector);
 
     groupSimilarLines(frame_nr);
     return 0;

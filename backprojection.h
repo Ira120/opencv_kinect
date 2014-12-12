@@ -16,7 +16,7 @@ public:
     ~BackProjection();
     float findZInDepthMap(int x, int y, Mat cloudMap);
     Point3f calculateCameraXYZ (int x, int y, float depth_z, Mat cloudMap);
-    void calculateBackProjection (vector<Vec4i> lines2D, Mat depthImage, Point2f pattern_mid, Mat cloudMap);
+    vector<Point3f> calculateBackProjection (vector<Vec4i> lines2D, Mat depthImage, Point2f pattern_mid, Mat cloudMap);
     void calculateAverangeDepth();
     Point3f calculatePatternOriginInCam (Point2f pattern_origin);
     //manual input

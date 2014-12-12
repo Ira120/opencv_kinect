@@ -69,6 +69,8 @@ int Application::frameLoop(){
     Mat rgbImageUndistorted, depthMapUndistorted, depthMapShow;
     Mat rgbImageROI, depthMapROI, cloudMapROIx, cloudMapROIy, cloudMapROIz, cloudMapROI (407,555,CV_32FC3);
     vector<Vec4i> lines_hough, lines_lsd;
+    vector<Point3f> cam_lines3D;
+    vector<Line3D> lines3DproFrame;
 
 
     for (;;) {
@@ -212,31 +214,33 @@ int Application::frameLoop(){
                     //fill vector with 2D points
                     lines_hough = edgeDetector.applyHoughTransformation(rgbImageROI,frame_nr);
                     //calculate 3D lines in camera CS
-                    projection.calculateBackProjection(lines_hough,depthMapROI,pattern_origin,cloudMapROI);
-                    //tranfer the 3DLines into world CS (from camera CS)
-                    calculate3DLines();
+                    cam_lines3D = projection.calculateBackProjection(lines_hough,depthMapROI,pattern_origin,cloudMapROI);
 
-                    log = SSTR("[DEBUG]: ...3Dlines number in world coordinates: " << edgeModel.lines3DproFrame.size() << "..."<< endl
+                    lines3DproFrame=showCam3DLines(cam_lines3D);
+                    edgeModel.createOBJproFrame(lines3DproFrame,frame_nr);
+                    //tranfer the 3DLines into world CS (from camera CS)
+                    lines3DproFrame=calculate3DLines(cam_lines3D);
+
+                    log = SSTR("[DEBUG]: ...3Dlines number in world coordinates: " << lines3DproFrame.size() << "..."<< endl
                                << "========================================================" << endl);
                     Log(log);
 
                     //create .obj-file with 3DLines per frame
-                    edgeModel.createOBJproFrame(frame_nr);
+                    //edgeModel.createOBJproFrame(frame_nr);
 
                     //show projected 3DLines in frame
-                    showLines3DInFrame(rgbImageROI);
+                    showLines3DInFrame(lines3DproFrame,rgbImageROI);
 
                     //store 3DLines per frame in a 'global' vector -> finished edge model
-                    edgeModel.line3Dall.push_back(edgeModel.lines3DproFrame);
+                    edgeModel.line3Dall.push_back(lines3DproFrame);
 
 
                     frame_nr++;
-                    edgeModel.lines3DproFrame.clear();
 
                     break;
 
                 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+/*
                 case 'l': //run with LSD
                 case 'L':
                     log = SSTR("[DEBUG]: ****** CALCULATE 3DLINES FOR " << frame_nr << ". frame ******" << endl);
@@ -276,7 +280,7 @@ int Application::frameLoop(){
                     frame_nr++;
                     edgeModel.lines3DproFrame.clear();
                     break;
-
+*/
                 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
                 case 'q': //press 'q' for the next step
@@ -359,9 +363,42 @@ void Application::detectPattern(Mat rgbImage) {
 
 //=======================================================================================//
 
-void Application::calculate3DLines() {
+vector<Line3D> Application::showCam3DLines(vector<Point3f> cam_lines3D) {
+    Line3D line3D = Line3D::Line3D();
+    vector<Line3D> lines3DproFrame;
+
+    Point3f temp_start_point, temp_end_point;
+
+    if (cam_lines3D.size()==0){
+        log = SSTR ("[ERROR]: NO LINES WITH VALID Z DETECTED!\n");
+        Log(log);
+
+    } else {
+
+        for (int i=0; i<(int)cam_lines3D.size(); i+=2){
+
+                temp_start_point = cam_lines3D.at(i);
+
+                //++++++++++++++++++++++++++++++++++++++++++++++++
+
+                temp_end_point = cam_lines3D.at(i+1);
+
+                //++++++++++++++++++++++++++++++++++++++++++++++++
+
+                line3D.storeLine3D(temp_start_point,temp_end_point);
+
+                lines3DproFrame.push_back(line3D);
+            }
+    }
+    return lines3DproFrame;
+}
+
+//=======================================================================================//
+
+vector<Line3D> Application::calculate3DLines(vector<Point3f> cam_lines3D) {
     Line3D line3D = Line3D::Line3D();
     Mat inverseRotMat;
+    vector<Line3D> lines3DproFrame;
 
     //inverse matrix
     inverseRotMat = rotMat.inv();
@@ -376,15 +413,15 @@ void Application::calculate3DLines() {
     Vec3f result_start_point, result_end_point;
     Mat result_start_mat, result_end_mat;
 
-    if (projection.camera_lines3D.size()==0){
+    if (cam_lines3D.size()==0){
         log = SSTR ("[ERROR]: NO LINES WITH VALID Z DETECTED!\n");
         Log(log);
 
     } else {
 
-        for (int i=0; i<(int)projection.camera_lines3D.size(); i+=2){
+        for (int i=0; i<(int)cam_lines3D.size(); i+=2){
 
-                temp_start_point = projection.camera_lines3D.at(i);
+                temp_start_point = cam_lines3D.at(i);
                 result_start_point = Vec<float,3>(temp_start_point);
                 //back translation
                 result_start_point = result_start_point-transVec;
@@ -393,7 +430,7 @@ void Application::calculate3DLines() {
 
                 //++++++++++++++++++++++++++++++++++++++++++++++++
 
-                temp_end_point = projection.camera_lines3D.at(i+1);
+                temp_end_point = cam_lines3D.at(i+1);
                 result_end_point = Vec<float,3>(temp_end_point);
                 //back translation
                 result_end_point = result_end_point-transVec;
@@ -405,36 +442,36 @@ void Application::calculate3DLines() {
                 line3D.storeLine3D(result_start_mat.at<float>(0,0),result_start_mat.at<float>(0,1),result_start_mat.at<float>(0,2),
                                    result_end_mat.at<float>(0,0), result_end_mat.at<float>(0,1), result_end_mat.at<float>(0,2));
 
-                edgeModel.lines3DproFrame.push_back(line3D);
+                lines3DproFrame.push_back(line3D);
             }
     }
-    projection.camera_lines3D.clear();
+    return lines3DproFrame;
 }
 
 //=======================================================================================//
 
-void Application::showLines3DInFrame(Mat rgbImage) {
+void Application::showLines3DInFrame(vector<Line3D> lines3DproFrame, Mat rgbImage) {
     //show 3Dlines in frame
     Mat modelPts;
     Mat disCoeff_empty;
     vector<Point2f> model2ImagePts;
     char filename[200];
 
-    modelPts = Mat::zeros(edgeModel.lines3DproFrame.size()*2, 3, CV_32F);
+    modelPts = Mat::zeros(lines3DproFrame.size()*2, 3, CV_32F);
 
-    if (edgeModel.lines3DproFrame.size()!=0){
+    if (lines3DproFrame.size()!=0){
         log = SSTR("[DEBUG]: ...calculate the 3DLines and project them on the frame..." << endl);
         Log(log);
 
-        for (int i=0; i<(int)edgeModel.lines3DproFrame.size();i++) {
+        for (int i=0; i<(int)lines3DproFrame.size();i++) {
 
-            modelPts.at<float>(i*2,0) = edgeModel.lines3DproFrame.at(i).getStartPointOfLine3D().x;
-            modelPts.at<float>(i*2,1) = edgeModel.lines3DproFrame.at(i).getStartPointOfLine3D().y;
-            modelPts.at<float>(i*2,2) = edgeModel.lines3DproFrame.at(i).getStartPointOfLine3D().z;
+            modelPts.at<float>(i*2,0) = lines3DproFrame.at(i).getStartPointOfLine3D().x;
+            modelPts.at<float>(i*2,1) = lines3DproFrame.at(i).getStartPointOfLine3D().y;
+            modelPts.at<float>(i*2,2) = lines3DproFrame.at(i).getStartPointOfLine3D().z;
 
-            modelPts.at<float>(i*2+1,0) = edgeModel.lines3DproFrame.at(i).getEndPointOfLine3D().x;
-            modelPts.at<float>(i*2+1,1) = edgeModel.lines3DproFrame.at(i).getEndPointOfLine3D().y;
-            modelPts.at<float>(i*2+1,2) = edgeModel.lines3DproFrame.at(i).getEndPointOfLine3D().z;
+            modelPts.at<float>(i*2+1,0) = lines3DproFrame.at(i).getEndPointOfLine3D().x;
+            modelPts.at<float>(i*2+1,1) = lines3DproFrame.at(i).getEndPointOfLine3D().y;
+            modelPts.at<float>(i*2+1,2) = lines3DproFrame.at(i).getEndPointOfLine3D().z;
         }
 
         projectPoints(modelPts, rotVecMat, transVecMat, patternLoader.getCameraMatrix(), disCoeff_empty, model2ImagePts);
@@ -505,15 +542,14 @@ Mat Application::smoothDepthMap(Mat depthMapWithoutROI,int innerThreshold) {
         }
     depthMapWithoutROI = smoothedMap.clone();
     }
-    log = SSTR("[DEBUG]: ...smoothed depth map..." << endl);
-    Log(log);
+
     return smoothedMap;
 }
 
 //=======================================================================================//
 // MANUAL INPUT with generated images
 //=======================================================================================//
-
+/*
 int Application::initManualInput() {
     int return_value = 0;
     char filename_rgb[200];
@@ -720,3 +756,4 @@ void Application::calculate3DLinesManual(Mat modelView) {
     }
     projection.camera_lines3D.clear();
 }
+*/

@@ -4,18 +4,28 @@
 
 BackProjection::BackProjection() {
     //parameters from http://nicolas.burrus.name/index.php/Research/KinectCalibration
+    Mat cameraMatrix;
+    Mat distortions;
+    Mat cameraMatrix_depth;
+    Mat distortions_depth;
+
+    FileStorage fs ("/Users/irina/Develop/workspace/bachelor_1/out_camera_data.yml", FileStorage::READ);
+    fs["Camera_Matrix"] >> cameraMatrix;
+    fs["Distortion_Coefficients"] >>distortions;
+    fs["depth_intrinsics"] >> cameraMatrix_depth;
+    fs["depth_distortion"] >>distortions_depth;
 
     //for RGBImage
-    focal_point_x_rgb = 5.2921508098293293e+02;
-    focal_point_y_rgb = 5.2556393630057437e+02;
-    center_of_projection_x_rgb = 3.2894272028759258e+02;
-    center_of_projection_y_rgb = 2.6748068171871557e+02;
+    focal_point_x_rgb = cameraMatrix.at<double>(0,0);
+    focal_point_y_rgb = cameraMatrix.at<double>(1,1);
+    center_of_projection_x_rgb = cameraMatrix.at<double>(0,2);
+    center_of_projection_y_rgb = cameraMatrix.at<double>(1,2);
 
     //for depthMat
-    focal_point_x_depth = 5.9425464969100040e+02;
-    focal_point_y_depth = 5.9248479436384002e+02;
-    center_of_projection_x_depth = 3.3978729959351779e+02;
-    center_of_projection_y_depth = 2.4250301427866111e+02;
+    focal_point_x_depth = cameraMatrix_depth.at<double>(0,0);
+    focal_point_y_depth = cameraMatrix_depth.at<double>(1,1);
+    center_of_projection_x_depth = cameraMatrix_depth.at<double>(0,2);
+    center_of_projection_y_depth = cameraMatrix_depth.at<double>(1,2);
 
     //Relative transform between the sensors (in meters)
     rotMatDepthToRGB = (Mat_<float>(3,3) << 9.9984628826577793e-01, 1.2635359098409581e-03, -1.7487233004436643e-02,
@@ -219,9 +229,9 @@ Point3f BackProjection::calculateCameraXYZ(int x, int y, float depth_z, Mat clou
     cout << "z aus cloud: "<< cloud_point.z << " und z berechnet: " << depth_z  << endl;
 
 
-    xyz_camera.x = cloudMap.at<Vec3f>(y,x)[0];
-    xyz_camera.y = cloudMap.at<Vec3f>(y,x)[1];
-    xyz_camera.z = cloudMap.at<Vec3f>(y,x)[2];
+  //  xyz_camera.x = cloudMap.at<Vec3f>(y,x)[0];
+  //  xyz_camera.y = cloudMap.at<Vec3f>(y,x)[1];
+  //  xyz_camera.z = cloudMap.at<Vec3f>(y,x)[2];
 
 
 
@@ -230,7 +240,8 @@ Point3f BackProjection::calculateCameraXYZ(int x, int y, float depth_z, Mat clou
 
 //=======================================================================================//
 
-void BackProjection::calculateBackProjection(vector<Vec4i> lines2D, Mat depthImage, Point2f pattern_origin, Mat cloudMap) {
+vector<Point3f> BackProjection::calculateBackProjection(vector<Vec4i> lines2D, Mat depthImage, Point2f pattern_origin, Mat cloudMap) {
+    this->depthImage.release();
     depthImage.copyTo(this->depthImage);
 
     float depth_z_start;
@@ -238,6 +249,7 @@ void BackProjection::calculateBackProjection(vector<Vec4i> lines2D, Mat depthIma
     Vec4i line2D;
     Point3f start_xyz;
     Point3f end_xyz;
+    vector<Point3f> cam_lines3D;
 
     Point3f pat_origin = calculatePatternOriginInCam(pattern_origin);
 
@@ -254,7 +266,7 @@ void BackProjection::calculateBackProjection(vector<Vec4i> lines2D, Mat depthIma
         cout << "----------------\n";
 
         //z=0 check
-        if (((int)depth_z_start <= 0 )){
+        if (((int)depth_z_start <= 0 ) | ((int)depth_z_end <= 0)){
 
             log = SSTR("[DEBUG]: invalid z value: at line nr. " << i+1 << endl);
             Log(log);
@@ -268,8 +280,8 @@ void BackProjection::calculateBackProjection(vector<Vec4i> lines2D, Mat depthIma
 
             start_xyz = calculateCameraXYZ(line2D.val[0],line2D.val[1],depth_z_start, cloudMap);
             end_xyz = calculateCameraXYZ(line2D.val[2], line2D.val[3], depth_z_end, cloudMap);
-            camera_lines3D.push_back(start_xyz);
-            camera_lines3D.push_back(end_xyz);
+            cam_lines3D.push_back(start_xyz);
+            cam_lines3D.push_back(end_xyz);
 
             log = SSTR("[DEBUG]: ...start_xyz in camera coord: "<<start_xyz<<" ----> end_xyz in camera coord: "<<end_xyz
                        <<" and pattern origin in CS: "<<pat_origin<<endl);
@@ -282,6 +294,8 @@ void BackProjection::calculateBackProjection(vector<Vec4i> lines2D, Mat depthIma
 
     log = SSTR("========================================================\n");
     Log(log);
+
+    return cam_lines3D;
 }
 
 
@@ -309,8 +323,9 @@ void BackProjection::calculateAverangeDepth() {
     int num = 0;
 
     for (int i=240; i<=340; i++) {
-        for (int j=220; j<=300; j++) {
+        for (int j=250; j<=350; j++) {
             temp_averange += this->depthImage.at<float>(j,i);
+            cout<<this->depthImage.at<float>(j,i)<<",";
             num++;
         }
     }
@@ -553,8 +568,8 @@ float BackProjection::findZInDepthMapManual(int x, int y) {
 
 Point3f BackProjection::calculateCameraXYZManual(int x, int y, float depth_z) {
 
-    float start_x_camera = (float)((x-320.0f) * depth_z /277.128f);
-    float start_y_camera = (float)((y-240.0f) * depth_z /277.128f);
+    float start_x_camera = (float)((x-(320.0f * depth_z)) /277.128f);
+    float start_y_camera = (float)((y-(240.0f * depth_z)) /277.128f);
     Point3f xyz_camera = Point3f(start_x_camera, start_y_camera, depth_z);
 
     return xyz_camera;

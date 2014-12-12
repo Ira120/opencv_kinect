@@ -20,7 +20,7 @@ int main() {
 
 
     app.initPattern();
-    app.initManualInput();
+   // app.initManualInput();
     app.initKinect();
 
     return 0;

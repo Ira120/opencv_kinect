@@ -75,8 +75,9 @@ vector<Vec4i> EdgeDetection::applyHoughTransformation(Mat imageOriginal, int fra
     QFile file (filename_lines);
 
     Canny(smooth, imageCanny, 50, 200, 3);
+  //  HoughLines(imageCanny,lines,);
 
-    HoughLinesP(imageCanny, lines, 1, CV_PI/180, 50, 50, 50);
+    HoughLinesP(imageCanny, lines, 1, CV_PI/180, 50, 50, 10);
 
     //write an output file
     if (file.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
