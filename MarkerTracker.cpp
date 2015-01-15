@@ -97,8 +97,14 @@ vector<Mat> MarkerTracker::createPatternLib() {
     //create patterns' library using rotated versions of patterns
     loadPattern(filename1, patternLibrary, patternCount);
 
-    log = SSTR("[DEBUG]: ..." << patternCount << " patterns are loaded to marker detector...\n");
-    Log(log);
+    if (patternCount == 1) {
+        log = SSTR("[DEBUG]: ..." << patternCount << " pattern is loaded to marker detector...\n");
+        Log(log);
+    } else {
+        log = SSTR("[DEBUG]: ..." << patternCount << " patterns are loaded to marker detector...\n");
+        Log(log);
+    }
+
 
     return patternLibrary;
 }

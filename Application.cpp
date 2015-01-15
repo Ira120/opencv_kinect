@@ -151,7 +151,7 @@ int Application::frameLoop(){
                     rgbdMatDis.at<Vec3b>(v,u)[2] = (rgbImage.at<Vec3b>(v,u)[2]+depthMapShow.at<uchar>(v,u))/2;
                 }
             }
-        //    imshow("show overlayed input - distorted", rgbdMatDis);
+            imshow("show overlayed input - distorted", rgbdMatDis);
 
 
             //convert depth map from CV_16UC1 to CV_32F for better handling
@@ -165,22 +165,8 @@ int Application::frameLoop(){
             Rect mask(30,63,555,407);
             rgbImageROI = rgbImage(mask);
             depthMapROI = depthMapSmoothed(mask);
+          //  depthMapROI = depthMap(mask);
             cloudMapROI = cloudMap(mask);
-
-            /*
-            float focal_point_x_rgb = 5.2921508098293293e+02;
-            float focal_point_y_rgb = 5.2556393630057437e+02;
-            float center_of_projection_x_rgb = 3.2894272028759258e+02;
-            float center_of_projection_y_rgb = 2.6748068171871557e+02;
-            float depth_z = depthMapROI.at<float>(200,320);
-
-            cout<<"test z-> depthMap: "<<depth_z<<" und cloud: "<<cloudMapROI.at<Vec3f>(200,320)[2]*1000.0f<<endl;
-            float x_camera = ((float)320.0f - center_of_projection_x_rgb) * depth_z / focal_point_x_rgb;
-            float y_camera = ((float)200.0f - center_of_projection_y_rgb) * depth_z / focal_point_y_rgb;
-            cout<<"test x-> depthMap: "<<x_camera<<" und cloud: "<<cloudMapROI.at<Vec3f>(200,320)[0]*1000.0f<<endl;
-            cout<<"test y-> depthMap: "<<y_camera<<" und cloud: "<<cloudMapROI.at<Vec3f>(200,320)[1]*1000.0f<<endl;
-
-            */
 
             //just show the smoothed depth map
             depthMapSmoothed.convertTo(depthMapSmoothed,CV_8UC1,0.25f);
@@ -198,6 +184,12 @@ int Application::frameLoop(){
 
                 case 'h': //run application with hough edge detection
                 case 'H':
+                    //test, if could detect marker
+                    detectPattern(rgbImageROI);
+                    if (detectedPats==false){
+                        break;
+                    }
+
                     log = SSTR("[DEBUG]: ****** CALCULATE 3DLINES FOR " << frame_nr << ". frame ******" << endl);
                     Log(log);
 
@@ -205,19 +197,21 @@ int Application::frameLoop(){
                     Log(log);
 
 
-                    //test, if could detect marker
-                    detectPattern(rgbImageROI);
-                    if (detectedPats==false){
-                        break;
-                    }
-
                     //fill vector with 2D points
                     lines_hough = edgeDetector.applyHoughTransformation(rgbImageROI,frame_nr);
                     //calculate 3D lines in camera CS
                     cam_lines3D = projection.calculateBackProjection(lines_hough,depthMapROI,pattern_origin,cloudMapROI);
 
-                    lines3DproFrame=showCam3DLines(cam_lines3D);
-                    edgeModel.createOBJproFrame(lines3DproFrame,frame_nr);
+                    /*
+                    //TransVec (extr. Parameter) durch den von der Kinect ermittelten Marker-Usprungspunkt ersetzen
+                    transVec = projection.pat_origin3D;
+                    transVecMat.at<float>(0,0) = projection.pat_origin3D.x;
+                    transVecMat.at<float>(1,0) = projection.pat_origin3D.y;
+                    transVecMat.at<float>(2,0) = projection.pat_origin3D.z;
+                    */
+
+                  //  lines3DproFrame=calculateExtrinsicNew(cam_lines3D);
+
                     //tranfer the 3DLines into world CS (from camera CS)
                     lines3DproFrame=calculate3DLines(cam_lines3D);
 
@@ -225,11 +219,11 @@ int Application::frameLoop(){
                                << "========================================================" << endl);
                     Log(log);
 
-                    //create .obj-file with 3DLines per frame
-                    //edgeModel.createOBJproFrame(frame_nr);
-
                     //show projected 3DLines in frame
                     showLines3DInFrame(lines3DproFrame,rgbImageROI);
+
+                    //create .obj-file with 3DLines per frame
+                    edgeModel.createOBJproFrame(lines3DproFrame,frame_nr);
 
                     //store 3DLines per frame in a 'global' vector -> finished edge model
                     edgeModel.line3Dall.push_back(lines3DproFrame);
@@ -240,15 +234,9 @@ int Application::frameLoop(){
                     break;
 
                 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-/*
+
                 case 'l': //run with LSD
                 case 'L':
-                    log = SSTR("[DEBUG]: ****** CALCULATE 3DLINES FOR " << frame_nr << ". frame ******" << endl);
-                    Log(log);
-
-                    log = SSTR("[DEBUG]: ...edge detection with LSD..." << endl);
-                    Log(log);
-
 
                     //test, if could detect marker
                     detectPattern(rgbImageROI);
@@ -256,31 +244,47 @@ int Application::frameLoop(){
                         break;
                     }
 
+                    log = SSTR("[DEBUG]: ****** CALCULATE 3DLINES FOR " << frame_nr << ". frame ******" << endl);
+                    Log(log);
+
+                    log = SSTR("[DEBUG]: ...edge detection with LSD..." << endl);
+                    Log(log);
+
+
                     //fill vector with 2D points
                     lines_lsd = edgeDetector.applyLSD(rgbImageROI,frame_nr);
                     //calculate 3D lines in camera CS
-                    projection.calculateBackProjection(lines_lsd,depthMapROI,pattern_origin,cloudMapROI);
-                    //tranfer the 3DLines into world CS (from camera CS)
-                    calculate3DLines();
+                    cam_lines3D = projection.calculateBackProjection(lines_lsd,depthMapROI,pattern_origin,cloudMapROI);
 
-                    log = SSTR("[DEBUG]: ...3Dlines number in world coordinates: " << edgeModel.lines3DproFrame.size() << "..."<< endl
+                    /*
+                    //TransVec (extr. Parameter) durch den von der Kinect ermittelten Marker-Usprungspunkt ersetzen
+                    transVec = projection.pat_origin3D;
+                    transVecMat.at<float>(0,0) = projection.pat_origin3D.x;
+                    transVecMat.at<float>(1,0) = projection.pat_origin3D.y;
+                    transVecMat.at<float>(2,0) = projection.pat_origin3D.z;
+                    */
+
+                    //tranfer the 3DLines into world CS (from camera CS)
+                    lines3DproFrame=calculate3DLines(cam_lines3D);
+
+                    log = SSTR("[DEBUG]: ...3Dlines number in world coordinates: " << lines3DproFrame.size() << "..."<< endl
                                << "========================================================" << endl);
                     Log(log);
 
-                    //create .obj-file with 3DLines per frame
-                    edgeModel.createOBJproFrame(frame_nr);
-
                     //show projected 3DLines in frame
-                    showLines3DInFrame(rgbImageROI);
+                    showLines3DInFrame(lines3DproFrame,rgbImageROI);
+
+                    //create .obj-file with 3DLines per frame
+                    edgeModel.createOBJproFrame(lines3DproFrame,frame_nr);
 
                     //store 3DLines per frame in a 'global' vector -> finished edge model
-                    edgeModel.line3Dall.push_back(edgeModel.lines3DproFrame);
+                    edgeModel.line3Dall.push_back(lines3DproFrame);
 
 
                     frame_nr++;
-                    edgeModel.lines3DproFrame.clear();
+
                     break;
-*/
+
                 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
                 case 'q': //press 'q' for the next step
@@ -338,10 +342,9 @@ void Application::detectPattern(Mat rgbImage) {
     } else {
         detectedPats = true;
 
-        //showPattern() important for RotationMatrix!
         detectedPattern.at(0).showPattern();
-        //detectedPattern.at(0).draw(rgbImage,cameraMatrix,distortions); // draw a cube
-        //imshow("draw cube", rgbImage);
+      //  detectedPattern.at(0).draw(rgbImage,cameraMatrix,distortions); // draw a cube
+      //  imshow("draw cube", rgbImage);
 
         detectedPattern.at(0).rotMat.copyTo(rotMat);
         transVec.val[0] = detectedPattern.at(0).transVec.at<double>(0,0);
@@ -356,13 +359,14 @@ void Application::detectPattern(Mat rgbImage) {
 
         pattern_origin = detectedPattern.at(0).pattern_origin;
 
-        log = SSTR("[DEBUG]: origin of world/marker coordinate system (uv-values): " <<  pattern_origin << endl);
+        log = SSTR("[DEBUG]: origin of world/marker coordinate system (uv-values): " <<  pattern_origin.at(3) << endl);
         Log(log);
     }
 }
 
 //=======================================================================================//
 
+/*
 vector<Line3D> Application::showCam3DLines(vector<Point3f> cam_lines3D) {
     Line3D line3D = Line3D::Line3D();
     vector<Line3D> lines3DproFrame;
@@ -392,12 +396,13 @@ vector<Line3D> Application::showCam3DLines(vector<Point3f> cam_lines3D) {
     }
     return lines3DproFrame;
 }
-
+*/
 //=======================================================================================//
 
 vector<Line3D> Application::calculate3DLines(vector<Point3f> cam_lines3D) {
     Line3D line3D = Line3D::Line3D();
     Mat inverseRotMat;
+    Mat inverse_test;
     vector<Line3D> lines3DproFrame;
 
     //inverse matrix
@@ -411,7 +416,7 @@ vector<Line3D> Application::calculate3DLines(vector<Point3f> cam_lines3D) {
 
     Point3f temp_start_point, temp_end_point;
     Vec3f result_start_point, result_end_point;
-    Mat result_start_mat, result_end_mat;
+    Point3f result_start, result_end;
 
     if (cam_lines3D.size()==0){
         log = SSTR ("[ERROR]: NO LINES WITH VALID Z DETECTED!\n");
@@ -426,7 +431,15 @@ vector<Line3D> Application::calculate3DLines(vector<Point3f> cam_lines3D) {
                 //back translation
                 result_start_point = result_start_point-transVec;
                 //back rotation
-                result_start_mat = inverseRotMat*Mat(result_start_point);
+                result_start.x = inverseRotMat.at<float>(0,0)*result_start_point.val[0] +
+                                                  inverseRotMat.at<float>(0,1)*result_start_point.val[1] +
+                                                  inverseRotMat.at<float>(0,2)*result_start_point.val[2];
+                result_start.y = inverseRotMat.at<float>(1,0)*result_start_point.val[0] +
+                                                  inverseRotMat.at<float>(1,1)*result_start_point.val[1] +
+                                                  inverseRotMat.at<float>(1,2)*result_start_point.val[2];
+                result_start.z = inverseRotMat.at<float>(2,0)*result_start_point.val[0] +
+                                                  inverseRotMat.at<float>(2,1)*result_start_point.val[1] +
+                                                  inverseRotMat.at<float>(2,2)*result_start_point.val[2];
 
                 //++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -435,13 +448,22 @@ vector<Line3D> Application::calculate3DLines(vector<Point3f> cam_lines3D) {
                 //back translation
                 result_end_point = result_end_point-transVec;
                 //back rotation
-                result_end_mat = inverseRotMat*Mat(result_end_point);
+                result_end.x = inverseRotMat.at<float>(0,0)*result_end_point.val[0] +
+                                                  inverseRotMat.at<float>(0,1)*result_end_point.val[1] +
+                                                  inverseRotMat.at<float>(0,2)*result_end_point.val[2];
+                result_end.y = inverseRotMat.at<float>(1,0)*result_end_point.val[0] +
+                                                  inverseRotMat.at<float>(1,1)*result_end_point.val[1] +
+                                                  inverseRotMat.at<float>(1,2)*result_end_point.val[2];
+                result_end.z = inverseRotMat.at<float>(2,0)*result_end_point.val[0] +
+                                                  inverseRotMat.at<float>(2,1)*result_end_point.val[1] +
+                                                  inverseRotMat.at<float>(2,2)*result_end_point.val[2];
 
                 //++++++++++++++++++++++++++++++++++++++++++++++++
 
-                line3D.storeLine3D(result_start_mat.at<float>(0,0),result_start_mat.at<float>(0,1),result_start_mat.at<float>(0,2),
-                                   result_end_mat.at<float>(0,0), result_end_mat.at<float>(0,1), result_end_mat.at<float>(0,2));
+              //  line3D.storeLine3D(result_start_mat.at<float>(0,0),result_start_mat.at<float>(0,1),result_start_mat.at<float>(0,2),
+               //                    result_end_mat.at<float>(0,0), result_end_mat.at<float>(0,1), result_end_mat.at<float>(0,2));
 
+                line3D.storeLine3D(result_start,result_end);
                 lines3DproFrame.push_back(line3D);
             }
     }
@@ -474,7 +496,7 @@ void Application::showLines3DInFrame(vector<Line3D> lines3DproFrame, Mat rgbImag
             modelPts.at<float>(i*2+1,2) = lines3DproFrame.at(i).getEndPointOfLine3D().z;
         }
 
-        projectPoints(modelPts, rotVecMat, transVecMat, patternLoader.getCameraMatrix(), disCoeff_empty, model2ImagePts);
+        projectPoints(modelPts, rotVecMat, transVecMat, patternLoader.getCameraMatrix(), patternLoader.getDistortions(), model2ImagePts);
 
         //draw the lines
         for (int i=0; i<(int)model2ImagePts.size(); i+=2){
@@ -541,15 +563,136 @@ Mat Application::smoothDepthMap(Mat depthMapWithoutROI,int innerThreshold) {
             }
         }
     depthMapWithoutROI = smoothedMap.clone();
+
     }
 
     return smoothedMap;
 }
 
 //=======================================================================================//
+/*
+ vector<Line3D> Application::calculateExtrinsicNew(vector<Point3f> cam_lines3D) {
+    Mat cameraMatrix = patternLoader.getCameraMatrix();
+    Mat distortions = patternLoader.getDistortions();
+
+    Mat rotVect = Mat::zeros( 1, 3, CV_64FC1 );
+    Mat transVect = Mat::zeros( 1, 3, CV_64FC1 );
+    Mat rotMatr = Mat::eye(3, 3, CV_64F);
+
+    Point2f pat2DPts[4];
+    Point3f pat3DPts[4];
+    vector<Point3f> pattern_in3D = projection.pat_origin3D;
+    vector<Point2f> pattern_in2D = pattern_origin;
+
+    pat2DPts[0].x = pattern_in2D.at(0).x;
+    pat2DPts[0].y = pattern_in2D.at(0).y;
+    pat2DPts[1].x = pattern_in2D.at(1).x;
+    pat2DPts[1].y = pattern_in2D.at(1).y;
+    pat2DPts[2].x = pattern_in2D.at(2).x;
+    pat2DPts[2].y = pattern_in2D.at(2).y;
+    pat2DPts[3].x = pattern_in2D.at(3).x;
+    pat2DPts[3].y = pattern_in2D.at(3).y;
+
+
+    //for left-handed CS (x -> right; y -> up; z -> into the wall)
+    pat3DPts[0].x = pattern_in3D.at(3).x;
+    pat3DPts[0].y = pattern_in3D.at(3).y;
+    pat3DPts[0].z = pattern_in3D.at(3).z;
+    pat3DPts[1].x = pattern_in3D.at(2).x;
+    pat3DPts[1].y = pattern_in3D.at(2).y;
+    pat3DPts[1].z = pattern_in3D.at(2).z;
+    pat3DPts[2].x = pattern_in3D.at(1).x;
+    pat3DPts[2].y = pattern_in3D.at(1).y;
+    pat3DPts[2].z = pattern_in3D.at(1).z;
+    pat3DPts[3].x = pattern_in3D.at(0).x;
+    pat3DPts[3].y = pattern_in3D.at(0).y;
+    pat3DPts[3].z = pattern_in3D.at(0).z;
+
+
+    Mat objectPts(4, 3, CV_32F, pat3DPts);
+    Mat imagePts(4, 2, CV_32F, pat2DPts);
+    //find extrinsic parameters
+    solvePnPRansac(objectPts, imagePts, cameraMatrix, distortions, rotVect, transVect,false,100,1.2,0.99);
+    Rodrigues(rotVect, rotMatr);
+
+    cout<<"RotMatrix in CS: "<<rotMatr<<endl;
+    cout<<"TransVec in CS: "<<transVect<<endl;
+
+    //********************************************************
+
+    Line3D line3D = Line3D::Line3D();
+    vector<Line3D> lines3DproFrame;
+
+    //for better handling
+    rotMatr.convertTo(rotMatr,CV_32F);
+
+    log = SSTR("[DEBUG]: Rotations Matrix in CS: \n" << rotMatr << endl
+               << "========================================================" << endl);
+    Log(log);
+
+    Point3f temp_start_point, temp_end_point;
+    Point3f result_start, result_end;
+
+    if (cam_lines3D.size()==0){
+        log = SSTR ("[ERROR]: NO LINES WITH VALID Z DETECTED!\n");
+        Log(log);
+
+    } else {
+
+        for (int i=0; i<(int)cam_lines3D.size(); i+=2){
+
+                temp_start_point = cam_lines3D.at(i);
+
+                //back rotation
+                result_start.x =    rotMatr.at<float>(0,0)*temp_start_point.x +
+                                    rotMatr.at<float>(0,1)*temp_start_point.y +
+                                    rotMatr.at<float>(0,2)*temp_start_point.z;
+                result_start.y =    rotMatr.at<float>(1,0)*temp_start_point.x +
+                                    rotMatr.at<float>(1,1)*temp_start_point.y +
+                                    rotMatr.at<float>(1,2)*temp_start_point.z;
+                result_start.z =    rotMatr.at<float>(2,0)*temp_start_point.x +
+                                    rotMatr.at<float>(2,1)*temp_start_point.y +
+                                    rotMatr.at<float>(2,2)*temp_start_point.z;
+
+                //back translation
+                result_start.x = result_start.x+transVect.at<float>(0,0);
+                result_start.y = result_start.y+transVect.at<float>(1,0);
+                result_start.z = result_start.z+transVect.at<float>(2,0);
+                //++++++++++++++++++++++++++++++++++++++++++++++++
+
+                temp_end_point = cam_lines3D.at(i+1);
+
+                //back rotation
+                result_end.x =    rotMatr.at<float>(0,0)*temp_end_point.x +
+                                    rotMatr.at<float>(0,1)*temp_end_point.y +
+                                    rotMatr.at<float>(0,2)*temp_end_point.z;
+                result_end.y =    rotMatr.at<float>(1,0)*temp_end_point.x +
+                                    rotMatr.at<float>(1,1)*temp_end_point.y +
+                                    rotMatr.at<float>(1,2)*temp_end_point.z;
+                result_end.z =    rotMatr.at<float>(2,0)*temp_end_point.x +
+                                    rotMatr.at<float>(2,1)*temp_end_point.y +
+                                    rotMatr.at<float>(2,2)*temp_end_point.z;
+
+                //back translation
+                result_end.x = result_end.x+transVect.at<float>(0,0);
+                result_end.y = result_end.y+transVect.at<float>(1,0);
+                result_end.z = result_end.z+transVect.at<float>(2,0);
+
+                //++++++++++++++++++++++++++++++++++++++++++++++++
+
+                line3D.storeLine3D(result_start,result_end);
+                lines3DproFrame.push_back(line3D);
+            }
+    }
+
+    return lines3DproFrame;
+
+}
+*/
+//=======================================================================================//
 // MANUAL INPUT with generated images
 //=======================================================================================//
-/*
+
 int Application::initManualInput() {
     int return_value = 0;
     char filename_rgb[200];
@@ -557,29 +700,38 @@ int Application::initManualInput() {
     char filename_modelview[200];
     bool read_input = true;
     vector<Vec4i> lines_hough;
+    vector<Point3f> cam_lines3D;
+    vector<Line3D> lines3DproFrame;
 
     Mat rgbImageMan, depthMapMan(480,640,CV_32F), modelView(4,4,CV_32F);
     FileStorage fs;
 
-    while (read_input){
-        char key = (char)waitKey(0); //delay N millis, usually long enough to display and capture input
 
+    while (read_input){
+
+
+    char key = (char)waitKey(3000); //delay N millis, usually long enough to display and capture input
+
+    cout<<"test4"<<endl;
+
+    imshow("depthtest",depthMapMan);
         switch (key) {
+            //case 'm':
+
             case 'm':
-            case 'M':
+
             //load rgb images
             sprintf(filename_rgb,"/Users/irina/Develop/workspace/bachelor_1/input_data/ImgColor%.2d.png",frame_nr-1);
             rgbImageMan = imread(filename_rgb,1);
 
             sprintf(filename_depth,"/Users/irina/Develop/workspace/bachelor_1/input_data/ImgDepth32F%.2d.xml",frame_nr-1);
-          //  depthMapMan = imread(filename_depth,IMREAD_GRAYSCALE);
 
             fs.open(filename_depth, FileStorage::READ);
             fs["depth_matrix"] >> depthMapMan;
 
           //  depthMapMan.convertTo(depthMapMan,CV_8UC1,70.0f);
            // imshow("depthtest",depthMapMan);
-          //  cout<<depthMapMan<<endl;
+           // cout<<depthMapMan<<endl;
 
             cout<<"frame: "<<frame_nr<<"geladen\n";
           // cout << depthMapMan << endl;
@@ -590,42 +742,40 @@ int Application::initManualInput() {
                 //modelView matrix manuell einlesen, falls kein Marker gefunden wurde
                 sprintf(filename_modelview,"/Users/irina/Develop/workspace/bachelor_1/input_data/modelView%.2d.xml",frame_nr-1);
 
-                cout<<"frame: "<<frame_nr<<" geladen\n";
                 fs.open(filename_modelview, FileStorage::READ);
                 fs["modelView_matrix"] >> modelView;
 
-                            cout<<"frame: "<<frame_nr<<"geladen\n";
+                cout<<"frame: "<<frame_nr<<"geladen\n";
 
                 //fill vector with 2D points
                 lines_hough = edgeDetector.applyHoughTransformation(rgbImageMan,frame_nr);
                 //calculate 3D lines in camera CS
-                projection.calculateBackProjectionManual(lines_hough,depthMapMan);
+                cam_lines3D = projection.calculateBackProjectionManual(lines_hough,depthMapMan);
                 //tranfer the 3DLines into world CS (from camera CS)
-                calculate3DLinesManual(modelView);
+                lines3DproFrame=calculate3DLinesManual(modelView,cam_lines3D);
 
             } else {
 
             //fill vector with 2D points
             lines_hough = edgeDetector.applyHoughTransformation(rgbImageMan,frame_nr);
             //calculate 3D lines in camera CS
-            projection.calculateBackProjectionManual(lines_hough,depthMapMan);
+            cam_lines3D = projection.calculateBackProjectionManual(lines_hough,depthMapMan);
             //tranfer the 3DLines into world CS (from camera CS)
-            calculate3DLines();
+            lines3DproFrame=calculate3DLines(cam_lines3D);
 
-            log = SSTR("[DEBUG]: ...3Dlines number in world coordinates: " << edgeModel.lines3DproFrame.size() << "..."<< endl
+            log = SSTR("[DEBUG]: ...3Dlines number in world coordinates: " << lines3DproFrame.size() << "..."<< endl
                        << "========================================================" << endl);
             Log(log);
 
             }
             //create .obj-file with 3DLines per frame
-            edgeModel.createOBJproFrame(frame_nr);
+            edgeModel.createOBJproFrame(lines3DproFrame,frame_nr);
 
             //store 3DLines per frame in a 'global' vector -> finished edge model
-            edgeModel.line3Dall.push_back(edgeModel.lines3DproFrame);
+            edgeModel.line3Dall.push_back(lines3DproFrame);
 
 
             frame_nr++;
-            edgeModel.lines3DproFrame.clear();
             read_input = true;
             break;
 
@@ -637,10 +787,11 @@ int Application::initManualInput() {
                 break;
 
             default:
-                read_input = false;
+                read_input = true;
                 break;
         }
     }
+
     return return_value;
 }
 
@@ -696,9 +847,10 @@ void Application::detectPatternManual(Mat rgbImage) {
 
 //=======================================================================================//
 
-void Application::calculate3DLinesManual(Mat modelView) {
+vector<Line3D> Application::calculate3DLinesManual(Mat modelView,vector<Point3f> cam_lines3D) {
     Line3D line3D = Line3D::Line3D();
     Mat inverseRotMat;
+    vector<Line3D> lines3DproFrame;
 
     cout<<modelView<<endl;
 
@@ -713,15 +865,15 @@ void Application::calculate3DLinesManual(Mat modelView) {
     Vec4f result_start_point, result_end_point;
     Mat result_start_mat, result_end_mat;
 
-    if (projection.camera_lines3D.size()==0){
+    if (cam_lines3D.size()==0){
         log = SSTR ("[ERROR]: NO LINES WITH VALID Z DETECTED!\n");
         Log(log);
 
     } else {
 
-        for (int i=0; i<(int)projection.camera_lines3D.size(); i+=2){
+        for (int i=0; i<(int)cam_lines3D.size(); i+=2){
 
-                temp_start_point = projection.camera_lines3D.at(i);
+                temp_start_point = cam_lines3D.at(i);
                 //result_start_point = Vec<float,4>(temp_start_point);
                 result_start_point.val[0] = temp_start_point.x;
                 result_start_point.val[1] = temp_start_point.y;
@@ -736,7 +888,7 @@ void Application::calculate3DLinesManual(Mat modelView) {
 
                 //++++++++++++++++++++++++++++++++++++++++++++++++
 
-                temp_end_point = projection.camera_lines3D.at(i+1);
+                temp_end_point = cam_lines3D.at(i+1);
                // result_end_point = Vec<float,4>(temp_end_point);
                 result_end_point.val[0] = temp_end_point.x;
                 result_end_point.val[1] = temp_end_point.x;
@@ -751,9 +903,9 @@ void Application::calculate3DLinesManual(Mat modelView) {
                 line3D.storeLine3D(result_start_mat.at<float>(0,0),result_start_mat.at<float>(0,1),result_start_mat.at<float>(0,2),
                                    result_end_mat.at<float>(0,0), result_end_mat.at<float>(0,1), result_end_mat.at<float>(0,2));
 
-                edgeModel.lines3DproFrame.push_back(line3D);
+                lines3DproFrame.push_back(line3D);
             }
     }
-    projection.camera_lines3D.clear();
+
+    return lines3DproFrame;
 }
-*/

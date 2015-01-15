@@ -17,10 +17,9 @@ namespace ARma {
 		size = param1;
 		orientation = -1;
 		confidence = -1;
-
-		rotVec = (Mat_<float>(3,1) << 0, 0, 0);
-		transVec = (Mat_<float>(3,1) << 0, 0, 0);
-		rotMat = Mat::eye(3, 3, CV_32F);
+        rotVec = Mat::zeros( 1, 3, CV_64FC1 );
+        transVec = Mat::zeros( 1, 3, CV_64FC1 );
+        rotMat = Mat::eye(3, 3, CV_64F);
 	}
 
 //=======================================================================================//
@@ -48,7 +47,6 @@ namespace ARma {
                     << "========================================================\n");
         Log(log);
 
-		rotationMatrix(rotVec, rotMat);
 	}
 
 //=======================================================================================//
@@ -56,24 +54,30 @@ namespace ARma {
     void Pattern::getExtrinsics(int patternSize, const Mat& cameraMatrix, const Mat& distortions)
 	{
         Mat intrinsics = cameraMatrix;
-        Mat distCoeff = distortions;
+        //if distortionions = 0
         Mat disCoeff = (Mat_<float>(5,1) << 0, 0, 0, 0, 0);
-        Mat rot = rotVec;
-        Mat tra = transVec;
-        Mat rotationMatrix = rotMat; // projectionMatrix = [rotMat tra];
 
         Point2f pat2DPts[4];
+
+        log = SSTR("========================================================\n[DEBUG]: Marker corners in the image (uv-values): ");
+        Log(log);
 
 		for (int i = 0; i<4; i++){
 			pat2DPts[i].x = this->vertices.at(i).x;
 			pat2DPts[i].y = this->vertices.at(i).y;
+
+            pattern_origin.push_back(pat2DPts[i]);
+
+            log = SSTR("("<<pat2DPts[i].x<<"|"<<pat2DPts[i].y<<")  ");
+            Log(log);
 		}
 
-        pattern_origin.x = pat2DPts[0].x;
-        pattern_origin.y = pat2DPts[0].y;
+        log = SSTR(endl);
+        Log(log);
 
 		//3D points in pattern coordinate system
         Point3f pat3DPts[4];
+        /*
 		pat3DPts[0].x = 0.0;
 		pat3DPts[0].y = 0.0;
 		pat3DPts[0].z = 0.0;
@@ -86,15 +90,34 @@ namespace ARma {
 		pat3DPts[3].x = 0.0;
 		pat3DPts[3].y = patternSize;
 		pat3DPts[3].z = 0.0;
+        */
 
-        Mat objectPts(4, 3, CV_32FC1, pat3DPts);
-        Mat imagePts(4, 2, CV_32FC1, pat2DPts);
-		
+        //for left-handed CS (x -> right; y -> up; z -> into the wall)
+        pat3DPts[0].x = 0.0;
+        pat3DPts[0].y = patternSize;
+        pat3DPts[0].z = 0.0;
+        pat3DPts[1].x = patternSize;
+        pat3DPts[1].y = patternSize;
+        pat3DPts[1].z = 0.0;
+        pat3DPts[2].x = patternSize;
+        pat3DPts[2].y = 0.0;
+        pat3DPts[2].z = 0.0;
+        pat3DPts[3].x = 0.0;
+        pat3DPts[3].y = 0.0;
+        pat3DPts[3].z = 0.0;
+
+        Mat objectPts(4, 3, CV_32F, pat3DPts);
+        Mat imagePts(4, 2, CV_32F, pat2DPts);
 		//find extrinsic parameters
-        solvePnPRansac(objectPts, imagePts, intrinsics, disCoeff, rotVec, transVec);
+        solvePnPRansac(objectPts, imagePts, intrinsics, disCoeff, rotVec, transVec,false,100,1.2,0.99,noArray(),ITERATIVE);
+       // solvePnP(objectPts, imagePts, intrinsics, disCoeff, rotVec, transVec,false,ITERATIVE);
+
+
+        rotationMatrix(rotVec, rotMat);
 
         log = SSTR("========================================================\n"
                    << "[DEBUG]: EXTRINSIC PARAMETERS \nrotation vector:\n" << rotVec << endl
+                   << "\nrotation matrix:\n" << rotMat << endl
                    << "\ntranslation vector: \n" << transVec << endl
                    << "========================================================\n");
         Log(log);
@@ -104,12 +127,12 @@ namespace ARma {
 
     void Pattern::draw(Mat& frame, const Mat& camMatrix, const Mat& distMatrix) {
 
+        Mat disCoeff = (Mat_<float>(5,1) << 0, 0, 0, 0, 0);
         Scalar color = Scalar(255,0,255);
 
 		//model 3D points: they must be projected to the image plane
 		Mat modelPts = (Mat_<float>(8,3) << 0, 0, 0, size, 0, 0, size, size, 0, 0, size, 0,
             0, 0, -size, size, 0, -size, size, size, -size, 0, size, -size );
-
 
 		std::vector<cv::Point2f> model2ImagePts;
         //project model 3D points to the image. Points through the transformation matrix
@@ -138,6 +161,7 @@ namespace ARma {
 		
 		//draw the line that reflects the orientation. It indicates the bottom side of the pattern
         cv::line(frame, model2ImagePts.at(2), model2ImagePts.at(3), Scalar(80,255,80), 1);
+
 		model2ImagePts.clear();
 	}
 

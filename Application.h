@@ -24,7 +24,7 @@ public:
     Mat transVecMat;
     Mat rotVecMat;
     bool detectedPats;
-    Point2f pattern_origin;
+    vector<Point2f> pattern_origin;
 
     //methods
     Application();
@@ -33,16 +33,16 @@ public:
     int initKinect();
     int frameLoop();
     void detectPattern(Mat rgbImage);
-    vector<Line3D> showCam3DLines(vector<Point3f> cam_lines3D);
+   // vector<Line3D> showCam3DLines(vector<Point3f> cam_lines3D);
     vector<Line3D> calculate3DLines(vector<Point3f> cam_lines3D);
     void showLines3DInFrame(vector<Line3D> lines3DproFrame,Mat rgbImage);
     Mat smoothDepthMap(Mat depthMapWithoutROI,int innerThreshold);
-    /*
+   // vector<Line3D> calculateExtrinsicNew(vector<Point3f> cam_lines3D);
+
     //manual input
     int initManualInput();
     void detectPatternManual(Mat rgbImage);
-    void calculate3DLinesManual(Mat modelView);
-    */
+    vector<Line3D> calculate3DLinesManual(Mat modelView,vector<Point3f> cam_lines3D);
 
 
 private:
